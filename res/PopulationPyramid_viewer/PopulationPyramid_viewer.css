@@ -1,0 +1,10 @@
+﻿.fixed {
+    position: sticky;
+    bottom: 0px;
+    height: 2.8rem;
+    background-color: white;
+}
+
+.scrollable {
+    background-color: white;
+}

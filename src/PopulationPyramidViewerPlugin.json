@@ -1,0 +1,5 @@
+{
+    "name" : "PopulationPyramid Viewer",
+    "version" : "1",
+    "dependencies" : ["Points"]
+}

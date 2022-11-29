@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+    <!--<title>PopulationPyramid Map</title>-->
+    <!-- Compiled and minified CSS -->
+    <!-- qt connection -->
+    <script src="../jslibs/qwebchannel.js"></script>
+    <!-- number formatting -->
+    <script src="../jslibs/wNumb.min.js"></script>
+    <!-- double slider -->
+    <link rel="stylesheet" type="text/css" href="../jslibs/nouislider.css">
+    <script src="../jslibs/nouislider.min.js"></script>
+    <!-- google material design lite -->
+    <link rel="stylesheet" type="text/css" href="../jslibs/material.min.css">
+    <script src="../jslibs/material.min.js"></script>
+    <!-- d3 + colorbrewer +d3Tip-->
+    <script src="../jslibs/d3.v4.js"></script>
+    <script src="../jslibs/d3-tip.min.js"></script>
+    <script src="../jslibs/d3-tip.js"></script>
+    <script src="../jslibs/d3-scale-chromatic.js"></script>
+    <!-- d3 context menu -->
+    <script src="../jslibs/d3-context-menu.js"></script>
+    <!-- hierarchical clustering using clusterfck -->
+    <script src="../jslibs/clusterfck-0.1.js"></script>
+    <!-- circular buffer -->
+    <script src="../jslibs/cbuffer.js"></script>
+    <script src="PopulationPyramid_viewer.queue.js"></script>
+    <script src="../jstools/tools.bridge.js"></script>
+    <script src="../jstools/globals.js"></script>
+    <script src="PopulationPyramid_viewer.js"></script>
+    <!-- gloabal css -->
+    <link rel="stylesheet" type="text/css" href="../jstools/ui.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.6/d3-legend.min.js" integrity="sha512-wNH6xsp2n8CfB91nrBtfc4sfLwYPBMjSWVUwQOp60AYYXH6i8yCwuKFZ4rgK2i6pQek/b+bSyR7b01/922IBzQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.6/d3-legend.js" integrity="sha512-5mCB0Kvv97yTzqo0174qxPjMisck/WlK51+mw/RV7UfYbtHI8LuLR82BzZuxHUKSfbh75u9cZHgUcqrZDaBJuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- custom css -->
+    <link rel="stylesheet" type="text/css" href="PopulationPyramid_viewer.css">
+</head>
+<script>
+    // This prevents zooming in using CTRL + mouse wheel.
+    document.addEventListener('wheel', function (e) {
+        e.ctrlKey && e.preventDefault();
+    }, {
+        passive: false,
+    });
+
+</script>
+
+<body oncontextmenu="return false;">
+    <div class="scrollable">
+        <div id="my_dataviz"></div>
+    </div>
+    <div class="fixed">
+        <div id="my_dataviz_axes"></div>
+    </div>
+</body>
