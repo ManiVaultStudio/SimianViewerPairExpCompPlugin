@@ -299,7 +299,7 @@ void PopulationPyramidOptionsAction::updateData()
 				jsonData += '"';
 				jsonData += ":";
 				jsonData += '"';
-				jsonData += "Human";
+				jsonData += "Species1";
 				jsonData += '"';
 				jsonData += ",";
 				jsonData += '"';
@@ -307,7 +307,7 @@ void PopulationPyramidOptionsAction::updateData()
 				jsonData += '"';
 				jsonData += ":";
 				jsonData += '"';
-				jsonData += "Gorilla";
+				jsonData += "Species2";
 				jsonData += '"';
 				jsonData += "}";
 				jsonData += ",";

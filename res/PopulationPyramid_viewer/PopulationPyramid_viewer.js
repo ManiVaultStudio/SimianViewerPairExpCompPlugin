@@ -19,6 +19,8 @@ var yScaleTooltip;
 var pointATooltip;
 var pointBTooltip;
 var xScaleTooltip;
+var species1Name = "";
+var species2Name = "";
 
 var ClusterStorage1 = {};
 var ClusterStorage2 = {};
@@ -412,7 +414,7 @@ const PopulationPyramidVis = () => {
         .attr("text-anchor", "end")
         .attr("x", pointBTooltip / 2)
         .attr("y", 26)
-        .text("Species1")
+        .text(species1Name)
         .attr("font-size", "10");
 
     svgAxis
@@ -420,7 +422,7 @@ const PopulationPyramidVis = () => {
         .attr("text-anchor", "end")
         .attr("x", pointBTooltip / 2 + pointBTooltip)
         .attr("y", 26)
-        .text("Species2")
+        .text(species2Name)
         .attr("font-size", "10");
 
     svgAxis.selectAll(".tick").each(function (d) {
@@ -500,7 +502,8 @@ function queueData(d) {
         return sortingCrossSpeciesClustersList.indexOf(b.clusterName) - sortingCrossSpeciesClustersList.indexOf(a.clusterName)
     });
 
-
+    species1Name = _data[0].species1Name;
+    species2Name = _data[0].species2Name;
 
     //maxValue = Object.keys(_data).reduce((acc, curr) => acc.value ? (_data[curr].value > acc.value ? _data[curr] : acc) : _data[curr], {});
     /*_data.sort(function (a, b) { return b.value - a.value; });*/
