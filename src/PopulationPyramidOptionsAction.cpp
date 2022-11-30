@@ -18,7 +18,9 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 	_screenshotAction(this, "Screenshot"),
 	_barSettingsAction(*this),
 	_deStatsDataset1SelectionAction(*this),
-	_deStatsDataset2SelectionAction(*this)
+	_deStatsDataset2SelectionAction(*this),
+	_species1Name(this, "Species1Name"),
+	_species2Name(this, "Species2Name")
 	//,
 	//_crossSpecies1HeatMapCellAction(this, "Link cross-species1 heatmap cell"),
 	//_crossSpecies2HeatMapCellAction(this, "Link cross-species2 heatmap cell")
@@ -34,6 +36,8 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 	_barSettingsAction.setEnabled(false);
 	_deStatsDataset2SelectionAction.setEnabled(false);
 	_geneNameAction.initialize("A1BG","");
+	_species1Name.initialize("Species1");
+	_species2Name.initialize("Species2");
 	//_helpAction.setDefaultWidgetFlags(TriggerAction::Icon);
 	_screenshotAction.setDefaultWidgetFlags(TriggerAction::Icon);
 	//connect(&_helpAction, &TriggerAction::triggered, this, [this]() -> void {
@@ -122,6 +126,15 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 	{
 			updateData();
 	};
+
+		const auto updateSpecies1Name = [this]() -> void
+		{
+			updateData();
+		};
+		const auto updateSpecies2Name = [this]() -> void
+		{
+			updateData();
+		};
 		const auto generateScreenshot = [this]() -> void {
 
 
@@ -165,6 +178,8 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 		};
 
 	connect(&_geneNameAction, &StringAction::stringChanged, this, updateGeneName);
+	connect(&_species1Name, &StringAction::stringChanged, this, updateSpecies1Name);
+	connect(&_species2Name, &StringAction::stringChanged, this, updateSpecies2Name);
 	connect(&_screenshotAction, &TriggerAction::triggered, this, generateScreenshot);
 	connect(&_deStatsDataset1Action, &DatasetPickerAction::currentIndexChanged, [this, updatedeStatsDataset1](const std::int32_t& currentIndex) {
 		updatedeStatsDataset1();
@@ -299,7 +314,7 @@ void PopulationPyramidOptionsAction::updateData()
 				jsonData += '"';
 				jsonData += ":";
 				jsonData += '"';
-				jsonData += "Species1";
+				jsonData += _species1Name.getString().toStdString();
 				jsonData += '"';
 				jsonData += ",";
 				jsonData += '"';
@@ -307,7 +322,7 @@ void PopulationPyramidOptionsAction::updateData()
 				jsonData += '"';
 				jsonData += ":";
 				jsonData += '"';
-				jsonData += "Species2";
+				jsonData += _species2Name.getString().toStdString();
 				jsonData += '"';
 				jsonData += "}";
 				jsonData += ",";
@@ -357,11 +372,16 @@ PopulationPyramidOptionsAction::deStatsDataset1SelectionAction::Widget::Widget(Q
 	selectiondeStats1Widget->findChild<QComboBox*>("ComboBox")->setSizeAdjustPolicy(QComboBox::AdjustToContents);
 	//selectiondeStats1Widget->setMaximumWidth(250);
 
+	auto selectiondeStats2Widget = PopulationPyramidOptionsAction._deStatsDataset2Action.createWidget(this);
+	selectiondeStats2Widget->findChild<QComboBox*>("ComboBox")->setSizeAdjustPolicy(QComboBox::AdjustToContents);
+
 	auto selectionExampledeStatsOptionLayout = new QFormLayout();
 	selectionExampledeStatsOptionLayout->setContentsMargins(0, 0, 0, 0);
 
 	selectionExampledeStatsOptionLayout->addRow(PopulationPyramidOptionsAction._deStatsDataset1Action.createLabelWidget(this), selectiondeStats1Widget);
-
+	selectionExampledeStatsOptionLayout->addRow(PopulationPyramidOptionsAction._species1Name.createLabelWidget(this), PopulationPyramidOptionsAction._species1Name.createWidget(this));
+	selectionExampledeStatsOptionLayout->addRow(PopulationPyramidOptionsAction._deStatsDataset2Action.createLabelWidget(this), selectiondeStats2Widget);
+	selectionExampledeStatsOptionLayout->addRow(PopulationPyramidOptionsAction._species2Name.createLabelWidget(this), PopulationPyramidOptionsAction._species2Name.createWidget(this));
 	setPopupLayout(selectionExampledeStatsOptionLayout);
 }
 
@@ -378,15 +398,15 @@ PopulationPyramidOptionsAction::deStatsDataset2SelectionAction::Widget::Widget(Q
 	auto& PopulationPyramidOptionsAction = deStatsDataset2SelectAction->_PopulationPyramidOptionsAction;
 
 	auto selectiondeStats2Widget = PopulationPyramidOptionsAction._deStatsDataset2Action.createWidget(this);
-	selectiondeStats2Widget->findChild<QComboBox*>("ComboBox")->setSizeAdjustPolicy(QComboBox::AdjustToContents);
-	//selectiondeStats2Widget->setMaximumWidth(250);
-	//selectiondeStats2Widget->setMaximumWidth(200);
-	auto selectionExampledeStatsOptionLayout = new QFormLayout();
-	selectionExampledeStatsOptionLayout->setContentsMargins(0, 0, 0, 0);
+	//selectiondeStats2Widget->findChild<QComboBox*>("ComboBox")->setSizeAdjustPolicy(QComboBox::AdjustToContents);
+	////selectiondeStats2Widget->setMaximumWidth(250);
+	////selectiondeStats2Widget->setMaximumWidth(200);
+	//auto selectionExampledeStatsOptionLayout = new QFormLayout();
+	//selectionExampledeStatsOptionLayout->setContentsMargins(0, 0, 0, 0);
 
-	selectionExampledeStatsOptionLayout->addRow(PopulationPyramidOptionsAction._deStatsDataset2Action.createLabelWidget(this), selectiondeStats2Widget);
-
-	setPopupLayout(selectionExampledeStatsOptionLayout);
+	//selectionExampledeStatsOptionLayout->addRow(PopulationPyramidOptionsAction._deStatsDataset2Action.createLabelWidget(this), selectiondeStats2Widget);
+	//selectionExampledeStatsOptionLayout->addRow(PopulationPyramidOptionsAction._species2Name.createLabelWidget(this), PopulationPyramidOptionsAction._species2Name.createWidget(this));
+	//setPopupLayout(selectionExampledeStatsOptionLayout);
 }
 
 inline PopulationPyramidOptionsAction::deStatsDataset2SelectionAction::deStatsDataset2SelectionAction(PopulationPyramidOptionsAction& PopulationPyramidOptionsAction) :

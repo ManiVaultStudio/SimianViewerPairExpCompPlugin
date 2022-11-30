@@ -54,16 +54,16 @@ void PopulationPyramidViewerPlugin::init()
 	topToolbarLayout->setContentsMargins(0, 0, 0, 0);
 	topToolbarLayout->setSpacing(0);
 
-	auto ClusterDataset1SelectionWidget = _PopulationPyramidOptionsAction->getdeStatsDataset1SelectionAction().createWidget(&getWidget());
+	auto ClusterDataset1SelectionWidget = _PopulationPyramidOptionsAction->getdeStatsDataset1SelectionAction().createCollapsedWidget(&getWidget());
 	//ClusterDataset1SelectionWidget->setMaximumWidth(280);
 	topToolbarLayout->addWidget(ClusterDataset1SelectionWidget);
 
 	auto barSettingActionsWidget = _PopulationPyramidOptionsAction->getBarSettingsAction().createWidget(&getWidget());
 	topToolbarLayout->addWidget(barSettingActionsWidget);
 
-	auto ClusterDataset2SelectionWidget = _PopulationPyramidOptionsAction->getdeStatsDataset2SelectionAction().createWidget(&getWidget());
-	//ClusterDataset2SelectionWidget->setMaximumWidth(280);
-	topToolbarLayout->addWidget(ClusterDataset2SelectionWidget);
+	//auto ClusterDataset2SelectionWidget = _PopulationPyramidOptionsAction->getdeStatsDataset2SelectionAction().createCollapsedWidget(&getWidget());
+	////ClusterDataset2SelectionWidget->setMaximumWidth(280);
+	//topToolbarLayout->addWidget(ClusterDataset2SelectionWidget);
 
 	topToolbarLayout->addWidget(_PopulationPyramidOptionsAction->getScreenshotAction().createWidget(&getWidget()));
 	//topToolbarLayout->addWidget(_PopulationPyramidOptionsAction->getHelpAction().createWidget(&getWidget()));
