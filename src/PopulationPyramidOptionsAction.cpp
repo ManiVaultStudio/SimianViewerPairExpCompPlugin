@@ -324,6 +324,14 @@ void PopulationPyramidOptionsAction::updateData()
 				jsonData += '"';
 				jsonData += _species2Name.getString().toStdString();
 				jsonData += '"';
+				jsonData += ",";
+				jsonData += '"';
+				jsonData += "geneName";
+				jsonData += '"';
+				jsonData += ":";
+				jsonData += '"';
+				jsonData += _geneNameAction.getString().toStdString();
+				jsonData += '"';
 				jsonData += "}";
 				jsonData += ",";
 		}

@@ -21,6 +21,7 @@ var pointBTooltip;
 var xScaleTooltip;
 var species1Name = "";
 var species2Name = "";
+var geneName = "";
 
 var ClusterStorage1 = {};
 var ClusterStorage2 = {};
@@ -411,18 +412,33 @@ const PopulationPyramidVis = () => {
 
     svgAxis
         .append("text")
-        .attr("text-anchor", "end")
-        .attr("x", pointBTooltip / 2)
+        .attr("text-anchor", "middle")
+        .attr("x", pointATooltip / 2)
         .attr("y", 26)
         .text(species1Name)
         .attr("font-size", "10");
 
     svgAxis
         .append("text")
-        .attr("text-anchor", "end")
+        .attr("text-anchor", "middle")
         .attr("x", pointBTooltip / 2 + pointBTooltip)
         .attr("y", 26)
         .text(species2Name)
+        .attr("font-size", "10");
+
+    svgAxis
+        .append("text")
+        .attr("text-anchor", "middle")
+        .attr("x", pointATooltip + (pointBTooltip - pointATooltip)/2)
+        .attr("y", 32)
+        .text(geneName)
+        .attr("font-size", "10");
+    svgAxis
+        .append("text")
+        .attr("text-anchor", "middle")
+        .attr("x", pointATooltip + (pointBTooltip - pointATooltip) / 2)
+        .attr("y", 20)
+        .text("Gene")
         .attr("font-size", "10");
 
     svgAxis.selectAll(".tick").each(function (d) {
@@ -504,7 +520,7 @@ function queueData(d) {
 
     species1Name = _data[0].species1Name;
     species2Name = _data[0].species2Name;
-
+    geneName = _data[0].geneName;
     //maxValue = Object.keys(_data).reduce((acc, curr) => acc.value ? (_data[curr].value > acc.value ? _data[curr] : acc) : _data[curr], {});
     /*_data.sort(function (a, b) { return b.value - a.value; });*/
     PopulationPyramidVis();
