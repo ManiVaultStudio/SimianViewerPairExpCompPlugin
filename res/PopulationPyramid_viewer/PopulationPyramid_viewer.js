@@ -194,7 +194,7 @@ const PopulationPyramidVis = () => {
         rightTooltip: 5,
         bottomTooltip: 1,
         leftTooltip: 5,
-        middleTooltip: 70,
+        middleTooltip: 80,
     };//middle space
     var wTooltip = (90 / 100) * window.innerWidth;
     var hTooltip =
@@ -267,7 +267,7 @@ const PopulationPyramidVis = () => {
         .axisRight()
         .scale(yScaleTooltip)
         .tickSize(4, 0)
-        .tickPadding(marginTooltip.middleTooltip - 35);///middlespace
+        .tickPadding(marginTooltip.middleTooltip - 40);///middlespace
     var yAxisRightTooltip = d3
         .axisLeft()
         .scale(yScaleTooltip)
