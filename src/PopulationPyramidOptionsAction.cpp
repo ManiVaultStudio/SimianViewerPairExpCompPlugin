@@ -19,6 +19,7 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 	_barSettingsAction(*this),
 	_deStatsDataset1SelectionAction(*this),
 	_deStatsDataset2SelectionAction(*this),
+	_selectedCrossspeciescluster(this, "Selected CrossSpecies Cluster"),
 	_species1Name(this, "Species1Name"),
 	_species2Name(this, "Species2Name")
 	//,
@@ -38,6 +39,7 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 	_geneNameAction.initialize("A1BG","");
 	_species1Name.initialize("Species1");
 	_species2Name.initialize("Species2");
+	_selectedCrossspeciescluster.initialize("");
 	//_helpAction.setDefaultWidgetFlags(TriggerAction::Icon);
 	_screenshotAction.setDefaultWidgetFlags(TriggerAction::Icon);
 	//connect(&_helpAction, &TriggerAction::triggered, this, [this]() -> void {
@@ -135,6 +137,15 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 		{
 			updateData();
 		};
+
+		const auto updateSelectedCrossspeciescluster = [this]() -> void
+		{
+			//updateData();
+			qDebug() << _selectedCrossspeciescluster.getString();
+
+		};
+
+
 		const auto generateScreenshot = [this]() -> void {
 
 
@@ -180,6 +191,7 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 	connect(&_geneNameAction, &StringAction::stringChanged, this, updateGeneName);
 	connect(&_species1Name, &StringAction::stringChanged, this, updateSpecies1Name);
 	connect(&_species2Name, &StringAction::stringChanged, this, updateSpecies2Name);
+	connect(&_selectedCrossspeciescluster, &StringAction::stringChanged, this, updateSelectedCrossspeciescluster);
 	connect(&_screenshotAction, &TriggerAction::triggered, this, generateScreenshot);
 	connect(&_deStatsDataset1Action, &DatasetPickerAction::currentIndexChanged, [this, updatedeStatsDataset1](const std::int32_t& currentIndex) {
 		updatedeStatsDataset1();
@@ -387,9 +399,15 @@ PopulationPyramidOptionsAction::deStatsDataset1SelectionAction::Widget::Widget(Q
 	selectionExampledeStatsOptionLayout->setContentsMargins(0, 0, 0, 0);
 
 	selectionExampledeStatsOptionLayout->addRow(PopulationPyramidOptionsAction._deStatsDataset1Action.createLabelWidget(this), selectiondeStats1Widget);
+
 	selectionExampledeStatsOptionLayout->addRow(PopulationPyramidOptionsAction._species1Name.createLabelWidget(this), PopulationPyramidOptionsAction._species1Name.createWidget(this));
+
 	selectionExampledeStatsOptionLayout->addRow(PopulationPyramidOptionsAction._deStatsDataset2Action.createLabelWidget(this), selectiondeStats2Widget);
+
 	selectionExampledeStatsOptionLayout->addRow(PopulationPyramidOptionsAction._species2Name.createLabelWidget(this), PopulationPyramidOptionsAction._species2Name.createWidget(this));
+
+	selectionExampledeStatsOptionLayout->addRow(PopulationPyramidOptionsAction._selectedCrossspeciescluster.createLabelWidget(this), PopulationPyramidOptionsAction._selectedCrossspeciescluster.createWidget(this));
+
 	setPopupLayout(selectionExampledeStatsOptionLayout);
 }
 

@@ -157,6 +157,7 @@ public: // Action getters
 	StringAction& getGeneName() { return _geneNameAction; }
 	//OptionAction& getCrossSpecies1HeatMapCellAction() { return _crossSpecies1HeatMapCellAction; }
 	//OptionAction& getCrossSpecies2HeatMapCellAction() { return _crossSpecies2HeatMapCellAction; }
+	StringAction& getSelectedCrossspeciescluster() { return _selectedCrossspeciescluster; }
 	StringAction& getSpecies1Name() { return _species1Name; }
 	StringAction& getSpecies2Name() { return _species2Name; }
 protected:
@@ -177,6 +178,7 @@ protected:
 	std::map<std::string, speciesStorage> _deStatsDataStorage;
 	StringAction                  _species1Name;
 	StringAction                  _species2Name;
+	StringAction                  _selectedCrossspeciescluster;
 	//std::vector<std::string> glia_Neighborhood = { "Astro_1", "Endo_1", "Micro-PVM_1", "OPC_1", "OPC_2", "Oligo_1", "VLMC_1" };
 	//std::vector<std::string> it_types_Neighborhood = { "L2/3 IT_1", "L2/3 IT_2", "L2/3 IT_3", "L4 IT_1", "L4 IT_2", "L5 IT_1", "L5 IT_2", "L6 IT Car3_1", "L6 IT Car3_2", "L6 IT_1" };
 	//std::vector<std::string> l5et_l56np_l6ct_l6b_Neighborhood = { "L5 ET_1", "L5 ET_2", "L5/6 NP_1", "L5/6 NP_2", "L6 CT_1", "L6 CT_2", "L6b_1", "L6b_2", "L6b_3" };
