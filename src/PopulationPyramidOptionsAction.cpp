@@ -141,8 +141,7 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 		const auto updateSelectedCrossspeciescluster = [this]() -> void
 		{
 			//updateData();
-			qDebug() << _selectedCrossspeciescluster.getString();
-
+			_PopulationPyramidViewerPlugin.getBarChartWidget()->setSelectedCrossspeciescluster(_selectedCrossspeciescluster.getString());
 		};
 
 

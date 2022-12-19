@@ -23,6 +23,7 @@ public:
 
 signals:
 	void qt_setData(QString data);
+	void qt_setSelectedCrossspeciescluster(QString data);
 	void qt_addAvailableData(QString name);
 	//void qt_setBarhighlight(QString clusterName);
 
@@ -43,6 +44,7 @@ public:
 
 	void addDataOption(const QString option);
 	void setData(std::string visDataContent);
+	void setSelectedCrossspeciescluster(QString visDataContent);
 	//void setBarhighlight(QString clusterName);
 
 protected:

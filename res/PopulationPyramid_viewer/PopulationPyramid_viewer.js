@@ -22,7 +22,7 @@ var xScaleTooltip;
 var species1Name = "";
 var species2Name = "";
 var geneName = "";
-
+var selectedCrossspeciescluster = "";
 var ClusterStorage1 = {};
 var ClusterStorage2 = {};
 const sortingCrossSpeciesClustersList = ["Lamp5_1", "Lamp5_2", "Lamp5_Lhx6_1", "Sncg_1", "Sncg_2", "Sncg_3", "Vip_1", "Vip_2", "Vip_3", "Vip_4", "Vip_5", "Vip_6", "Vip_7", "Vip_8", "Pax6_1", "Pax6_2","Sst Chodl_1", "Sst_1", "Sst_2", "Sst_3", "Sst_4", "Sst_5", "Sst_6", "Sst_7", "Sst_8", "Sst_9", "Pvalb_1", "Pvalb_2", "Pvalb_3", "Pvalb_4", "Chandelier_1","L2/3 IT_1", "L2/3 IT_2", "L2/3 IT_3", "L4 IT_1", "L4 IT_2", "L5 IT_1", "L5 IT_2", "L6 IT Car3_1", "L6 IT Car3_2", "L6 IT_1", "Astro_1", "Oligo_1", "VLMC_1", "Endo_1", "Micro-PVM_1", "OPC_1", "OPC_2", "L6 CT_1", "L6 CT_2", "L6b_1", "L6b_2", "L6b_3", "L5 ET_1", "L5 ET_2", "L5/6 NP_1", "L5/6 NP_2"];
@@ -31,6 +31,7 @@ try {
     new QWebChannel(qt.webChannelTransport, function (channel) {
         QtBridge = channel.objects.QtBridge;
         QtBridge.qt_setData.connect(function () { setData(arguments[0]); });
+        QtBridge.qt_setSelectedCrossspeciescluster.connect(function () { setSelectedCrossspeciescluster(arguments[0]); });
         notifyBridgeAvailable();
     });
 } catch (error) { isQtAvailable = false; }
@@ -322,6 +323,10 @@ const PopulationPyramidVis = () => {
         .attr("fill", function (d) {
             return d.clusterColor;
         })
+        .attr("stroke", function (d) {
+            if (d.clusterName == selectedCrossspeciescluster) { return "#de2d26"; }
+            else { "none" }
+        })
         .attr("height", yScaleTooltip.bandwidth())
         //.style("cursor", "pointer")
         .on("mouseover", mouseoverSpecies1)
@@ -346,6 +351,10 @@ const PopulationPyramidVis = () => {
         })
         .attr("fill", function (d) {
             return d.clusterColor;
+        })
+        .attr("stroke", function (d) {
+            if (d.clusterName == selectedCrossspeciescluster) { return "#de2d26"; }
+            else { "none" }
         })
         .attr("height", yScaleTooltip.bandwidth())
         //.style("cursor", "pointer")
@@ -504,6 +513,10 @@ function setData(d) {
     //log("\nReceived from QT to Javascript\n");
 }
 
+function setSelectedCrossspeciescluster(d) {
+    selectedCrossspeciescluster = d;
+    PopulationPyramidVis();
+}
 
 function queueData(d) {
     _data = JSON.parse(d);

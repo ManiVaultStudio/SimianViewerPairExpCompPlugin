@@ -49,6 +49,12 @@ void PopulationPyramidViewerWidget::setData(std::string visDataContent)
 
 	emit _communicationObject->qt_setData(QString((visDataContent).c_str()));
 }
+
+void PopulationPyramidViewerWidget::setSelectedCrossspeciescluster(QString visDataContent)
+{
+
+	emit _communicationObject->qt_setSelectedCrossspeciescluster(visDataContent);
+}
 //void PopulationPyramidViewerWidget::setBarhighlight(QString Cluster)
 //{
 //
