@@ -327,6 +327,9 @@ const PopulationPyramidVis = () => {
             if (d.clusterName == selectedCrossspeciescluster) { return "#de2d26"; }
             else { "none" }
         })
+        .attr("stroke-width", function (d) {
+            if (d.clusterName == selectedCrossspeciescluster) { return 3; }
+        })
         .attr("height", yScaleTooltip.bandwidth())
         //.style("cursor", "pointer")
         .on("mouseover", mouseoverSpecies1)
@@ -355,6 +358,9 @@ const PopulationPyramidVis = () => {
         .attr("stroke", function (d) {
             if (d.clusterName == selectedCrossspeciescluster) { return "#de2d26"; }
             else { "none" }
+        })
+        .attr("stroke-width", function (d) {
+            if (d.clusterName == selectedCrossspeciescluster) { return 3; }
         })
         .attr("height", yScaleTooltip.bandwidth())
         //.style("cursor", "pointer")
@@ -458,6 +464,16 @@ const PopulationPyramidVis = () => {
     function translationAxes(x, y) {
         return "translate(" + x + "," + y + ")";
     }
+
+    if (selectedCrossspeciescluster!=="") {
+        if (yScaleTooltip(selectedCrossspeciescluster) > 1) {
+            window.scrollTo(0, yScaleTooltip(selectedCrossspeciescluster) - 1);
+        }
+        else {
+            window.scrollTo(0, yScaleTooltip(selectedCrossspeciescluster));
+        }
+    }
+
 
 };
 
