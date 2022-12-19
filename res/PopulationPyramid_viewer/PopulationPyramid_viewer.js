@@ -510,6 +510,9 @@ const PopulationPyramidVis = () => {
     function translationAxes(x, y) {
         return "translate(" + x + "," + y + ")";
     }
+    if (selectedCrossspeciescluster!=="") {
+        selectBars(selectedCrossspeciescluster);
+    }
 
 };
 
@@ -571,6 +574,7 @@ function setSelectedCrossspeciescluster(d) {
         selectBars(selectedCrossspeciescluster);
     }
     else {
+        selectedCrossspeciescluster = "";
         svg.select("#mouseclickSpecies2").remove();
         svg.select("#mouseclickSpecies1").remove();
     }
