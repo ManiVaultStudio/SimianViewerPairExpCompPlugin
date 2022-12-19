@@ -39,6 +39,7 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 	_geneNameAction.initialize("A1BG","");
 	_species1Name.initialize("Species1");
 	_species2Name.initialize("Species2");
+	_selectedCrossspeciesclusterFlag = true;
 	_selectedCrossspeciescluster.initialize("");
 	//_helpAction.setDefaultWidgetFlags(TriggerAction::Icon);
 	_screenshotAction.setDefaultWidgetFlags(TriggerAction::Icon);
@@ -140,8 +141,12 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 
 		const auto updateSelectedCrossspeciescluster = [this]() -> void
 		{
-			//updateData();
-			_PopulationPyramidViewerPlugin.getBarChartWidget()->setSelectedCrossspeciescluster(_selectedCrossspeciescluster.getString());
+			if (_selectedCrossspeciesclusterFlag)
+			{
+				_PopulationPyramidViewerPlugin.getBarChartWidget()->setSelectedCrossspeciescluster(_selectedCrossspeciescluster.getString());
+			}
+			_selectedCrossspeciesclusterFlag = true;
+
 		};
 
 
@@ -398,10 +403,10 @@ PopulationPyramidOptionsAction::deStatsDataset1SelectionAction::Widget::Widget(Q
 	selectionExampledeStatsOptionLayout->setContentsMargins(0, 0, 0, 0);
 
 	selectionExampledeStatsOptionLayout->addRow(PopulationPyramidOptionsAction._deStatsDataset1Action.createLabelWidget(this), selectiondeStats1Widget);
+	
+	selectionExampledeStatsOptionLayout->addRow(PopulationPyramidOptionsAction._deStatsDataset2Action.createLabelWidget(this), selectiondeStats2Widget);
 
 	selectionExampledeStatsOptionLayout->addRow(PopulationPyramidOptionsAction._species1Name.createLabelWidget(this), PopulationPyramidOptionsAction._species1Name.createWidget(this));
-
-	selectionExampledeStatsOptionLayout->addRow(PopulationPyramidOptionsAction._deStatsDataset2Action.createLabelWidget(this), selectiondeStats2Widget);
 
 	selectionExampledeStatsOptionLayout->addRow(PopulationPyramidOptionsAction._species2Name.createLabelWidget(this), PopulationPyramidOptionsAction._species2Name.createWidget(this));
 

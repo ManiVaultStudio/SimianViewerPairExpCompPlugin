@@ -108,6 +108,54 @@ function mouseclickBoth(d) {
         QtBridge.js_passSelectionSpecies2ToQt(d);
     }
 }*/
+function clickMiddleLabel(d) {
+
+    if (selectedCrossspeciescluster == d) {
+        selectedCrossspeciescluster = "";
+        svg.select("#mouseclickSpecies2").remove();
+        svg.select("#mouseclickSpecies1").remove();
+        if (isQtAvailable) {
+            QtBridge.js_crossspeciesclusterSelection("");
+        }
+    }
+    else {
+        selectedCrossspeciescluster = d;
+        selectBars(selectedCrossspeciescluster);
+        QtBridge.js_crossspeciesclusterSelection(selectedCrossspeciescluster);
+    }
+}
+
+function selectBars(d) {
+    svg.select("#mouseclickSpecies2").remove();
+    svg.select("#mouseclickSpecies1").remove();
+    svg.append('rect')
+        .attr("id", "mouseclickSpecies1")
+        .attr('x', pointATooltip - xScaleTooltip(ClusterStorage1[d]))
+        .attr('y', yScaleTooltip(d))
+        .attr('width', xScaleTooltip(ClusterStorage1[d]))
+        .attr('height', yScaleTooltip.bandwidth())
+        .attr('stroke', "#de2d26")
+        .attr("stroke-width", 2)
+        .attr('fill', 'none');
+
+
+    svg.append('rect')
+        .attr("id", "mouseclickSpecies2")
+        .attr('x', pointBTooltip)
+        .attr('y', yScaleTooltip(d))
+        .attr('width', xScaleTooltip(ClusterStorage2[d]))
+        .attr('height', yScaleTooltip.bandwidth())
+        .attr('stroke', "#de2d26")
+        .attr("stroke-width", 2)
+        .attr('fill', 'none');
+
+    if (yScaleTooltip(d) > 1) {
+        window.scrollTo(0, yScaleTooltip(d) - 1);
+        }
+        else {
+        window.scrollTo(0, yScaleTooltip(d));
+        }
+}
 
 
 /*function mouseenterSpecies(d) {
@@ -118,8 +166,6 @@ function mouseleaveSpecies(d) {
         .style("opacity", 0)
 }
 function mousemoveSpecies(d) {
-    svg.select("#mouseclickSpecies2").remove();
-    svg.select("#mouseclickSpecies1").remove();
     tooltip.style("position", "absolute");
 
     if (d3.event.pageX > window.innerWidth / 2) {
@@ -287,9 +333,9 @@ const PopulationPyramidVis = () => {
         .attr("transform", translation(pointATooltip, 0))
         .call(yAxisLeftTooltip)
         .selectAll("text")
-        //.on("click", mouseclickBoth)
+        .on("click", clickMiddleLabel)
         .attr("shape-rendering", "crispEdges")      
-        //.style("cursor", "pointer")
+        .style("cursor", "pointer")
         //.attr("fill", "transparent")
         .attr("fill", "black")
         .attr("font-size", "10")
@@ -323,13 +369,13 @@ const PopulationPyramidVis = () => {
         .attr("fill", function (d) {
             return d.clusterColor;
         })
-        .attr("stroke", function (d) {
+/*        .attr("stroke", function (d) {
             if (d.clusterName == selectedCrossspeciescluster) { return "#de2d26"; }
             else { "none" }
         })
         .attr("stroke-width", function (d) {
             if (d.clusterName == selectedCrossspeciescluster) { return 3; }
-        })
+        })*/
         .attr("height", yScaleTooltip.bandwidth())
         //.style("cursor", "pointer")
         .on("mouseover", mouseoverSpecies1)
@@ -355,13 +401,13 @@ const PopulationPyramidVis = () => {
         .attr("fill", function (d) {
             return d.clusterColor;
         })
-        .attr("stroke", function (d) {
+/*        .attr("stroke", function (d) {
             if (d.clusterName == selectedCrossspeciescluster) { return "#de2d26"; }
             else { "none" }
         })
         .attr("stroke-width", function (d) {
             if (d.clusterName == selectedCrossspeciescluster) { return 3; }
-        })
+        })*/
         .attr("height", yScaleTooltip.bandwidth())
         //.style("cursor", "pointer")
         .on("mouseover", mouseoverSpecies2)
@@ -465,16 +511,6 @@ const PopulationPyramidVis = () => {
         return "translate(" + x + "," + y + ")";
     }
 
-    if (selectedCrossspeciescluster!=="") {
-        if (yScaleTooltip(selectedCrossspeciescluster) > 1) {
-            window.scrollTo(0, yScaleTooltip(selectedCrossspeciescluster) - 1);
-        }
-        else {
-            window.scrollTo(0, yScaleTooltip(selectedCrossspeciescluster));
-        }
-    }
-
-
 };
 
 
@@ -530,8 +566,14 @@ function setData(d) {
 }
 
 function setSelectedCrossspeciescluster(d) {
-    selectedCrossspeciescluster = d;
-    PopulationPyramidVis();
+    if (d !== "") {
+        selectedCrossspeciescluster = d;
+        selectBars(selectedCrossspeciescluster);
+    }
+    else {
+        svg.select("#mouseclickSpecies2").remove();
+        svg.select("#mouseclickSpecies1").remove();
+    }
 }
 
 function queueData(d) {

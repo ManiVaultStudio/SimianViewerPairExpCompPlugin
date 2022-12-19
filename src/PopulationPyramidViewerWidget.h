@@ -31,6 +31,7 @@ signals:
 public slots:
 	void js_passSelectionSpecies1ToQt(QString data);
 	void js_passSelectionSpecies2ToQt(QString data);
+	void js_crossspeciesclusterSelection(QString data);
 private:
 	PopulationPyramidViewerWidget* _parent;
 };
@@ -54,12 +55,14 @@ signals:
 
 	void passSelectionSpecies1ToQt(std::string selectedIDs);
 	void passSelectionSpecies2ToQt(std::string selectedIDs);
+	void crossspeciesclusterSelection(std::string selectedIDs);
 
 
 public:
 
 	void js_passSelectionSpecies1ToQt(std::string selectedIDs);
 	void js_passSelectionSpecies2ToQt(std::string selectedIDs);
+	void js_crossspeciesclusterSelection(std::string selectedIDs);
 
 private slots:
 	void initWebPage() override;

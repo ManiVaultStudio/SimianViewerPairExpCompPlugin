@@ -45,6 +45,8 @@ void PopulationPyramidViewerPlugin::init()
 
 	connect(_PopulationPyramid_viewer, &PopulationPyramidViewerWidget::passSelectionSpecies2ToQt, this, &PopulationPyramidViewerPlugin::publishSelectionSpecies2);
 
+	connect(_PopulationPyramid_viewer, &PopulationPyramidViewerWidget::crossspeciesclusterSelection, this, &PopulationPyramidViewerPlugin::clusterSelection);
+
 	_eventListener.setEventCore(Application::core());
 	_eventListener.addSupportedEventType(static_cast<std::uint32_t>(EventType::DataSelectionChanged));
 	_eventListener.registerDataEventByType(ClusterType, std::bind(&PopulationPyramidViewerPlugin::onDataEvent, this, std::placeholders::_1));
@@ -117,6 +119,24 @@ void PopulationPyramidViewerPlugin::publishSelectionSpecies1(std::string cluster
 	_core->notifyDatasetSelectionChanged(candidateDataset->getParent());
 
 }
+
+void PopulationPyramidViewerPlugin::clusterSelection(std::string clusterName)
+{
+	_PopulationPyramidOptionsAction->getSelectedCrossspeciesclusterFlag() = false;
+	if (clusterName == "")
+	{
+		QString::fromStdString(clusterName);
+		_PopulationPyramidOptionsAction->getSelectedCrossspeciescluster().setString("");
+	}
+	else
+	{
+		//qDebug() << QString::fromStdString(clusterName);
+		_PopulationPyramidOptionsAction->getSelectedCrossspeciescluster().setString(QString::fromStdString(clusterName));
+	}
+
+
+}
+
 
 void PopulationPyramidViewerPlugin::publishSelectionSpecies2(std::string clusterName)
 {

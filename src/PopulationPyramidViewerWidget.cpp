@@ -20,15 +20,21 @@ PopulationPyramidViewerCommunicationObject::PopulationPyramidViewerCommunication
 
 void PopulationPyramidViewerCommunicationObject::js_passSelectionSpecies1ToQt(QString data)
 {
-	qDebug() << "\nReceived from Javascript to QT\n";
+	//qDebug() << "\nReceived from Javascript to QT\n";
 	_parent->js_passSelectionSpecies1ToQt(data.toStdString());
 }
 
 
 void PopulationPyramidViewerCommunicationObject::js_passSelectionSpecies2ToQt(QString data)
 {
-	qDebug() << "\nReceived from Javascript to QT\n";
+	//qDebug() << "\nReceived from Javascript to QT\n";
 	_parent->js_passSelectionSpecies2ToQt(data.toStdString());
+}
+
+void PopulationPyramidViewerCommunicationObject::js_crossspeciesclusterSelection(QString data)
+{
+	//qDebug() << "\nReceived from Javascript to QT\n";
+	_parent->js_crossspeciesclusterSelection(data.toStdString());
 }
 
 PopulationPyramidViewerWidget::PopulationPyramidViewerWidget() :
@@ -69,6 +75,11 @@ void PopulationPyramidViewerWidget::js_passSelectionSpecies1ToQt(std::string sel
 void PopulationPyramidViewerWidget::js_passSelectionSpecies2ToQt(std::string selectedIDs)
 {
 	emit passSelectionSpecies2ToQt(selectedIDs);
+}
+
+void PopulationPyramidViewerWidget::js_crossspeciesclusterSelection(std::string selectedIDs)
+{
+	emit crossspeciesclusterSelection(selectedIDs);
 }
 
 void PopulationPyramidViewerWidget::initWebPage()

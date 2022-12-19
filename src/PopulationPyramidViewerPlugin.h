@@ -48,6 +48,7 @@ private:
 
 	void publishSelectionSpecies1(std::string selectedIDs);
 	void publishSelectionSpecies2(std::string selectedIDs);
+	void clusterSelection(std::string selectedIDs);
 
 	PopulationPyramidOptionsAction* _PopulationPyramidOptionsAction;
 	/** PopulationPyramidViewer widget displaying cluster data */
