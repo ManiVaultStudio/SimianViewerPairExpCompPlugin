@@ -179,34 +179,10 @@ function selectBars(d) {
         .attr("stroke-width", 2)
         .attr('fill', 'none');
 
-
-/*    svg
-        .append("g")
-        .attr("class", "axis y left")
-        .call(yAxisLeftTooltip)
-        .selectAll("text")
-        .on("click", clickMiddleLabel)
-        .attr("shape-rendering", "crispEdges")
-        .style("cursor", "pointer")
-        .attr("fill", function (m) {
-            log(m)
-            log(d)
-            if (m == d) {
-                return "red";
-            }
-            else {
-                return "black";
-            }
-        })
-        .attr("font-size", "10")
-        .style("text-anchor", "middle");*/
-
     svg
         .call(yAxisLeftTooltip)
         .selectAll("text")
         .style("fill", function (m) {
-            //log(m)
-            //log(d)
             if (m == d) {
                 return "red";
             }
