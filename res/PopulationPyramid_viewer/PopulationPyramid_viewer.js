@@ -3,7 +3,7 @@ var _data = null;
 var flag = false;
 var _dataQueue = new PopulationPyramidViewerDataQueue(1, queueData);
 var _defaultValues = null;
-
+var yAxisLeftTooltip;
 window.onresize = doALoadOfStuff;
 var numOFBars;
 var maxValue;
@@ -114,6 +114,10 @@ function clickMiddleLabel(d) {
         selectedCrossspeciescluster = "";
         svg.select("#mouseclickSpecies2").remove();
         svg.select("#mouseclickSpecies1").remove();
+        svg
+            .call(yAxisLeftTooltip)
+            .selectAll("text")
+            .style("fill", "black");
         if (isQtAvailable) {
             QtBridge.js_crossspeciesclusterSelection("");
         }
@@ -131,6 +135,10 @@ function clickBar(d) {
         selectedCrossspeciescluster = "";
         svg.select("#mouseclickSpecies2").remove();
         svg.select("#mouseclickSpecies1").remove();
+        svg
+            .call(yAxisLeftTooltip)
+            .selectAll("text")
+            .style("fill", "black");
         if (isQtAvailable) {
             QtBridge.js_crossspeciesclusterSelection("");
         }
@@ -145,6 +153,11 @@ function clickBar(d) {
 function selectBars(d) {
     svg.select("#mouseclickSpecies2").remove();
     svg.select("#mouseclickSpecies1").remove();
+    svg
+        .call(yAxisLeftTooltip)
+        .selectAll("text")
+        .style("fill", "black");
+
     svg.append('rect')
         .attr("id", "mouseclickSpecies1")
         .attr('x', pointATooltip - xScaleTooltip(ClusterStorage1[d]))
@@ -165,6 +178,44 @@ function selectBars(d) {
         .attr('stroke', "#de2d26")
         .attr("stroke-width", 2)
         .attr('fill', 'none');
+
+
+/*    svg
+        .append("g")
+        .attr("class", "axis y left")
+        .call(yAxisLeftTooltip)
+        .selectAll("text")
+        .on("click", clickMiddleLabel)
+        .attr("shape-rendering", "crispEdges")
+        .style("cursor", "pointer")
+        .attr("fill", function (m) {
+            log(m)
+            log(d)
+            if (m == d) {
+                return "red";
+            }
+            else {
+                return "black";
+            }
+        })
+        .attr("font-size", "10")
+        .style("text-anchor", "middle");*/
+
+    svg
+        .call(yAxisLeftTooltip)
+        .selectAll("text")
+        .style("fill", function (m) {
+            //log(m)
+            //log(d)
+            if (m == d) {
+                return "red";
+            }
+            else {
+                return "black";
+            }
+        });
+
+
 
     if (yScaleTooltip(d) > 1) {
         window.scrollTo(0, yScaleTooltip(d) - 1);
@@ -327,7 +378,7 @@ const PopulationPyramidVis = () => {
         )
         .rangeRound([hTooltip, 0])
         .padding(0.1);
-    var yAxisLeftTooltip = d3
+     yAxisLeftTooltip = d3
         .axisRight()
         .scale(yScaleTooltip)
         .tickSize(4, 0)
@@ -596,6 +647,10 @@ function setSelectedCrossspeciescluster(d) {
         selectedCrossspeciescluster = "";
         svg.select("#mouseclickSpecies2").remove();
         svg.select("#mouseclickSpecies1").remove();
+        svg
+            .call(yAxisLeftTooltip)
+            .selectAll("text")
+            .style("fill", "black");
     }
 }
 
