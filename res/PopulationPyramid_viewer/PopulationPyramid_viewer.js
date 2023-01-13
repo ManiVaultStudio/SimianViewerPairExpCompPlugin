@@ -184,7 +184,7 @@ function selectBars(d) {
         .selectAll("text")
         .style("fill", function (m) {
             if (m == d) {
-                return "red";
+                return "#de2d26";
             }
             else {
                 return "black";
