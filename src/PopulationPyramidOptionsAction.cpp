@@ -26,7 +26,6 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 	//_crossSpecies1HeatMapCellAction(this, "Link cross-species1 heatmap cell"),
 	//_crossSpecies2HeatMapCellAction(this, "Link cross-species2 heatmap cell")
 {
-	_eventListener.setEventCore(core);
 	_eventListener.addSupportedEventType(static_cast<std::uint32_t>(EventType::DataAdded));
 	_eventListener.addSupportedEventType(static_cast<std::uint32_t>(EventType::DataRemoved));
 	_eventListener.addSupportedEventType(static_cast<std::uint32_t>(EventType::DataChildAdded));

@@ -47,7 +47,6 @@ void PopulationPyramidViewerPlugin::init()
 
 	connect(_PopulationPyramid_viewer, &PopulationPyramidViewerWidget::crossspeciesclusterSelection, this, &PopulationPyramidViewerPlugin::clusterSelection);
 
-	_eventListener.setEventCore(Application::core());
 	_eventListener.addSupportedEventType(static_cast<std::uint32_t>(EventType::DataSelectionChanged));
 	_eventListener.registerDataEventByType(ClusterType, std::bind(&PopulationPyramidViewerPlugin::onDataEvent, this, std::placeholders::_1));
 
@@ -116,7 +115,7 @@ void PopulationPyramidViewerPlugin::publishSelectionSpecies1(std::string cluster
 	candidateDataset->getParent()->setSelectionIndices(selectedIndices);
 
 
-	_core->notifyDatasetSelectionChanged(candidateDataset->getParent());
+	events().notifyDatasetSelectionChanged(candidateDataset->getParent());
 
 }
 
@@ -162,7 +161,7 @@ void PopulationPyramidViewerPlugin::publishSelectionSpecies2(std::string cluster
 	candidateDataset->getParent()->setSelectionIndices(selectedIndices);
 
 
-	_core->notifyDatasetSelectionChanged(candidateDataset->getParent());
+	events().notifyDatasetSelectionChanged(candidateDataset->getParent());
 
 }
 //const auto showHelpbox = []() -> void
@@ -213,7 +212,7 @@ hdps::gui::PluginTriggerActions PopulationPyramidViewerPluginFactory::getPluginT
 	PluginTriggerActions pluginTriggerActions;
 
 	const auto getInstance = [this]() -> PopulationPyramidViewerPlugin* {
-		return dynamic_cast<PopulationPyramidViewerPlugin*>(Application::core()->requestPlugin(getKind()));
+		return dynamic_cast<PopulationPyramidViewerPlugin*>(plugins().requestPlugin(getKind()));
 	};
 
 	const auto numberOfDatasets = datasets.count();
@@ -221,9 +220,7 @@ hdps::gui::PluginTriggerActions PopulationPyramidViewerPluginFactory::getPluginT
 	if (PluginFactory::areAllDatasetsOfTheSameType(datasets, PointType)) {
 		if (numberOfDatasets >= 1) {
 			if (datasets.first()->getDataType() == PointType) {
-				auto pluginTriggerAction = createPluginTriggerAction("PopulationPyramid viewer", "Load dataset in PopulationPyramid viewer", datasets, "braille");
-
-				connect(pluginTriggerAction, &QAction::triggered, [this, getInstance, datasets]() -> void {
+				auto pluginTriggerAction = new PluginTriggerAction(const_cast<PopulationPyramidViewerPluginFactory*>(this), this, "PopulationPyramid viewer", "Load dataset in PopulationPyramid viewer", getIcon(), [this, getInstance, datasets](PluginTriggerAction& pluginTriggerAction) -> void {
 					for (auto dataset : datasets)
 						getInstance()->loadData(Datasets({ dataset }));
 					});
