@@ -26,7 +26,7 @@
 #include <QFormLayout>
 #include <QString>
 #include <string>
-#include "PopulationPyramidViewerPlugin.h"
+//#include "PopulationPyramidViewerPlugin.h"
 #include <event/Event.h>
 #include <QDebug>
 #include <QLabel>
@@ -161,6 +161,21 @@ public: // Action getters
 	StringAction& getSpecies1Name() { return _species1Name; }
 	StringAction& getSpecies2Name() { return _species2Name; }
 	bool& getSelectedCrossspeciesclusterFlag() { return _selectedCrossspeciesclusterFlag; }
+
+public: // Serialization
+
+	/**
+	 * Load widget action from variant map
+	 * @param Variant map representation of the widget action
+	 */
+	void fromVariantMap(const QVariantMap& variantMap) override;
+
+	/**
+	 * Save widget action to variant map
+	 * @return Variant map representation of the widget action
+	 */
+	QVariantMap toVariantMap() const override;
+
 protected:
 	PopulationPyramidViewerPlugin& _PopulationPyramidViewerPlugin;
 	DatasetPickerAction                 _deStatsDataset1Action;

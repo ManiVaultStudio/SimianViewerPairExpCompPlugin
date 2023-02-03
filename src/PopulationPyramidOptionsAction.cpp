@@ -26,6 +26,13 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 	//_crossSpecies1HeatMapCellAction(this, "Link cross-species1 heatmap cell"),
 	//_crossSpecies2HeatMapCellAction(this, "Link cross-species2 heatmap cell")
 {
+	setSerializationName("PopPyramidSettings");
+	_deStatsDataset1Action.setSerializationName("Species1(X-axis)");
+	_deStatsDataset2Action.setSerializationName("Species2(Y-axis)");
+	_geneNameAction.setSerializationName("Gene");
+	_species1Name.setSerializationName("Species1Name");
+	_species2Name.setSerializationName("Species2Name");
+	
 	_eventListener.addSupportedEventType(static_cast<std::uint32_t>(EventType::DataAdded));
 	_eventListener.addSupportedEventType(static_cast<std::uint32_t>(EventType::DataRemoved));
 	_eventListener.addSupportedEventType(static_cast<std::uint32_t>(EventType::DataChildAdded));
@@ -506,3 +513,28 @@ void PopulationPyramidOptionsAction::onDataEvent(hdps::DataEvent* dataEvent)
 	}
 }
 
+void PopulationPyramidOptionsAction::fromVariantMap(const QVariantMap& variantMap)
+{
+	WidgetAction::fromVariantMap(variantMap);
+
+	_deStatsDataset1Action.fromParentVariantMap(variantMap);
+	_deStatsDataset2Action.fromParentVariantMap(variantMap);
+	_geneNameAction.fromParentVariantMap(variantMap);
+	_species1Name.fromParentVariantMap(variantMap);
+	_species2Name.fromParentVariantMap(variantMap);
+
+
+}
+
+QVariantMap PopulationPyramidOptionsAction::toVariantMap() const
+{
+	QVariantMap variantMap = WidgetAction::toVariantMap();
+
+	_deStatsDataset1Action.insertIntoVariantMap(variantMap);
+	_deStatsDataset2Action.insertIntoVariantMap(variantMap);
+	_geneNameAction.insertIntoVariantMap(variantMap);
+	_species1Name.insertIntoVariantMap(variantMap);
+	_species2Name.insertIntoVariantMap(variantMap);
+
+	return variantMap;
+}

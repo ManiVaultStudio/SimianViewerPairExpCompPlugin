@@ -15,7 +15,7 @@ using namespace hdps::util;
 
 class Points;
 class PopulationPyramidViewerWidget;
-class PopulationPyramidOptionsAction;
+//class PopulationPyramidOptionsAction;
 
 // =============================================================================
 // View
@@ -39,7 +39,21 @@ public:
 	hdps::CoreInterface* getCore() { return _core; }
 
 	PopulationPyramidViewerWidget* getBarChartWidget() { return _PopulationPyramid_viewer; }
-	PopulationPyramidOptionsAction& getPopulationPyramidOptionsAction() { return *_PopulationPyramidOptionsAction; }
+	PopulationPyramidOptionsAction& getPopulationPyramidOptionsAction() { return _PopulationPyramidOptionsAction; }
+
+public: // Serialization
+
+	/**
+	 * Load widget action from variant map
+	 * @param Variant map representation of the widget action
+	 */
+	void fromVariantMap(const QVariantMap& variantMap) override;
+
+	/**
+	 * Save widget action to variant map
+	 * @return Variant map representation of the widget action
+	 */
+	QVariantMap toVariantMap() const override;
 
 protected slots:
 
@@ -50,7 +64,7 @@ private:
 	void publishSelectionSpecies2(std::string selectedIDs);
 	void clusterSelection(std::string selectedIDs);
 
-	PopulationPyramidOptionsAction* _PopulationPyramidOptionsAction;
+	PopulationPyramidOptionsAction _PopulationPyramidOptionsAction;
 	/** PopulationPyramidViewer widget displaying cluster data */
 	PopulationPyramidViewerWidget* _PopulationPyramid_viewer;
 	hdps::EventListener     _eventListener;

@@ -26,8 +26,9 @@ using namespace hdps;
 
 PopulationPyramidViewerPlugin::PopulationPyramidViewerPlugin(const PluginFactory* factory) :
 	ViewPlugin(factory),
-	_PopulationPyramidOptionsAction(nullptr)
+	_PopulationPyramidOptionsAction(*this, _core)
 {
+	setSerializationName("PopulationPyramidViewer");
 	_PopulationPyramid_viewer = new PopulationPyramidViewerWidget();
 }
 
@@ -40,7 +41,7 @@ void PopulationPyramidViewerPlugin::init()
 	_PopulationPyramid_viewer->setPage(":/PopulationPyramid_viewer/PopulationPyramid_viewer.html", "qrc:/PopulationPyramid_viewer/");
 	_PopulationPyramid_viewer->setContentsMargins(0, 0, 0, 0);
 	_PopulationPyramid_viewer->layout()->setContentsMargins(0, 0, 0, 0);
-	_PopulationPyramidOptionsAction = new PopulationPyramidOptionsAction(*this, _core);
+	//_PopulationPyramidOptionsAction = new PopulationPyramidOptionsAction(*this, _core);
 	connect(_PopulationPyramid_viewer, &PopulationPyramidViewerWidget::passSelectionSpecies1ToQt, this, &PopulationPyramidViewerPlugin::publishSelectionSpecies1);
 
 	connect(_PopulationPyramid_viewer, &PopulationPyramidViewerWidget::passSelectionSpecies2ToQt, this, &PopulationPyramidViewerPlugin::publishSelectionSpecies2);
@@ -55,19 +56,19 @@ void PopulationPyramidViewerPlugin::init()
 	topToolbarLayout->setContentsMargins(0, 0, 0, 0);
 	topToolbarLayout->setSpacing(0);
 
-	auto ClusterDataset1SelectionWidget = _PopulationPyramidOptionsAction->getdeStatsDataset1SelectionAction().createCollapsedWidget(&getWidget());
+	auto ClusterDataset1SelectionWidget = _PopulationPyramidOptionsAction.getdeStatsDataset1SelectionAction().createCollapsedWidget(&getWidget());
 	//ClusterDataset1SelectionWidget->setMaximumWidth(280);
 	topToolbarLayout->addWidget(ClusterDataset1SelectionWidget);
 
-	auto barSettingActionsWidget = _PopulationPyramidOptionsAction->getBarSettingsAction().createWidget(&getWidget());
+	auto barSettingActionsWidget = _PopulationPyramidOptionsAction.getBarSettingsAction().createWidget(&getWidget());
 	topToolbarLayout->addWidget(barSettingActionsWidget);
 
-	//auto ClusterDataset2SelectionWidget = _PopulationPyramidOptionsAction->getdeStatsDataset2SelectionAction().createCollapsedWidget(&getWidget());
+	//auto ClusterDataset2SelectionWidget = _PopulationPyramidOptionsAction.getdeStatsDataset2SelectionAction().createCollapsedWidget(&getWidget());
 	////ClusterDataset2SelectionWidget->setMaximumWidth(280);
 	//topToolbarLayout->addWidget(ClusterDataset2SelectionWidget);
 
-	topToolbarLayout->addWidget(_PopulationPyramidOptionsAction->getScreenshotAction().createWidget(&getWidget()));
-	//topToolbarLayout->addWidget(_PopulationPyramidOptionsAction->getHelpAction().createWidget(&getWidget()));
+	topToolbarLayout->addWidget(_PopulationPyramidOptionsAction.getScreenshotAction().createWidget(&getWidget()));
+	//topToolbarLayout->addWidget(_PopulationPyramidOptionsAction.getHelpAction().createWidget(&getWidget()));
 
 	topToolbarLayout->addStretch(0);
 	topToolbarWidget->setAutoFillBackground(true);
@@ -95,9 +96,9 @@ void PopulationPyramidViewerPlugin::publishSelectionSpecies1(std::string cluster
 {
 
 	//qDebug() << QString::fromStdString(selectedIDs);
-	//_PopulationPyramidOptionsAction->getCrossSpecies1HeatMapCellAction().setCurrentText("");
-	//_PopulationPyramidOptionsAction->getCrossSpecies1HeatMapCellAction().setCurrentText(QString::fromStdString(clusterName));
-	auto dataset = _PopulationPyramidOptionsAction->getdeStatsDataset1SelectAction().getCurrentDataset();
+	//_PopulationPyramidOptionsAction.getCrossSpecies1HeatMapCellAction().setCurrentText("");
+	//_PopulationPyramidOptionsAction.getCrossSpecies1HeatMapCellAction().setCurrentText(QString::fromStdString(clusterName));
+	auto dataset = _PopulationPyramidOptionsAction.getdeStatsDataset1SelectAction().getCurrentDataset();
 	const auto candidateDataset = _core->requestDataset<Clusters>(dataset.getDatasetGuid());
 	std::vector<std::uint32_t> selectedIndices;
 	for (const auto& cluster : candidateDataset->getClusters())
@@ -121,16 +122,16 @@ void PopulationPyramidViewerPlugin::publishSelectionSpecies1(std::string cluster
 
 void PopulationPyramidViewerPlugin::clusterSelection(std::string clusterName)
 {
-	_PopulationPyramidOptionsAction->getSelectedCrossspeciesclusterFlag() = false;
+	_PopulationPyramidOptionsAction.getSelectedCrossspeciesclusterFlag() = false;
 	if (clusterName == "")
 	{
 		QString::fromStdString(clusterName);
-		_PopulationPyramidOptionsAction->getSelectedCrossspeciescluster().setString("");
+		_PopulationPyramidOptionsAction.getSelectedCrossspeciescluster().setString("");
 	}
 	else
 	{
 		//qDebug() << QString::fromStdString(clusterName);
-		_PopulationPyramidOptionsAction->getSelectedCrossspeciescluster().setString(QString::fromStdString(clusterName));
+		_PopulationPyramidOptionsAction.getSelectedCrossspeciescluster().setString(QString::fromStdString(clusterName));
 	}
 
 
@@ -141,9 +142,9 @@ void PopulationPyramidViewerPlugin::publishSelectionSpecies2(std::string cluster
 {
 
 	//qDebug() << QString::fromStdString(selectedIDs);
-	//_PopulationPyramidOptionsAction->getCrossSpecies2HeatMapCellAction().setCurrentText("");
-	//_PopulationPyramidOptionsAction->getCrossSpecies2HeatMapCellAction().setCurrentText(QString::fromStdString(clusterName));
-	auto dataset = _PopulationPyramidOptionsAction->getdeStatsDataset2SelectAction().getCurrentDataset();
+	//_PopulationPyramidOptionsAction.getCrossSpecies2HeatMapCellAction().setCurrentText("");
+	//_PopulationPyramidOptionsAction.getCrossSpecies2HeatMapCellAction().setCurrentText(QString::fromStdString(clusterName));
+	auto dataset = _PopulationPyramidOptionsAction.getdeStatsDataset2SelectAction().getCurrentDataset();
 	const auto candidateDataset = _core->requestDataset<Clusters>(dataset.getDatasetGuid());
 	std::vector<std::uint32_t> selectedIndices;
 	for (const auto& cluster : candidateDataset->getClusters())
@@ -163,6 +164,22 @@ void PopulationPyramidViewerPlugin::publishSelectionSpecies2(std::string cluster
 
 	events().notifyDatasetSelectionChanged(candidateDataset->getParent());
 
+}
+
+void PopulationPyramidViewerPlugin::fromVariantMap(const QVariantMap& variantMap)
+{
+	WidgetAction::fromVariantMap(variantMap);
+
+	_PopulationPyramidOptionsAction.fromParentVariantMap(variantMap);
+}
+
+QVariantMap PopulationPyramidViewerPlugin::toVariantMap() const
+{
+	QVariantMap variantMap = WidgetAction::toVariantMap();
+
+	_PopulationPyramidOptionsAction.insertIntoVariantMap(variantMap);
+
+	return variantMap;
 }
 //const auto showHelpbox = []() -> void
 //{
