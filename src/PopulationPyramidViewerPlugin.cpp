@@ -69,7 +69,7 @@ void PopulationPyramidViewerPlugin::init()
 	////ClusterDataset2SelectionWidget->setMaximumWidth(280);
 	//topToolbarLayout->addWidget(ClusterDataset2SelectionWidget);
 
-	topToolbarLayout->addWidget(_PopulationPyramidOptionsAction.getScreenshotAction().createWidget(&getWidget()));
+	//topToolbarLayout->addWidget(_PopulationPyramidOptionsAction.getScreenshotAction().createWidget(&getWidget()));
 	//topToolbarLayout->addWidget(_PopulationPyramidOptionsAction.getHelpAction().createWidget(&getWidget()));
 
 	topToolbarLayout->addStretch(0);

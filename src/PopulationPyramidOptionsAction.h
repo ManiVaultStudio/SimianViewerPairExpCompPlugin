@@ -152,7 +152,7 @@ public: // Action getters
 	deStatsDataset1SelectionAction& getdeStatsDataset1SelectionAction() { return _deStatsDataset1SelectionAction; }
 	deStatsDataset2SelectionAction& getdeStatsDataset2SelectionAction() { return _deStatsDataset2SelectionAction; }
 	BarSettingsAction& getBarSettingsAction() { return _barSettingsAction; }
-	TriggerAction& getScreenshotAction() { return _screenshotAction; }
+	//TriggerAction& getScreenshotAction() { return _screenshotAction; }
 	//TriggerAction& getHelpAction() { return _helpAction; }
 	StringAction& getGeneName() { return _geneNameAction; }
 	//OptionAction& getCrossSpecies1HeatMapCellAction() { return _crossSpecies1HeatMapCellAction; }
@@ -192,7 +192,7 @@ protected:
 	//OptionAction                 _crossSpecies2HeatMapCellAction;
 	//Actions
 	BarSettingsAction  _barSettingsAction;
-	TriggerAction                _screenshotAction;
+	//TriggerAction                _screenshotAction;
 	//TriggerAction                _helpAction;
 	std::map<std::string, speciesStorage> _deStatsDataStorage;
 	StringAction                  _species1Name;
