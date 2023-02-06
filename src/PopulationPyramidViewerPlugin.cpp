@@ -26,10 +26,11 @@ using namespace hdps;
 
 PopulationPyramidViewerPlugin::PopulationPyramidViewerPlugin(const PluginFactory* factory) :
 	ViewPlugin(factory),
+	_PopulationPyramid_viewer(),
 	_PopulationPyramidOptionsAction(*this, _core)
 {
 	setSerializationName("PopulationPyramidViewer");
-	_PopulationPyramid_viewer = new PopulationPyramidViewerWidget();
+	//_PopulationPyramid_viewer = new PopulationPyramidViewerWidget();
 }
 
 PopulationPyramidViewerPlugin::~PopulationPyramidViewerPlugin()
@@ -38,15 +39,16 @@ PopulationPyramidViewerPlugin::~PopulationPyramidViewerPlugin()
 
 void PopulationPyramidViewerPlugin::init()
 {
-	_PopulationPyramid_viewer->setPage(":/PopulationPyramid_viewer/PopulationPyramid_viewer.html", "qrc:/PopulationPyramid_viewer/");
-	_PopulationPyramid_viewer->setContentsMargins(0, 0, 0, 0);
-	_PopulationPyramid_viewer->layout()->setContentsMargins(0, 0, 0, 0);
+	connect(&_PopulationPyramid_viewer, &PopulationPyramidViewerWidget::widgetInitialized, &_PopulationPyramidOptionsAction, &PopulationPyramidOptionsAction::initLoader);
+	_PopulationPyramid_viewer.setPage(":/PopulationPyramid_viewer/PopulationPyramid_viewer.html", "qrc:/PopulationPyramid_viewer/");
+	_PopulationPyramid_viewer.setContentsMargins(0, 0, 0, 0);
+	_PopulationPyramid_viewer.layout()->setContentsMargins(0, 0, 0, 0);
 	//_PopulationPyramidOptionsAction = new PopulationPyramidOptionsAction(*this, _core);
-	connect(_PopulationPyramid_viewer, &PopulationPyramidViewerWidget::passSelectionSpecies1ToQt, this, &PopulationPyramidViewerPlugin::publishSelectionSpecies1);
+	connect(&_PopulationPyramid_viewer, &PopulationPyramidViewerWidget::passSelectionSpecies1ToQt, this, &PopulationPyramidViewerPlugin::publishSelectionSpecies1);
 
-	connect(_PopulationPyramid_viewer, &PopulationPyramidViewerWidget::passSelectionSpecies2ToQt, this, &PopulationPyramidViewerPlugin::publishSelectionSpecies2);
+	connect(&_PopulationPyramid_viewer, &PopulationPyramidViewerWidget::passSelectionSpecies2ToQt, this, &PopulationPyramidViewerPlugin::publishSelectionSpecies2);
 
-	connect(_PopulationPyramid_viewer, &PopulationPyramidViewerWidget::crossspeciesclusterSelection, this, &PopulationPyramidViewerPlugin::clusterSelection);
+	connect(&_PopulationPyramid_viewer, &PopulationPyramidViewerWidget::crossspeciesclusterSelection, this, &PopulationPyramidViewerPlugin::clusterSelection);
 
 	_eventListener.addSupportedEventType(static_cast<std::uint32_t>(EventType::DataSelectionChanged));
 	_eventListener.registerDataEventByType(ClusterType, std::bind(&PopulationPyramidViewerPlugin::onDataEvent, this, std::placeholders::_1));
@@ -77,7 +79,7 @@ void PopulationPyramidViewerPlugin::init()
 	layout->setContentsMargins(0, 0, 0, 0);
 	layout->setSpacing(0);
 	layout->addWidget(topToolbarWidget);
-	layout->addWidget(_PopulationPyramid_viewer, 1);
+	layout->addWidget(&_PopulationPyramid_viewer, 1);
 	getWidget().setLayout(layout);
 
 

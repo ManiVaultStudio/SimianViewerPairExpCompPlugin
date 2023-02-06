@@ -90,6 +90,8 @@ void PopulationPyramidViewerWidget::initWebPage()
 		emit _communicationObject->qt_addAvailableData(option);
 	}
 	dataOptionBuffer.clear();
+
+	emit widgetInitialized();
 }
 
 void PopulationPyramidViewerWidget::addDataOption(const QString option)

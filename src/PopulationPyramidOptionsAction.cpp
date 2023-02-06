@@ -149,7 +149,7 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 		{
 			if (_selectedCrossspeciesclusterFlag)
 			{
-				_PopulationPyramidViewerPlugin.getBarChartWidget()->setSelectedCrossspeciescluster(_selectedCrossspeciescluster.getString());
+				_PopulationPyramidViewerPlugin.getBarChartWidget().setSelectedCrossspeciescluster(_selectedCrossspeciescluster.getString());
 			}
 			_selectedCrossspeciesclusterFlag = true;
 
@@ -178,8 +178,8 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 				QPageSize ps;
 				//qDebug() << "height" << _simianViewerPlugin.getSimianViewerWidget()->height();
 
-				int width = _PopulationPyramidViewerPlugin.getBarChartWidget()->width();
-				int height = _PopulationPyramidViewerPlugin.getBarChartWidget()->height();
+				int width = _PopulationPyramidViewerPlugin.getBarChartWidget().width();
+				int height = _PopulationPyramidViewerPlugin.getBarChartWidget().height();
 				int reducedWidth = static_cast<double>(width) / 100 * 75;
 				int reducedHeight = static_cast<double>(height) / 100 * 78;
 				//qDebug() << "width" << width;
@@ -191,7 +191,7 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 				pl.setOrientation(QPageLayout::Portrait);
 
 
-				_PopulationPyramidViewerPlugin.getBarChartWidget()->getPage()->printToPdf(fileName, pl);
+				_PopulationPyramidViewerPlugin.getBarChartWidget().getPage()->printToPdf(fileName, pl);
 
 			}
 			//..getSimianViewerWidget()->getPage()->printToPdf(fileName, pl);
@@ -362,7 +362,7 @@ void PopulationPyramidOptionsAction::updateData()
 		jsonData += "]";
 
 
-	_PopulationPyramidViewerPlugin.getBarChartWidget()->setData(jsonData);
+	_PopulationPyramidViewerPlugin.getBarChartWidget().setData(jsonData);
 }
 
 void PopulationPyramidOptionsAction::updateDatasetPickerAction()
@@ -511,6 +511,11 @@ void PopulationPyramidOptionsAction::onDataEvent(hdps::DataEvent* dataEvent)
 	{
 		updateDatasetPickerAction();
 	}
+}
+
+void PopulationPyramidOptionsAction::initLoader()
+{
+	updateData();
 }
 
 void PopulationPyramidOptionsAction::fromVariantMap(const QVariantMap& variantMap)

@@ -14,7 +14,7 @@ using namespace hdps::plugin;
 using namespace hdps::util;
 
 class Points;
-class PopulationPyramidViewerWidget;
+//class PopulationPyramidViewerWidget;
 //class PopulationPyramidOptionsAction;
 
 // =============================================================================
@@ -38,7 +38,7 @@ public:
 
 	hdps::CoreInterface* getCore() { return _core; }
 
-	PopulationPyramidViewerWidget* getBarChartWidget() { return _PopulationPyramid_viewer; }
+	PopulationPyramidViewerWidget& getBarChartWidget() { return _PopulationPyramid_viewer; }
 	PopulationPyramidOptionsAction& getPopulationPyramidOptionsAction() { return _PopulationPyramidOptionsAction; }
 
 public: // Serialization
@@ -63,10 +63,11 @@ private:
 	void publishSelectionSpecies1(std::string selectedIDs);
 	void publishSelectionSpecies2(std::string selectedIDs);
 	void clusterSelection(std::string selectedIDs);
-
+	
+	PopulationPyramidViewerWidget _PopulationPyramid_viewer;
 	PopulationPyramidOptionsAction _PopulationPyramidOptionsAction;
 	/** PopulationPyramidViewer widget displaying cluster data */
-	PopulationPyramidViewerWidget* _PopulationPyramid_viewer;
+	
 	hdps::EventListener     _eventListener;
 };
 

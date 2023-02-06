@@ -52,7 +52,7 @@ protected:
 
 
 signals:
-
+	void widgetInitialized();
 	void passSelectionSpecies1ToQt(std::string selectedIDs);
 	void passSelectionSpecies2ToQt(std::string selectedIDs);
 	void crossspeciesclusterSelection(std::string selectedIDs);

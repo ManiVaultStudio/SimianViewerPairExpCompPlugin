@@ -35,7 +35,7 @@
 using namespace hdps::gui;
 class QMenu;
 class PopulationPyramidViewerPlugin;
-class PopulationPyramidViewerWidget;
+//class PopulationPyramidViewerWidget;
 class FetchMetaData;
 namespace hdps
 {
@@ -161,6 +161,9 @@ public: // Action getters
 	StringAction& getSpecies1Name() { return _species1Name; }
 	StringAction& getSpecies2Name() { return _species2Name; }
 	bool& getSelectedCrossspeciesclusterFlag() { return _selectedCrossspeciesclusterFlag; }
+
+public:
+		void initLoader();
 
 public: // Serialization
 
