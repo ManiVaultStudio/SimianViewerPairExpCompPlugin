@@ -448,6 +448,9 @@ PopulationPyramidOptionsAction::deStatsDataset1SelectionAction::Widget::Widget(Q
 inline PopulationPyramidOptionsAction::deStatsDataset1SelectionAction::deStatsDataset1SelectionAction(PopulationPyramidOptionsAction& PopulationPyramidOptionsAction) :
 	_PopulationPyramidOptionsAction(PopulationPyramidOptionsAction)
 {
+	setText("Options");
+	setIcon(Application::getIconFont("FontAwesome").getIcon("database"));
+
 }
 
 
