@@ -170,14 +170,14 @@ void PopulationPyramidViewerPlugin::publishSelectionSpecies2(std::string cluster
 
 void PopulationPyramidViewerPlugin::fromVariantMap(const QVariantMap& variantMap)
 {
-	WidgetAction::fromVariantMap(variantMap);
+	ViewPlugin::fromVariantMap(variantMap);
 
 	_PopulationPyramidOptionsAction.fromParentVariantMap(variantMap);
 }
 
 QVariantMap PopulationPyramidViewerPlugin::toVariantMap() const
 {
-	QVariantMap variantMap = WidgetAction::toVariantMap();
+	QVariantMap variantMap = ViewPlugin::toVariantMap();
 
 	_PopulationPyramidOptionsAction.insertIntoVariantMap(variantMap);
 
