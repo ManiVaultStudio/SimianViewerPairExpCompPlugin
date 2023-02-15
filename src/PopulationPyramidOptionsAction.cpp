@@ -66,12 +66,13 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 	_deStatsDataset1Action.publish("Pop Pyramid:: DE Dataset1");
 	_deStatsDataset2Action.setConnectionPermissionsFlag(ConnectionPermissionFlag::All);
 	_deStatsDataset2Action.publish("Pop Pyramid:: DE Dataset2");
-	_species1Name.setConnectionPermissionsFlag(ConnectionPermissionFlag::All);
-	_species1Name.publish("Pop Pyramid:: Species1 Name");
-	_species2Name.setConnectionPermissionsFlag(ConnectionPermissionFlag::All);
-	_species2Name.publish("Pop Pyramid:: Species2 Name");
 	_selectedCrossspeciescluster.setConnectionPermissionsFlag(ConnectionPermissionFlag::All);
 	_selectedCrossspeciescluster.publish("Pop Pyramid:: Selected CrossSpecies Cluster");
+
+	_species1Name.setConnectionPermissionsFlag(ConnectionPermissionFlag::All);
+	_species1Name.connectToPublicActionByName("Cluster Differential Expression 1::DatasetName1");
+	_species2Name.setConnectionPermissionsFlag(ConnectionPermissionFlag::All);
+	_species2Name.connectToPublicActionByName("Cluster Differential Expression 1::DatasetName2");
 	_geneNameAction.setConnectionPermissionsFlag(ConnectionPermissionFlag::All);
 	_geneNameAction.connectToPublicActionByName("Cluster Differential Expression 1::LastSelectedId");
 
