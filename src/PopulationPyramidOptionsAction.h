@@ -76,51 +76,6 @@ public:
 		friend class PopulationPyramidOptionsAction;
 	};
 
-	class deStatsDataset2SelectionAction : public WidgetAction
-	{
-	protected:
-		class Widget : public hdps::gui::WidgetActionWidget {
-		public:
-			Widget(QWidget* parent, deStatsDataset2SelectionAction* deStatsDataset2SelectAction);
-
-			friend class deStatsDataset2SelectionAction;
-		};
-
-		QWidget* getWidget(QWidget* parent, const std::int32_t& widgetFlags) override {
-			return new deStatsDataset2SelectionAction::Widget(parent, this);
-		};
-
-	public:
-		deStatsDataset2SelectionAction(PopulationPyramidOptionsAction& PopulationPyramidOptionsAction);
-
-	protected:
-		PopulationPyramidOptionsAction& _PopulationPyramidOptionsAction;
-
-		friend class PopulationPyramidOptionsAction;
-	};
-//BarChartOptions
-	class BarSettingsAction : public WidgetAction
-	{
-	protected:
-		class Widget : public hdps::gui::WidgetActionWidget {
-		public:
-			Widget(QWidget* parent, BarSettingsAction* barSettingsAction);
-
-			friend class BarSettingsAction;
-		};
-
-		QWidget* getWidget(QWidget* parent, const std::int32_t& widgetFlags) override {
-			return new BarSettingsAction::Widget(parent, this);
-		};
-
-	public:
-		BarSettingsAction(PopulationPyramidOptionsAction& PopulationPyramidOptionsAction);
-
-	protected:
-		PopulationPyramidOptionsAction& _PopulationPyramidOptionsAction;
-
-		friend class PopulationPyramidOptionsAction;
-	};
 
 
 public:
@@ -150,8 +105,6 @@ public: // Action getters
 	DatasetPickerAction& getdeStatsDataset1SelectAction() { return _deStatsDataset1Action; }
 	DatasetPickerAction& getdeStatsDataset2SelectAction() { return _deStatsDataset2Action; }
 	deStatsDataset1SelectionAction& getdeStatsDataset1SelectionAction() { return _deStatsDataset1SelectionAction; }
-	deStatsDataset2SelectionAction& getdeStatsDataset2SelectionAction() { return _deStatsDataset2SelectionAction; }
-	BarSettingsAction& getBarSettingsAction() { return _barSettingsAction; }
 	//TriggerAction& getScreenshotAction() { return _screenshotAction; }
 	//TriggerAction& getHelpAction() { return _helpAction; }
 	StringAction& getGeneName() { return _geneNameAction; }
@@ -187,11 +140,9 @@ protected:
 	FetchMetaData* _metaData;
 	std::vector<std::vector<std::string>>                _PopulationPyramidData;
 	deStatsDataset1SelectionAction               _deStatsDataset1SelectionAction;
-	deStatsDataset2SelectionAction               _deStatsDataset2SelectionAction;
 	//OptionAction                 _crossSpecies1HeatMapCellAction;
 	//OptionAction                 _crossSpecies2HeatMapCellAction;
 	//Actions
-	BarSettingsAction  _barSettingsAction;
 	//TriggerAction                _screenshotAction;
 	//TriggerAction                _helpAction;
 	std::map<std::string, speciesStorage> _deStatsDataStorage;

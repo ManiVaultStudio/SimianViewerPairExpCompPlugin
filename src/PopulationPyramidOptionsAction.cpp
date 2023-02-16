@@ -16,9 +16,7 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 	_geneNameAction(this,"Gene"),
 	//_helpAction(this, "Help"),
 	//_screenshotAction(this, "Screenshot"),
-	_barSettingsAction(*this),
 	_deStatsDataset1SelectionAction(*this),
-	_deStatsDataset2SelectionAction(*this),
 	_selectedCrossspeciescluster(this, "Selected CrossSpecies Cluster"),
 	_species1Name(this, "Species1Name"),
 	_species2Name(this, "Species2Name")
@@ -459,6 +457,8 @@ PopulationPyramidOptionsAction::deStatsDataset1SelectionAction::Widget::Widget(Q
 
 	selectionExampledeStatsOptionLayout->addRow(PopulationPyramidOptionsAction._selectedCrossspeciescluster.createLabelWidget(this), PopulationPyramidOptionsAction._selectedCrossspeciescluster.createWidget(this));
 
+	selectionExampledeStatsOptionLayout->addRow(PopulationPyramidOptionsAction._geneNameAction.createLabelWidget(this), PopulationPyramidOptionsAction._geneNameAction.createWidget(this));
+
 	setPopupLayout(selectionExampledeStatsOptionLayout);
 }
 
@@ -469,65 +469,6 @@ inline PopulationPyramidOptionsAction::deStatsDataset1SelectionAction::deStatsDa
 	setIcon(Application::getIconFont("FontAwesome").getIcon("database"));
 
 }
-
-
-
-PopulationPyramidOptionsAction::deStatsDataset2SelectionAction::Widget::Widget(QWidget* parent, deStatsDataset2SelectionAction* deStatsDataset2SelectAction) :
-	WidgetActionWidget(parent, deStatsDataset2SelectAction)
-{
-	auto& PopulationPyramidOptionsAction = deStatsDataset2SelectAction->_PopulationPyramidOptionsAction;
-
-	auto selectiondeStats2Widget = PopulationPyramidOptionsAction._deStatsDataset2Action.createWidget(this);
-	//selectiondeStats2Widget->findChild<QComboBox*>("ComboBox")->setSizeAdjustPolicy(QComboBox::AdjustToContents);
-	////selectiondeStats2Widget->setMaximumWidth(250);
-	////selectiondeStats2Widget->setMaximumWidth(200);
-	//auto selectionExampledeStatsOptionLayout = new QFormLayout();
-	//selectionExampledeStatsOptionLayout->setContentsMargins(0, 0, 0, 0);
-
-	//selectionExampledeStatsOptionLayout->addRow(PopulationPyramidOptionsAction._deStatsDataset2Action.createLabelWidget(this), selectiondeStats2Widget);
-	//selectionExampledeStatsOptionLayout->addRow(PopulationPyramidOptionsAction._species2Name.createLabelWidget(this), PopulationPyramidOptionsAction._species2Name.createWidget(this));
-	//setPopupLayout(selectionExampledeStatsOptionLayout);
-}
-
-inline PopulationPyramidOptionsAction::deStatsDataset2SelectionAction::deStatsDataset2SelectionAction(PopulationPyramidOptionsAction& PopulationPyramidOptionsAction) :
-	_PopulationPyramidOptionsAction(PopulationPyramidOptionsAction)
-{
-}
-
-//bar options
-PopulationPyramidOptionsAction::BarSettingsAction::Widget::Widget(QWidget* parent, BarSettingsAction* barSettingsAction) :
-	WidgetActionWidget(parent, barSettingsAction)
-{
-	auto& PopulationPyramidOptionsAction = barSettingsAction->_PopulationPyramidOptionsAction;
-
-
-	//auto selectionCrossSpecies1HeatMapCellWidget = PopulationPyramidOptionsAction._crossSpecies1HeatMapCellAction.createWidget(this);
-	//selectionCrossSpecies1HeatMapCellWidget->setFixedWidth(300);
-	//selectionCrossSpecies1HeatMapCellWidget->findChild<QComboBox*>("ComboBox")->setSizeAdjustPolicy(QComboBox::AdjustToContents);
-	//auto selectionCrossSpecies2HeatMapCellWidget = PopulationPyramidOptionsAction._crossSpecies2HeatMapCellAction.createWidget(this);
-	//selectionCrossSpecies2HeatMapCellWidget->setFixedWidth(300);
-	//selectionCrossSpecies2HeatMapCellWidget->findChild<QComboBox*>("ComboBox")->setSizeAdjustPolicy(QComboBox::AdjustToContents);
-
-	auto geneNameActionWidget = PopulationPyramidOptionsAction._geneNameAction.createWidget(this);
-	//geneNameActionWidget->setMaximumWidth(150);
-	auto selectionExampledeStatsOptionLayout = new QFormLayout();
-	selectionExampledeStatsOptionLayout->setContentsMargins(0, 0, 0, 0);
-	selectionExampledeStatsOptionLayout->addRow(PopulationPyramidOptionsAction._geneNameAction.createLabelWidget(this), geneNameActionWidget);
-
-	//selectionExampledeStatsOptionLayout->addRow(PopulationPyramidOptionsAction._crossSpecies1HeatMapCellAction.createLabelWidget(this), selectionCrossSpecies1HeatMapCellWidget);
-	//selectionExampledeStatsOptionLayout->addRow(PopulationPyramidOptionsAction._crossSpecies2HeatMapCellAction.createLabelWidget(this), selectionCrossSpecies2HeatMapCellWidget);
-
-
-	setPopupLayout(selectionExampledeStatsOptionLayout);
-}
-
-inline PopulationPyramidOptionsAction::BarSettingsAction::BarSettingsAction(PopulationPyramidOptionsAction& PopulationPyramidOptionsAction) :
-	_PopulationPyramidOptionsAction(PopulationPyramidOptionsAction)
-{
-	//setText("Setting Options");
-	//setIcon(Application::getIconFont("FontAwesome").getIcon("cog"));
-}
-
 
 void PopulationPyramidOptionsAction::onDataEvent(hdps::DataEvent* dataEvent)
 {
