@@ -113,7 +113,6 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 		}
 		
 		
-		
 		//if (_deStatsDataset2Action.getCurrentDataset().isValid())
 		//{
 			//_barSettingsAction.setEnabled(true);
@@ -242,12 +241,11 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 	connect(&_species2Name, &StringAction::stringChanged, this, updateSpecies2Name);
 	connect(&_selectedCrossspeciescluster, &StringAction::stringChanged, this, updateSelectedCrossspeciescluster);
 	//connect(&_screenshotAction, &TriggerAction::triggered, this, generateScreenshot);
-	connect(&_deStatsDataset1Action, &DatasetPickerAction::currentIndexChanged, [this, updatedeStatsDataset1](const std::int32_t& currentIndex) {
-		updatedeStatsDataset1();
-		});
-	connect(&_deStatsDataset2Action, &DatasetPickerAction::currentIndexChanged, [this, updatedeStatsDataset2](const std::int32_t& currentIndex) {
-		updatedeStatsDataset2();
-		});
+
+	connect(&_deStatsDataset1Action, &DatasetPickerAction::datasetPicked, this, updatedeStatsDataset1);
+
+	connect(&_deStatsDataset2Action, &DatasetPickerAction::datasetPicked, this, updatedeStatsDataset2);
+
 	updateDatasetPickerAction();
 }
 
