@@ -470,30 +470,30 @@ inline PopulationPyramidOptionsAction::deStatsDataset1SelectionAction::deStatsDa
 
 void PopulationPyramidOptionsAction::onDataEvent(hdps::DataEvent* dataEvent)
 {
-	if (dataEvent->getType() == hdps::EventType::DataAdded)
-	{
-		updateDatasetPickerAction();
-	}
-	if (dataEvent->getType() == hdps::EventType::DataRemoved)
-	{
-		updateDatasetPickerAction();
-	}
-	if (dataEvent->getType() == hdps::EventType::DataChildAdded)
-	{
-		updateDatasetPickerAction();
-	}
-	if (dataEvent->getType() == hdps::EventType::DataChildRemoved)
-	{
-		updateDatasetPickerAction();
-	}
-	if (dataEvent->getType() == hdps::EventType::DataChanged)
-	{
-		updateDatasetPickerAction();
-	}
-	if (dataEvent->getType() == hdps::EventType::DataGuiNameChanged)
-	{
-		updateDatasetPickerAction();
-	}
+	//if (dataEvent->getType() == hdps::EventType::DataAdded)
+	//{
+	//	updateDatasetPickerAction();
+	//}
+	//if (dataEvent->getType() == hdps::EventType::DataRemoved)
+	//{
+	//	updateDatasetPickerAction();
+	//}
+	//if (dataEvent->getType() == hdps::EventType::DataChildAdded)
+	//{
+	//	updateDatasetPickerAction();
+	//}
+	//if (dataEvent->getType() == hdps::EventType::DataChildRemoved)
+	//{
+	//	updateDatasetPickerAction();
+	//}
+	//if (dataEvent->getType() == hdps::EventType::DataChanged)
+	//{
+	//	updateDatasetPickerAction();
+	//}
+	//if (dataEvent->getType() == hdps::EventType::DataGuiNameChanged)
+	//{
+	//	updateDatasetPickerAction();
+	//}
 }
 
 void PopulationPyramidOptionsAction::initLoader()
