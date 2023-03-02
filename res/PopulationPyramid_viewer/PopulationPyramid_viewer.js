@@ -194,7 +194,7 @@ function selectBars(d) {
 
 
     if (yScaleTooltip(d) > 1) {
-        window.scrollTo(0, yScaleTooltip(d) - 1);
+        window.scrollTo(0, yScaleTooltip(d) - 2);
         }
         else {
         window.scrollTo(0, yScaleTooltip(d));
