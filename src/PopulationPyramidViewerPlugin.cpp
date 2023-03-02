@@ -31,6 +31,8 @@ PopulationPyramidViewerPlugin::PopulationPyramidViewerPlugin(const PluginFactory
 {
 	setSerializationName("PopulationPyramidViewer");
 	//_PopulationPyramid_viewer = new PopulationPyramidViewerWidget();
+	getVisibleAction().setConnectionPermissionsFlag(ConnectionPermissionFlag::All);
+	getVisibleAction().publish("Pop Pyramid::PluginVisibility");
 }
 
 PopulationPyramidViewerPlugin::~PopulationPyramidViewerPlugin()
