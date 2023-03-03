@@ -515,7 +515,7 @@ void PopulationPyramidOptionsAction::fromVariantMap(const QVariantMap& variantMa
 	_species2Name.fromParentVariantMap(variantMap);
 	_selectedCrossspeciescluster.fromParentVariantMap(variantMap);
 
-
+	initLoader();
 }
 
 QVariantMap PopulationPyramidOptionsAction::toVariantMap() const

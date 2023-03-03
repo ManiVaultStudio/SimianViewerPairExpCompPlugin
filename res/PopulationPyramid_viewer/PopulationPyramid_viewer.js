@@ -112,8 +112,13 @@ function clickMiddleLabel(d) {
 
     if (selectedCrossspeciescluster == d) {
         selectedCrossspeciescluster = "";
-        svg.select("#mouseclickSpecies2").remove();
-        svg.select("#mouseclickSpecies1").remove();
+        if (document.querySelector('#mouseclickSpecies2') && svg) {
+            svg.select("#mouseclickSpecies2").remove();
+        }
+        if (document.querySelector('#mouseclickSpecies1') && svg) {
+            svg.select("#mouseclickSpecies1").remove();
+        }
+
         svg
             .call(yAxisLeftTooltip)
             .selectAll("text")
@@ -133,8 +138,13 @@ function clickBar(d) {
 
     if (selectedCrossspeciescluster == d.clusterName) {
         selectedCrossspeciescluster = "";
-        svg.select("#mouseclickSpecies2").remove();
-        svg.select("#mouseclickSpecies1").remove();
+        if (document.querySelector('#mouseclickSpecies2') && svg) {
+            svg.select("#mouseclickSpecies2").remove();
+        }
+        if (document.querySelector('#mouseclickSpecies1') && svg) {
+            svg.select("#mouseclickSpecies1").remove();
+        }
+
         svg
             .call(yAxisLeftTooltip)
             .selectAll("text")
@@ -151,8 +161,13 @@ function clickBar(d) {
 }
 
 function selectBars(d) {
-    svg.select("#mouseclickSpecies2").remove();
-    svg.select("#mouseclickSpecies1").remove();
+    if (document.querySelector('#mouseclickSpecies2') && svg) {
+        svg.select("#mouseclickSpecies2").remove();
+    }
+    if (document.querySelector('#mouseclickSpecies1') && svg) {
+        svg.select("#mouseclickSpecies1").remove();
+    }
+
     svg
         .call(yAxisLeftTooltip)
         .selectAll("text")
@@ -621,8 +636,14 @@ function setSelectedCrossspeciescluster(d) {
     }
     else {
         selectedCrossspeciescluster = "";
-        svg.select("#mouseclickSpecies2").remove();
-        svg.select("#mouseclickSpecies1").remove();
+            if (document.querySelector('#mouseclickSpecies2')&&svg) {
+                svg.select("#mouseclickSpecies2").remove();
+            }
+        if (document.querySelector('#mouseclickSpecies1') && svg) {
+            svg.select("#mouseclickSpecies1").remove();
+        }
+        
+        
         svg
             .call(yAxisLeftTooltip)
             .selectAll("text")
