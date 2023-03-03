@@ -44,7 +44,7 @@ PopulationPyramidViewerWidget::PopulationPyramidViewerWidget() :
 	_communicationObject = new PopulationPyramidViewerCommunicationObject(this);
 	init(_communicationObject);
 
-	setMinimumHeight(140);
+	setMinimumHeight(160);
 
 }
 
