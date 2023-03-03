@@ -500,6 +500,7 @@ void PopulationPyramidOptionsAction::initLoader()
 {
 	if (_deStatsDataset1Action.getCurrentDataset().isValid() && _deStatsDataset2Action.getCurrentDataset().isValid())
 	{
+		/*qDebug() << "It is here";*/
 		updateData();
 	}
 }

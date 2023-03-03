@@ -397,7 +397,7 @@ const PopulationPyramidVis = () => {
         .style("cursor", "pointer")
         //.attr("fill", "transparent")
         .attr("fill", "black")
-        .attr("font-size", "10")
+        .attr("font-size", "10").style("font-family", "Arial")
         //.attr("stroke", "#000000")
         .style("text-anchor", "middle");
     svg
@@ -409,7 +409,7 @@ const PopulationPyramidVis = () => {
         //.attr("fill", "transparent")
         //.attr("stroke", "#000000")
         .attr("fill", "black")
-        .attr("font-size", "10")
+        .attr("font-size", "10").style("font-family", "Arial")
         .call(yAxisRightTooltip);
 
     leftBarGroupTooltip
@@ -538,7 +538,7 @@ const PopulationPyramidVis = () => {
         .attr("x", pointATooltip / 2)
         .attr("y", 26)
         .text(species1Name)
-        .attr("font-size", "10");
+        .attr("font-size", "10").style("font-family", "Arial");
 
     svgAxis
         .append("text")
@@ -546,7 +546,7 @@ const PopulationPyramidVis = () => {
         .attr("x", pointBTooltip / 2 + pointBTooltip)
         .attr("y", 26)
         .text(species2Name)
-        .attr("font-size", "10");
+        .attr("font-size", "10").style("font-family", "Arial");
 
     svgAxis
         .append("text")
@@ -554,14 +554,14 @@ const PopulationPyramidVis = () => {
         .attr("x", pointATooltip + (pointBTooltip - pointATooltip)/2)
         .attr("y", 32)
         .text(geneName)
-        .attr("font-size", "10");
+        .attr("font-size", "10").style("font-family", "Arial");
     svgAxis
         .append("text")
         .attr("text-anchor", "middle")
         .attr("x", pointATooltip + (pointBTooltip - pointATooltip) / 2)
         .attr("y", 20)
         .text("Gene")
-        .attr("font-size", "10");
+        .attr("font-size", "10").style("font-family", "Arial");
 
     svgAxis.selectAll(".tick").each(function (d) {
       if (d === 0.0 || d === 0) {
