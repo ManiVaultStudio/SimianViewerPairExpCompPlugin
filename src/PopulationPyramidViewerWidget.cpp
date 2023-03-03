@@ -13,7 +13,7 @@ PopulationPyramidViewerCommunicationObject::PopulationPyramidViewerCommunication
 	:
 	_parent(parent)
 {
-
+	
 }
 
 
@@ -43,6 +43,9 @@ PopulationPyramidViewerWidget::PopulationPyramidViewerWidget() :
 	Q_INIT_RESOURCE(PopulationPyramid_viewer_resources);
 	_communicationObject = new PopulationPyramidViewerCommunicationObject(this);
 	init(_communicationObject);
+
+	setMinimumHeight(200);
+
 }
 
 PopulationPyramidViewerWidget::~PopulationPyramidViewerWidget()
