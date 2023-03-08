@@ -21,6 +21,7 @@ var pointBTooltip;
 var xScaleTooltip;
 var species1Name = "";
 var species2Name = "";
+var selectioncolor = "#257afd";
 var geneName = "";
 var selectedCrossspeciescluster = "";
 var ClusterStorage1 = {};
@@ -31,6 +32,7 @@ try {
     new QWebChannel(qt.webChannelTransport, function (channel) {
         QtBridge = channel.objects.QtBridge;
         QtBridge.qt_setData.connect(function () { setData(arguments[0]); });
+        QtBridge.qt_updateSelectionColor.connect(function () { updateSelectionColor(arguments[0]); });
         QtBridge.qt_setSelectedCrossspeciescluster.connect(function () { setSelectedCrossspeciescluster(arguments[0]); });
         notifyBridgeAvailable();
     });
@@ -46,7 +48,7 @@ try {
         .attr('y', yScaleTooltip(d.clusterName))
         .attr('width', xScaleTooltip(d.species1ClusterCount))
         .attr('height', yScaleTooltip.bandwidth())
-        .attr('stroke', "#de2d26")
+        .attr('stroke', selectioncolor)
         .attr("stroke-width", 2)
         .attr('fill', 'none');
 
@@ -65,7 +67,7 @@ function mouseclickSpecies2(d) {
         .attr('y', yScaleTooltip(d.clusterName))
         .attr('width', xScaleTooltip(d.species2ClusterCount))
         .attr('height', yScaleTooltip.bandwidth())
-        .attr('stroke', "#de2d26")
+        .attr('stroke', selectioncolor)
         .attr("stroke-width", 2)
         .attr('fill', 'none');
 
@@ -88,7 +90,7 @@ function mouseclickBoth(d) {
         .attr('y', yScaleTooltip(d))
         .attr('width', xScaleTooltip(ClusterStorage1[d]))
         .attr('height', yScaleTooltip.bandwidth())
-        .attr('stroke', "#de2d26")
+        .attr('stroke', selectioncolor)
         .attr("stroke-width", 2)
         .attr('fill', 'none');
 
@@ -99,7 +101,7 @@ function mouseclickBoth(d) {
         .attr('y', yScaleTooltip(d))
         .attr('width', xScaleTooltip(ClusterStorage2[d]))
         .attr('height', yScaleTooltip.bandwidth())
-        .attr('stroke', "#de2d26")
+        .attr('stroke', selectioncolor)
         .attr("stroke-width", 2)
         .attr('fill', 'none');
 
@@ -179,7 +181,7 @@ function selectBars(d) {
         .attr('y', yScaleTooltip(d))
         .attr('width', xScaleTooltip(ClusterStorage1[d]))
         .attr('height', yScaleTooltip.bandwidth())
-        .attr('stroke', "#de2d26")
+        .attr('stroke', selectioncolor)
         .attr("stroke-width", 2)
         .attr('fill', 'none');
 
@@ -190,7 +192,7 @@ function selectBars(d) {
         .attr('y', yScaleTooltip(d))
         .attr('width', xScaleTooltip(ClusterStorage2[d]))
         .attr('height', yScaleTooltip.bandwidth())
-        .attr('stroke', "#de2d26")
+        .attr('stroke', selectioncolor)
         .attr("stroke-width", 2)
         .attr('fill', 'none');
 
@@ -199,7 +201,7 @@ function selectBars(d) {
         .selectAll("text")
         .style("fill", function (m) {
             if (m == d) {
-                return "#de2d26";
+                return selectioncolor;
             }
             else {
                 return "black";
@@ -429,7 +431,7 @@ const PopulationPyramidVis = () => {
             return d.clusterColor;
         })
 /*        .attr("stroke", function (d) {
-            if (d.clusterName == selectedCrossspeciescluster) { return "#de2d26"; }
+            if (d.clusterName == selectedCrossspeciescluster) { return selectioncolor; }
             else { "none" }
         })
         .attr("stroke-width", function (d) {
@@ -462,7 +464,7 @@ const PopulationPyramidVis = () => {
             return d.clusterColor;
         })
 /*        .attr("stroke", function (d) {
-            if (d.clusterName == selectedCrossspeciescluster) { return "#de2d26"; }
+            if (d.clusterName == selectedCrossspeciescluster) { return selectioncolor; }
             else { "none" }
         })
         .attr("stroke-width", function (d) {
@@ -596,7 +598,7 @@ const PopulationPyramidVis = () => {
             .attr('y', yScaleTooltip(d))
             .attr('width', xScaleTooltip(ClusterStorage1[d]))
             .attr('height', yScaleTooltip.bandwidth())
-            .attr('stroke', "#de2d26")
+            .attr('stroke', selectioncolor)
             .attr("stroke-width", 2)
             .attr('fill', 'none');
 
@@ -607,7 +609,7 @@ const PopulationPyramidVis = () => {
             .attr('y', yScaleTooltip(d))
             .attr('width', xScaleTooltip(ClusterStorage2[d]))
             .attr('height', yScaleTooltip.bandwidth())
-            .attr('stroke', "#de2d26")
+            .attr('stroke', selectioncolor)
             .attr("stroke-width", 2)
                 .attr('fill', 'none');
 
@@ -673,6 +675,14 @@ function queueData(d) {
     flag = true;
 }
 
+function updateSelectionColor(d) {
+    var regex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
+    if (regex.test(d)) {
+        selectioncolor = d;
+        PopulationPyramidVis();
+    }
+
+}
 
 //Resize on window dimension change
 function doALoadOfStuff() {

@@ -19,7 +19,8 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 	_deStatsDataset1SelectionAction(*this),
 	_selectedCrossspeciescluster(this, "Selected CrossSpecies Cluster"),
 	_species1Name(this, "Species1Name"),
-	_species2Name(this, "Species2Name")
+	_species2Name(this, "Species2Name"),
+	_selectionColorAction(this, "Selection color")
 	//,
 	//_crossSpecies1HeatMapCellAction(this, "Link cross-species1 heatmap cell"),
 	//_crossSpecies2HeatMapCellAction(this, "Link cross-species2 heatmap cell")
@@ -73,6 +74,9 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 	_species2Name.connectToPublicActionByName("Cluster Differential Expression 1::DatasetName2");
 	_geneNameAction.setConnectionPermissionsFlag(ConnectionPermissionFlag::All);
 	_geneNameAction.connectToPublicActionByName("Cluster Differential Expression 1::LastSelectedId");
+
+	_selectionColorAction.setConnectionPermissionsFlag(ConnectionPermissionFlag::ConnectViaApi);
+	_selectionColorAction.connectToPublicActionByName("Global Selection Color");
 
 	const auto updatedeStatsDataset1 = [this]() -> void
 	{
@@ -193,7 +197,24 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 
 		};
 
+		const auto updateSelectionColor = [this]() -> void
+		{
+			if (_selectionColorAction.getColor().isValid())
+			{
+				QColor color = _selectionColorAction.getColor();
+				QString hexValueColor = "#" + QString::number(color.red(), 16).rightJustified(2, '0')
+					+ QString::number(color.green(), 16).rightJustified(2, '0')
+					+ QString::number(color.blue(), 16).rightJustified(2, '0');
 
+
+				_PopulationPyramidViewerPlugin.getBarChartWidget().updateSelectionColor(hexValueColor);
+
+
+			}
+
+		};
+
+		connect(&_selectionColorAction, &ColorAction::colorChanged, this, updateSelectionColor);
 		//const auto generateScreenshot = [this]() -> void {
 
 

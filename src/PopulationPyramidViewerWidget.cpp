@@ -85,6 +85,11 @@ void PopulationPyramidViewerWidget::js_crossspeciesclusterSelection(std::string 
 	emit crossspeciesclusterSelection(selectedIDs);
 }
 
+void PopulationPyramidViewerWidget::updateSelectionColor(QString visColorContent)
+{
+	emit _communicationObject->qt_updateSelectionColor(visColorContent);
+}
+
 void PopulationPyramidViewerWidget::initWebPage()
 {
 	loaded = true;
