@@ -76,8 +76,7 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 	_geneNameAction.connectToPublicActionByName("Cluster Differential Expression 1::LastSelectedId");
 
 	_selectionColorAction.setConnectionPermissionsFlag(ConnectionPermissionFlag::ConnectViaApi);
-	_selectionColorAction.connectToPublicActionByName("Global Selection Color");
-
+	_selectionColorAction.connectToPublicActionByName("GlobalSelectionColor");
 	const auto updatedeStatsDataset1 = [this]() -> void
 	{
 		
