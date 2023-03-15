@@ -211,7 +211,7 @@ function selectBars(d) {
 
 
     if (yScaleTooltip(d) > 1) {
-        window.scrollTo(0, yScaleTooltip(d) - 2);
+        window.scrollTo(0, yScaleTooltip(d) -1);
         }
         else {
         window.scrollTo(0, yScaleTooltip(d));
@@ -554,14 +554,14 @@ const PopulationPyramidVis = () => {
         .append("text")
         .attr("text-anchor", "middle")
         .attr("x", pointATooltip + (pointBTooltip - pointATooltip)/2)
-        .attr("y", 32)
+        .attr("y", 27)
         .text(geneName)
         .attr("font-size", "10").style("font-family", "Arial");
     svgAxis
         .append("text")
         .attr("text-anchor", "middle")
         .attr("x", pointATooltip + (pointBTooltip - pointATooltip) / 2)
-        .attr("y", 20)
+        .attr("y", 15)
         .text("Gene")
         .attr("font-size", "10").style("font-family", "Arial");
 
