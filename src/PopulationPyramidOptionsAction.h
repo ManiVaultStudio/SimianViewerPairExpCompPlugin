@@ -114,7 +114,7 @@ public: // Action getters
 	StringAction& getSpecies1Name() { return _species1Name; }
 	StringAction& getSpecies2Name() { return _species2Name; }
 	bool& getSelectedCrossspeciesclusterFlag() { return _selectedCrossspeciesclusterFlag; }
-
+	ColorAction& getSelectionColorAction() { return _selectionColorAction; }
 public:
 		void initLoader();
 
@@ -149,6 +149,7 @@ protected:
 	StringAction                  _species1Name;
 	StringAction                  _species2Name;
 	StringAction                  _selectedCrossspeciescluster;
+	ColorAction             _selectionColorAction;
 	bool _selectedCrossspeciesclusterFlag;
 	//std::vector<std::string> glia_Neighborhood = { "Astro_1", "Endo_1", "Micro-PVM_1", "OPC_1", "OPC_2", "Oligo_1", "VLMC_1" };
 	//std::vector<std::string> it_types_Neighborhood = { "L2/3 IT_1", "L2/3 IT_2", "L2/3 IT_3", "L4 IT_1", "L4 IT_2", "L5 IT_1", "L5 IT_2", "L6 IT Car3_1", "L6 IT Car3_2", "L6 IT_1" };

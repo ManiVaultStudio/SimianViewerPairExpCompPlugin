@@ -13,7 +13,7 @@ PopulationPyramidViewerCommunicationObject::PopulationPyramidViewerCommunication
 	:
 	_parent(parent)
 {
-
+	
 }
 
 
@@ -43,6 +43,9 @@ PopulationPyramidViewerWidget::PopulationPyramidViewerWidget() :
 	Q_INIT_RESOURCE(PopulationPyramid_viewer_resources);
 	_communicationObject = new PopulationPyramidViewerCommunicationObject(this);
 	init(_communicationObject);
+
+	setMinimumHeight(160);
+
 }
 
 PopulationPyramidViewerWidget::~PopulationPyramidViewerWidget()
@@ -80,6 +83,11 @@ void PopulationPyramidViewerWidget::js_passSelectionSpecies2ToQt(std::string sel
 void PopulationPyramidViewerWidget::js_crossspeciesclusterSelection(std::string selectedIDs)
 {
 	emit crossspeciesclusterSelection(selectedIDs);
+}
+
+void PopulationPyramidViewerWidget::updateSelectionColor(QString visColorContent)
+{
+	emit _communicationObject->qt_updateSelectionColor(visColorContent);
 }
 
 void PopulationPyramidViewerWidget::initWebPage()

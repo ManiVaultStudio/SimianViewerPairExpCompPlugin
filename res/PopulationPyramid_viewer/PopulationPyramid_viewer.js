@@ -21,6 +21,7 @@ var pointBTooltip;
 var xScaleTooltip;
 var species1Name = "";
 var species2Name = "";
+var selectioncolor = "#257afd";
 var geneName = "";
 var selectedCrossspeciescluster = "";
 var ClusterStorage1 = {};
@@ -31,6 +32,7 @@ try {
     new QWebChannel(qt.webChannelTransport, function (channel) {
         QtBridge = channel.objects.QtBridge;
         QtBridge.qt_setData.connect(function () { setData(arguments[0]); });
+        QtBridge.qt_updateSelectionColor.connect(function () { updateSelectionColor(arguments[0]); });
         QtBridge.qt_setSelectedCrossspeciescluster.connect(function () { setSelectedCrossspeciescluster(arguments[0]); });
         notifyBridgeAvailable();
     });
@@ -46,7 +48,7 @@ try {
         .attr('y', yScaleTooltip(d.clusterName))
         .attr('width', xScaleTooltip(d.species1ClusterCount))
         .attr('height', yScaleTooltip.bandwidth())
-        .attr('stroke', "#de2d26")
+        .attr('stroke', selectioncolor)
         .attr("stroke-width", 2)
         .attr('fill', 'none');
 
@@ -65,7 +67,7 @@ function mouseclickSpecies2(d) {
         .attr('y', yScaleTooltip(d.clusterName))
         .attr('width', xScaleTooltip(d.species2ClusterCount))
         .attr('height', yScaleTooltip.bandwidth())
-        .attr('stroke', "#de2d26")
+        .attr('stroke', selectioncolor)
         .attr("stroke-width", 2)
         .attr('fill', 'none');
 
@@ -88,7 +90,7 @@ function mouseclickBoth(d) {
         .attr('y', yScaleTooltip(d))
         .attr('width', xScaleTooltip(ClusterStorage1[d]))
         .attr('height', yScaleTooltip.bandwidth())
-        .attr('stroke', "#de2d26")
+        .attr('stroke', selectioncolor)
         .attr("stroke-width", 2)
         .attr('fill', 'none');
 
@@ -99,7 +101,7 @@ function mouseclickBoth(d) {
         .attr('y', yScaleTooltip(d))
         .attr('width', xScaleTooltip(ClusterStorage2[d]))
         .attr('height', yScaleTooltip.bandwidth())
-        .attr('stroke', "#de2d26")
+        .attr('stroke', selectioncolor)
         .attr("stroke-width", 2)
         .attr('fill', 'none');
 
@@ -112,8 +114,13 @@ function clickMiddleLabel(d) {
 
     if (selectedCrossspeciescluster == d) {
         selectedCrossspeciescluster = "";
-        svg.select("#mouseclickSpecies2").remove();
-        svg.select("#mouseclickSpecies1").remove();
+        if (document.querySelector('#mouseclickSpecies2') && svg) {
+            svg.select("#mouseclickSpecies2").remove();
+        }
+        if (document.querySelector('#mouseclickSpecies1') && svg) {
+            svg.select("#mouseclickSpecies1").remove();
+        }
+
         svg
             .call(yAxisLeftTooltip)
             .selectAll("text")
@@ -133,8 +140,13 @@ function clickBar(d) {
 
     if (selectedCrossspeciescluster == d.clusterName) {
         selectedCrossspeciescluster = "";
-        svg.select("#mouseclickSpecies2").remove();
-        svg.select("#mouseclickSpecies1").remove();
+        if (document.querySelector('#mouseclickSpecies2') && svg) {
+            svg.select("#mouseclickSpecies2").remove();
+        }
+        if (document.querySelector('#mouseclickSpecies1') && svg) {
+            svg.select("#mouseclickSpecies1").remove();
+        }
+
         svg
             .call(yAxisLeftTooltip)
             .selectAll("text")
@@ -151,8 +163,13 @@ function clickBar(d) {
 }
 
 function selectBars(d) {
-    svg.select("#mouseclickSpecies2").remove();
-    svg.select("#mouseclickSpecies1").remove();
+    if (document.querySelector('#mouseclickSpecies2') && svg) {
+        svg.select("#mouseclickSpecies2").remove();
+    }
+    if (document.querySelector('#mouseclickSpecies1') && svg) {
+        svg.select("#mouseclickSpecies1").remove();
+    }
+
     svg
         .call(yAxisLeftTooltip)
         .selectAll("text")
@@ -164,7 +181,7 @@ function selectBars(d) {
         .attr('y', yScaleTooltip(d))
         .attr('width', xScaleTooltip(ClusterStorage1[d]))
         .attr('height', yScaleTooltip.bandwidth())
-        .attr('stroke', "#de2d26")
+        .attr('stroke', selectioncolor)
         .attr("stroke-width", 2)
         .attr('fill', 'none');
 
@@ -175,7 +192,7 @@ function selectBars(d) {
         .attr('y', yScaleTooltip(d))
         .attr('width', xScaleTooltip(ClusterStorage2[d]))
         .attr('height', yScaleTooltip.bandwidth())
-        .attr('stroke', "#de2d26")
+        .attr('stroke', selectioncolor)
         .attr("stroke-width", 2)
         .attr('fill', 'none');
 
@@ -184,7 +201,7 @@ function selectBars(d) {
         .selectAll("text")
         .style("fill", function (m) {
             if (m == d) {
-                return "#de2d26";
+                return selectioncolor;
             }
             else {
                 return "black";
@@ -194,7 +211,7 @@ function selectBars(d) {
 
 
     if (yScaleTooltip(d) > 1) {
-        window.scrollTo(0, yScaleTooltip(d) - 1);
+        window.scrollTo(0, yScaleTooltip(d) -1);
         }
         else {
         window.scrollTo(0, yScaleTooltip(d));
@@ -214,11 +231,11 @@ function mousemoveSpecies(d) {
 
     if (d3.event.pageX > window.innerWidth / 2) {
         tooltip
-            .style('left', (d3.event.pageX - 30) + 'px')
+            .style('left', (d3.event.pageX - 130) + 'px')
     }
     else {
         tooltip
-            .style('left', (d3.event.pageX + 30) + 'px')
+            .style('left', (d3.event.pageX + 130) + 'px')
     }
     var temp;
     if (containerHeight / 2 > window.innerHeight / 2) {
@@ -228,13 +245,13 @@ function mousemoveSpecies(d) {
         temp = window.innerHeight / 2;
     }
     
-    if (d3.event.pageY >= temp / 2) {
+    if (d3.event.pageY > temp / 2) {
         tooltip
-            .style('top', (d3.event.pageY - 30) + 'px')
+            .style('top', (d3.event.pageY - 10) + 'px')
     }
     else {
         tooltip
-            .style('top', (d3.event.pageY + 30) + 'px')
+            .style('top', (d3.event.pageY + 10) + 'px')
     }
 
 }
@@ -382,7 +399,7 @@ const PopulationPyramidVis = () => {
         .style("cursor", "pointer")
         //.attr("fill", "transparent")
         .attr("fill", "black")
-        .attr("font-size", "10")
+        .attr("font-size", "10").style("font-family", "Arial")
         //.attr("stroke", "#000000")
         .style("text-anchor", "middle");
     svg
@@ -394,7 +411,7 @@ const PopulationPyramidVis = () => {
         //.attr("fill", "transparent")
         //.attr("stroke", "#000000")
         .attr("fill", "black")
-        .attr("font-size", "10")
+        .attr("font-size", "10").style("font-family", "Arial")
         .call(yAxisRightTooltip);
 
     leftBarGroupTooltip
@@ -414,7 +431,7 @@ const PopulationPyramidVis = () => {
             return d.clusterColor;
         })
 /*        .attr("stroke", function (d) {
-            if (d.clusterName == selectedCrossspeciescluster) { return "#de2d26"; }
+            if (d.clusterName == selectedCrossspeciescluster) { return selectioncolor; }
             else { "none" }
         })
         .attr("stroke-width", function (d) {
@@ -447,7 +464,7 @@ const PopulationPyramidVis = () => {
             return d.clusterColor;
         })
 /*        .attr("stroke", function (d) {
-            if (d.clusterName == selectedCrossspeciescluster) { return "#de2d26"; }
+            if (d.clusterName == selectedCrossspeciescluster) { return selectioncolor; }
             else { "none" }
         })
         .attr("stroke-width", function (d) {
@@ -523,7 +540,7 @@ const PopulationPyramidVis = () => {
         .attr("x", pointATooltip / 2)
         .attr("y", 26)
         .text(species1Name)
-        .attr("font-size", "10");
+        .attr("font-size", "10").style("font-family", "Arial");
 
     svgAxis
         .append("text")
@@ -531,22 +548,22 @@ const PopulationPyramidVis = () => {
         .attr("x", pointBTooltip / 2 + pointBTooltip)
         .attr("y", 26)
         .text(species2Name)
-        .attr("font-size", "10");
+        .attr("font-size", "10").style("font-family", "Arial");
 
     svgAxis
         .append("text")
         .attr("text-anchor", "middle")
         .attr("x", pointATooltip + (pointBTooltip - pointATooltip)/2)
-        .attr("y", 32)
+        .attr("y", 27)
         .text(geneName)
-        .attr("font-size", "10");
+        .attr("font-size", "10").style("font-family", "Arial");
     svgAxis
         .append("text")
         .attr("text-anchor", "middle")
         .attr("x", pointATooltip + (pointBTooltip - pointATooltip) / 2)
-        .attr("y", 20)
+        .attr("y", 15)
         .text("Gene")
-        .attr("font-size", "10");
+        .attr("font-size", "10").style("font-family", "Arial");
 
     svgAxis.selectAll(".tick").each(function (d) {
       if (d === 0.0 || d === 0) {
@@ -581,7 +598,7 @@ const PopulationPyramidVis = () => {
             .attr('y', yScaleTooltip(d))
             .attr('width', xScaleTooltip(ClusterStorage1[d]))
             .attr('height', yScaleTooltip.bandwidth())
-            .attr('stroke', "#de2d26")
+            .attr('stroke', selectioncolor)
             .attr("stroke-width", 2)
             .attr('fill', 'none');
 
@@ -592,7 +609,7 @@ const PopulationPyramidVis = () => {
             .attr('y', yScaleTooltip(d))
             .attr('width', xScaleTooltip(ClusterStorage2[d]))
             .attr('height', yScaleTooltip.bandwidth())
-            .attr('stroke', "#de2d26")
+            .attr('stroke', selectioncolor)
             .attr("stroke-width", 2)
                 .attr('fill', 'none');
 
@@ -621,8 +638,14 @@ function setSelectedCrossspeciescluster(d) {
     }
     else {
         selectedCrossspeciescluster = "";
-        svg.select("#mouseclickSpecies2").remove();
-        svg.select("#mouseclickSpecies1").remove();
+            if (document.querySelector('#mouseclickSpecies2')&&svg) {
+                svg.select("#mouseclickSpecies2").remove();
+            }
+        if (document.querySelector('#mouseclickSpecies1') && svg) {
+            svg.select("#mouseclickSpecies1").remove();
+        }
+        
+        
         svg
             .call(yAxisLeftTooltip)
             .selectAll("text")
@@ -652,6 +675,14 @@ function queueData(d) {
     flag = true;
 }
 
+function updateSelectionColor(d) {
+    var regex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
+    if (regex.test(d)) {
+        selectioncolor = d;
+        PopulationPyramidVis();
+    }
+
+}
 
 //Resize on window dimension change
 function doALoadOfStuff() {

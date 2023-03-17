@@ -31,6 +31,8 @@ PopulationPyramidViewerPlugin::PopulationPyramidViewerPlugin(const PluginFactory
 {
 	setSerializationName("PopulationPyramidViewer");
 	//_PopulationPyramid_viewer = new PopulationPyramidViewerWidget();
+	getVisibleAction().setConnectionPermissionsFlag(ConnectionPermissionFlag::All);
+	getVisibleAction().publish("Pop Pyramid::PluginVisibility");
 }
 
 PopulationPyramidViewerPlugin::~PopulationPyramidViewerPlugin()
@@ -80,7 +82,7 @@ void PopulationPyramidViewerPlugin::init()
 	layout->addWidget(&_PopulationPyramid_viewer, 1);
 	getWidget().setLayout(layout);
 
-
+	_PopulationPyramidOptionsAction.initLoader();
 }
 
 void PopulationPyramidViewerPlugin::onDataEvent(hdps::DataEvent* dataEvent)
