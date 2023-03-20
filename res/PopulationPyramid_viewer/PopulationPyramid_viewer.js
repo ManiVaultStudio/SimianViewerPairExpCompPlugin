@@ -692,3 +692,6 @@ function doALoadOfStuff() {
 
 
 
+document.addEventListener("DOMContentLoaded", function (event) {
+    if (flag) { PopulationPyramidVis(); }
+});
