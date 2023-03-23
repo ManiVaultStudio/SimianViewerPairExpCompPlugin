@@ -231,7 +231,7 @@ hdps::gui::PluginTriggerActions PopulationPyramidViewerPluginFactory::getPluginT
 	PluginTriggerActions pluginTriggerActions;
 
 	const auto getInstance = [this]() -> PopulationPyramidViewerPlugin* {
-		return dynamic_cast<PopulationPyramidViewerPlugin*>(plugins().requestViewPlugin(getKind()));
+		return dynamic_cast<PopulationPyramidViewerPlugin*>(plugins().requestPlugin(getKind()));
 	};
 
 	const auto numberOfDatasets = datasets.count();

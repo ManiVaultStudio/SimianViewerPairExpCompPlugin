@@ -116,7 +116,7 @@ public: // Action getters
 	bool& getSelectedCrossspeciesclusterFlag() { return _selectedCrossspeciesclusterFlag; }
 	ColorAction& getSelectionColorAction() { return _selectionColorAction; }
 public:
-		void initLoader();
+	void initLoader();
 
 public: // Serialization
 

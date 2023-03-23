@@ -13,7 +13,7 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 	_core(core),
 	_deStatsDataset1Action(this, "Species1"),
 	_deStatsDataset2Action(this, "Species2"),
-	_geneNameAction(this,"Gene"),
+	_geneNameAction(this, "Gene"),
 	//_helpAction(this, "Help"),
 	//_screenshotAction(this, "Screenshot"),
 	_deStatsDataset1SelectionAction(*this),
@@ -32,7 +32,7 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 	_species1Name.setSerializationName("Species1Name");
 	_species2Name.setSerializationName("Species2Name");
 	_selectedCrossspeciescluster.setSerializationName("Selected CrossSpecies Cluster");
-	
+
 	_eventListener.addSupportedEventType(static_cast<std::uint32_t>(EventType::DataAdded));
 	_eventListener.addSupportedEventType(static_cast<std::uint32_t>(EventType::DataRemoved));
 	_eventListener.addSupportedEventType(static_cast<std::uint32_t>(EventType::DataChildAdded));
@@ -42,7 +42,7 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 	_eventListener.registerDataEventByType(PointType, std::bind(&PopulationPyramidOptionsAction::onDataEvent, this, std::placeholders::_1));
 	//_barSettingsAction.setEnabled(false);
 	//_deStatsDataset2SelectionAction.setEnabled(false);
-	_geneNameAction.initialize("A1BG","");
+	_geneNameAction.initialize("A1BG", "");
 	_species1Name.initialize("Species1");
 	_species2Name.initialize("Species2");
 	_selectedCrossspeciesclusterFlag = true;
@@ -61,25 +61,25 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 	//_screenshotAction.setIcon(Application::getIconFont("FontAwesome").getIcon("camera"));
 
 
-	//_deStatsDataset1Action.setConnectionPermissionsFlag(ConnectionPermissionFlag::All);
-	//_deStatsDataset1Action.publish("Pop Pyramid:: DE Dataset1");
-	//_deStatsDataset2Action.setConnectionPermissionsFlag(ConnectionPermissionFlag::All);
-	//_deStatsDataset2Action.publish("Pop Pyramid:: DE Dataset2");
-	//_selectedCrossspeciescluster.setConnectionPermissionsFlag(ConnectionPermissionFlag::All);
-	//_selectedCrossspeciescluster.publish("Pop Pyramid:: Selected CrossSpecies Cluster");
+	_deStatsDataset1Action.setConnectionPermissionsFlag(ConnectionPermissionFlag::All);
+	_deStatsDataset1Action.publish("Pop Pyramid:: DE Dataset1");
+	_deStatsDataset2Action.setConnectionPermissionsFlag(ConnectionPermissionFlag::All);
+	_deStatsDataset2Action.publish("Pop Pyramid:: DE Dataset2");
+	_selectedCrossspeciescluster.setConnectionPermissionsFlag(ConnectionPermissionFlag::All);
+	_selectedCrossspeciescluster.publish("Pop Pyramid:: Selected CrossSpecies Cluster");
 
-	//_species1Name.setConnectionPermissionsFlag(ConnectionPermissionFlag::All);
-	//_species1Name.connectToPublicActionByName("Cluster Differential Expression 1::DatasetName1");
-	//_species2Name.setConnectionPermissionsFlag(ConnectionPermissionFlag::All);
-	//_species2Name.connectToPublicActionByName("Cluster Differential Expression 1::DatasetName2");
-	//_geneNameAction.setConnectionPermissionsFlag(ConnectionPermissionFlag::All);
-	//_geneNameAction.connectToPublicActionByName("Cluster Differential Expression 1::LastSelectedId");
+	_species1Name.setConnectionPermissionsFlag(ConnectionPermissionFlag::All);
+	_species1Name.connectToPublicActionByName("Cluster Differential Expression 1::DatasetName1");
+	_species2Name.setConnectionPermissionsFlag(ConnectionPermissionFlag::All);
+	_species2Name.connectToPublicActionByName("Cluster Differential Expression 1::DatasetName2");
+	_geneNameAction.setConnectionPermissionsFlag(ConnectionPermissionFlag::All);
+	_geneNameAction.connectToPublicActionByName("Cluster Differential Expression 1::LastSelectedId");
 
 	_selectionColorAction.setConnectionPermissionsFlag(ConnectionPermissionFlag::ConnectViaApi);
 	_selectionColorAction.connectToPublicActionByName("GlobalSelectionColor");
 	const auto updatedeStatsDataset1 = [this]() -> void
 	{
-		
+
 		if (_deStatsDataset1Action.getCurrentDataset().isValid() && _deStatsDataset2Action.getCurrentDataset().isValid())
 		{
 			updateData();
@@ -114,8 +114,8 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 		{
 			updateData();
 		}
-		
-		
+
+
 		//if (_deStatsDataset2Action.getCurrentDataset().isValid())
 		//{
 			//_barSettingsAction.setEnabled(true);
@@ -124,20 +124,20 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 			//{
 				//_barSettingsAction.setEnabled(true);
 				//_screenshotAction.setEnabled(true);
-				updateData();
-			//}
-			//else
-			//{
-				//_deStatsDataset2SelectionAction.setEnabled(false);
-				//_screenshotAction.setEnabled(false);
-				//_barSettingsAction.setEnabled(false);
-			//}
+		updateData();
 		//}
 		//else
 		//{
+			//_deStatsDataset2SelectionAction.setEnabled(false);
+			//_screenshotAction.setEnabled(false);
 			//_barSettingsAction.setEnabled(false);
-		//	//_screenshotAction.setEnabled(false);
 		//}
+	//}
+	//else
+	//{
+		//_barSettingsAction.setEnabled(false);
+	//	//_screenshotAction.setEnabled(false);
+	//}
 	};
 	//const auto updateCrossSpeciesHeatMapCell = [this]() -> void
 	//{
@@ -161,100 +161,100 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 	//		updateCrossSpeciesHeatMapCell();
 	//	});
 
-		const auto updateGeneName = [this]() -> void
+	const auto updateGeneName = [this]() -> void
 	{
-			if (_deStatsDataset1Action.getCurrentDataset().isValid() && _deStatsDataset2Action.getCurrentDataset().isValid())
-			{
-				updateData();
-			}
-			
-			
+		if (_deStatsDataset1Action.getCurrentDataset().isValid() && _deStatsDataset2Action.getCurrentDataset().isValid())
+		{
+			updateData();
+		}
+
+
 	};
 
-		const auto updateSpecies1Name = [this]() -> void
+	const auto updateSpecies1Name = [this]() -> void
+	{
+		if (_deStatsDataset1Action.getCurrentDataset().isValid() && _deStatsDataset2Action.getCurrentDataset().isValid())
 		{
-			if (_deStatsDataset1Action.getCurrentDataset().isValid() && _deStatsDataset2Action.getCurrentDataset().isValid())
-			{
-				updateData();
-			}
-		};
-		const auto updateSpecies2Name = [this]() -> void
+			updateData();
+		}
+	};
+	const auto updateSpecies2Name = [this]() -> void
+	{
+		if (_deStatsDataset1Action.getCurrentDataset().isValid() && _deStatsDataset2Action.getCurrentDataset().isValid())
 		{
-			if (_deStatsDataset1Action.getCurrentDataset().isValid() && _deStatsDataset2Action.getCurrentDataset().isValid())
-			{
-				updateData();
-			}
-		};
+			updateData();
+		}
+	};
 
-		const auto updateSelectedCrossspeciescluster = [this]() -> void
+	const auto updateSelectedCrossspeciescluster = [this]() -> void
+	{
+		if (_selectedCrossspeciesclusterFlag)
 		{
-			if (_selectedCrossspeciesclusterFlag)
-			{
-				_PopulationPyramidViewerPlugin.getBarChartWidget().setSelectedCrossspeciescluster(_selectedCrossspeciescluster.getString());
-			}
-			_selectedCrossspeciesclusterFlag = true;
+			_PopulationPyramidViewerPlugin.getBarChartWidget().setSelectedCrossspeciescluster(_selectedCrossspeciescluster.getString());
+		}
+		_selectedCrossspeciesclusterFlag = true;
 
-		};
+	};
 
-		const auto updateSelectionColor = [this]() -> void
+	const auto updateSelectionColor = [this]() -> void
+	{
+		if (_selectionColorAction.getColor().isValid())
 		{
-			if (_selectionColorAction.getColor().isValid())
-			{
-				QColor color = _selectionColorAction.getColor();
-				QString hexValueColor = "#" + QString::number(color.red(), 16).rightJustified(2, '0')
-					+ QString::number(color.green(), 16).rightJustified(2, '0')
-					+ QString::number(color.blue(), 16).rightJustified(2, '0');
+			QColor color = _selectionColorAction.getColor();
+			QString hexValueColor = "#" + QString::number(color.red(), 16).rightJustified(2, '0')
+				+ QString::number(color.green(), 16).rightJustified(2, '0')
+				+ QString::number(color.blue(), 16).rightJustified(2, '0');
 
 
-				_PopulationPyramidViewerPlugin.getBarChartWidget().updateSelectionColor(hexValueColor);
+			_PopulationPyramidViewerPlugin.getBarChartWidget().updateSelectionColor(hexValueColor);
 
 
-			}
+		}
 
-		};
+	};
 
-		connect(&_selectionColorAction, &ColorAction::colorChanged, this, updateSelectionColor);
-		//const auto generateScreenshot = [this]() -> void {
+	connect(&_selectionColorAction, &ColorAction::colorChanged, this, updateSelectionColor);
+	//const auto generateScreenshot = [this]() -> void {
 
 
-		//	QFileDialog saveFileDialog;
+	//	QFileDialog saveFileDialog;
 
-		//	saveFileDialog.setAcceptMode(QFileDialog::AcceptSave);
-		//	saveFileDialog.setDirectory(QDir::home().absolutePath());
+	//	saveFileDialog.setAcceptMode(QFileDialog::AcceptSave);
+	//	saveFileDialog.setDirectory(QDir::home().absolutePath());
 
-		//	saveFileDialog.selectFile("BarchartViewerScreenshot.pdf");
-		//	saveFileDialog.setNameFilter(tr("PDF Files (*.pdf)"));
+	//	saveFileDialog.selectFile("BarchartViewerScreenshot.pdf");
+	//	saveFileDialog.setNameFilter(tr("PDF Files (*.pdf)"));
 
-		//	QString fileName;
-		//	if (saveFileDialog.exec())
-		//	{
-		//		fileName = saveFileDialog.selectedFiles().first();
+	//	QString fileName;
+	//	if (saveFileDialog.exec())
+	//	{
+	//		fileName = saveFileDialog.selectedFiles().first();
 
 
 
-		//		QPageLayout pl;
-		//		QPageSize ps;
-		//		//qDebug() << "height" << _simianViewerPlugin.getSimianViewerWidget()->height();
+	//		QPageLayout pl;
+	//		QPageSize ps;
+	//		//qDebug() << "height" << _simianViewerPlugin.getSimianViewerWidget()->height();
 
-		//		int width = _PopulationPyramidViewerPlugin.getBarChartWidget().width();
-		//		int height = _PopulationPyramidViewerPlugin.getBarChartWidget().height();
-		//		int reducedWidth = static_cast<double>(width) / 100 * 75;
-		//		int reducedHeight = static_cast<double>(height) / 100 * 78;
-		//		//qDebug() << "width" << width;
-		//		//qDebug() << "reduced width" << reducedWidth;
-		//		//qDebug() << "height" << height;
-		//		//qDebug() << "reduced height" << reducedHeight;
-		//		ps = QPageSize(QSizeF(reducedWidth, reducedHeight), QPageSize::Point, QString(), QPageSize::ExactMatch);
-		//		pl.setPageSize(ps);
-		//		pl.setOrientation(QPageLayout::Portrait);
+	//		int width = _PopulationPyramidViewerPlugin.getBarChartWidget().width();
+	//		int height = _PopulationPyramidViewerPlugin.getBarChartWidget().height();
+	//		int reducedWidth = static_cast<double>(width) / 100 * 75;
+	//		int reducedHeight = static_cast<double>(height) / 100 * 78;
+	//		//qDebug() << "width" << width;
+	//		//qDebug() << "reduced width" << reducedWidth;
+	//		//qDebug() << "height" << height;
+	//		//qDebug() << "reduced height" << reducedHeight;
+	//		ps = QPageSize(QSizeF(reducedWidth, reducedHeight), QPageSize::Point, QString(), QPageSize::ExactMatch);
+	//		pl.setPageSize(ps);
+	//		pl.setOrientation(QPageLayout::Portrait);
 
 
-		//		_PopulationPyramidViewerPlugin.getBarChartWidget().getPage()->printToPdf(fileName, pl);
+	//		_PopulationPyramidViewerPlugin.getBarChartWidget().getPage()->printToPdf(fileName, pl);
 
-		//	}
-		//	//..getSimianViewerWidget()->getPage()->printToPdf(fileName, pl);
+	//	}
+	//	//..getSimianViewerWidget()->getPage()->printToPdf(fileName, pl);
 
-		//};
+	//};
 
 	connect(&_geneNameAction, &StringAction::stringChanged, this, updateGeneName);
 	connect(&_species1Name, &StringAction::stringChanged, this, updateSpecies1Name);
@@ -277,146 +277,146 @@ PopulationPyramidOptionsAction::Widget::Widget(QWidget* parent, PopulationPyrami
 
 void PopulationPyramidOptionsAction::updateData()
 {
-		
-		auto deStatsDataset1 = _core->requestDataset<Points>(_deStatsDataset1Action.getCurrentDataset().getDatasetGuid());
-		auto clusterDataset1 = _core->requestDataset<Clusters>(deStatsDataset1->getParent().getDatasetGuid());
-		auto geneNames1=deStatsDataset1->getDimensionNames();
-		std::vector<float> geneColumn1;
-		auto it1 = std::find(geneNames1.begin(), geneNames1.end(), _geneNameAction.getString());
-		if (it1 == geneNames1.end())
-		{
-			deStatsDataset1->extractDataForDimension(geneColumn1, 0);//name not in vector
-			std::fill(geneColumn1.begin(), geneColumn1.end(), 0.0);
+
+	auto deStatsDataset1 = _core->requestDataset<Points>(_deStatsDataset1Action.getCurrentDataset().getDatasetGuid());
+	auto clusterDataset1 = _core->requestDataset<Clusters>(deStatsDataset1->getParent().getDatasetGuid());
+	auto geneNames1 = deStatsDataset1->getDimensionNames();
+	std::vector<float> geneColumn1;
+	auto it1 = std::find(geneNames1.begin(), geneNames1.end(), _geneNameAction.getString());
+	if (it1 == geneNames1.end())
+	{
+		deStatsDataset1->extractDataForDimension(geneColumn1, 0);//name not in vector
+		std::fill(geneColumn1.begin(), geneColumn1.end(), 0.0);
+	}
+	else
+	{
+		auto index = std::distance(geneNames1.begin(), it1);
+		deStatsDataset1->extractDataForDimension(geneColumn1, index);
+	}
+
+
+
+	auto clusterList1 = clusterDataset1->getClusters();
+
+	auto deStatsDataset2 = _core->requestDataset<Points>(_deStatsDataset2Action.getCurrentDataset().getDatasetGuid());
+	auto clusterDataset2 = _core->requestDataset<Clusters>(deStatsDataset2->getParent().getDatasetGuid());
+	auto geneNames2 = deStatsDataset2->getDimensionNames();
+	std::vector<float> geneColumn2;
+	auto it2 = std::find(geneNames2.begin(), geneNames2.end(), _geneNameAction.getString());
+	if (it2 == geneNames2.end())
+	{
+		deStatsDataset2->extractDataForDimension(geneColumn2, 0);
+		std::fill(geneColumn2.begin(), geneColumn2.end(), 0.0);
+	}
+	else
+	{
+		auto index = std::distance(geneNames2.begin(), it2);
+		deStatsDataset2->extractDataForDimension(geneColumn2, index);
+	}
+
+	auto clusterList2 = clusterDataset2->getClusters();
+
+	_deStatsDataStorage.clear();
+	for (int i = 0; i < clusterList1.size(); i++)
+	{
+		speciesStorage tempStore;
+		tempStore.clusterName = clusterList1.at(i).getName().toStdString();
+		tempStore.species1deStatsCount = std::to_string(geneColumn1.at(i));
+		tempStore.species2deStatsCount = std::to_string(0);
+		tempStore.deStatsColor = clusterList1.at(i).getColor().name().toStdString();
+		_deStatsDataStorage.insert(std::pair<std::string, speciesStorage>(clusterList1.at(i).getName().toStdString(), tempStore));
+	}
+	for (int i = 0; i < clusterList2.size(); i++)
+	{
+		auto deStatsName = clusterList2.at(i).getName().toStdString();
+
+
+		std::map<std::string, speciesStorage>::iterator it = _deStatsDataStorage.find(deStatsName);
+		if (it != _deStatsDataStorage.end()) {
+			it->second.species2deStatsCount = std::to_string(geneColumn2.at(i));
 		}
 		else
-		{
-			auto index = std::distance(geneNames1.begin(), it1);
-			deStatsDataset1->extractDataForDimension(geneColumn1, index);
-		}
-
-		
-
-		auto clusterList1 = clusterDataset1->getClusters();
-
-		auto deStatsDataset2 = _core->requestDataset<Points>(_deStatsDataset2Action.getCurrentDataset().getDatasetGuid());
-		auto clusterDataset2 = _core->requestDataset<Clusters>(deStatsDataset2->getParent().getDatasetGuid());
-		auto geneNames2 = deStatsDataset2->getDimensionNames();
-		std::vector<float> geneColumn2;
-		auto it2 = std::find(geneNames2.begin(), geneNames2.end(), _geneNameAction.getString());
-		if (it2 == geneNames2.end())
-		{
-			deStatsDataset2->extractDataForDimension(geneColumn2, 0);
-			std::fill(geneColumn2.begin(), geneColumn2.end(), 0.0);
-		}
-		else
-		{
-			auto index = std::distance(geneNames2.begin(), it2);
-			deStatsDataset2->extractDataForDimension(geneColumn2, index);
-		}
-
-		auto clusterList2 = clusterDataset2->getClusters();
-	
-		_deStatsDataStorage.clear();
-		for (int i = 0; i < clusterList1.size(); i++)
 		{
 			speciesStorage tempStore;
-			tempStore.clusterName = clusterList1.at(i).getName().toStdString();
-			tempStore.species1deStatsCount = std::to_string(geneColumn1.at(i));
-			tempStore.species2deStatsCount = std::to_string(0);
-			tempStore.deStatsColor = clusterList1.at(i).getColor().name().toStdString();
-			_deStatsDataStorage.insert(std::pair<std::string, speciesStorage>(clusterList1.at(i).getName().toStdString(), tempStore));
-		}
-		for (int i = 0; i < clusterList2.size(); i++)
-		{
-			auto deStatsName = clusterList2.at(i).getName().toStdString();
-
-
-			std::map<std::string, speciesStorage>::iterator it = _deStatsDataStorage.find(deStatsName);
-			if (it != _deStatsDataStorage.end()) {
-				it->second.species2deStatsCount = std::to_string(geneColumn2.at(i));
-			}
-			else
-			{
-				speciesStorage tempStore;
-				tempStore.clusterName = clusterList2.at(i).getName().toStdString();
-				tempStore.species2deStatsCount = std::to_string(geneColumn2.at(i));
-				tempStore.species1deStatsCount = std::to_string(0);
-				tempStore.deStatsColor = clusterList2.at(i).getColor().name().toStdString();
-				_deStatsDataStorage.insert(std::pair<std::string, speciesStorage>(clusterList2.at(i).getName().toStdString(), tempStore));
-			}
-
+			tempStore.clusterName = clusterList2.at(i).getName().toStdString();
+			tempStore.species2deStatsCount = std::to_string(geneColumn2.at(i));
+			tempStore.species1deStatsCount = std::to_string(0);
+			tempStore.deStatsColor = clusterList2.at(i).getColor().name().toStdString();
+			_deStatsDataStorage.insert(std::pair<std::string, speciesStorage>(clusterList2.at(i).getName().toStdString(), tempStore));
 		}
 
-			std::string jsonData = "[";
+	}
 
-			for (auto ittr = _deStatsDataStorage.rbegin(); ittr != _deStatsDataStorage.rend(); ++ittr)
-			{
-				//qDebug() << "\n++++++++++++++++++++++++++++++++++++++++++++++++++\n";
-				//qDebug() << "clusterName: "<< QString::fromStdString(ittr->second.clusterName);
-				//qDebug() << "species1deStatsCount: " << QString::fromStdString(ittr->second.species1deStatsCount);
-				//qDebug() << "species2deStatsCount: " << QString::fromStdString(ittr->second.species2deStatsCount);
-				//qDebug() << "deStatsColor: " << QString::fromStdString(ittr->second.deStatsColor);
-				//qDebug() << "\n++++++++++++++++++++++++++++++++++++++++++++++++++\n";
+	std::string jsonData = "[";
 
-				jsonData += "{";
+	for (auto ittr = _deStatsDataStorage.rbegin(); ittr != _deStatsDataStorage.rend(); ++ittr)
+	{
+		//qDebug() << "\n++++++++++++++++++++++++++++++++++++++++++++++++++\n";
+		//qDebug() << "clusterName: "<< QString::fromStdString(ittr->second.clusterName);
+		//qDebug() << "species1deStatsCount: " << QString::fromStdString(ittr->second.species1deStatsCount);
+		//qDebug() << "species2deStatsCount: " << QString::fromStdString(ittr->second.species2deStatsCount);
+		//qDebug() << "deStatsColor: " << QString::fromStdString(ittr->second.deStatsColor);
+		//qDebug() << "\n++++++++++++++++++++++++++++++++++++++++++++++++++\n";
 
-				jsonData += '"';
-				jsonData += "clusterName";
-				jsonData += '"';
-				jsonData += ":";
-				jsonData += '"';
-				jsonData += ittr->second.clusterName;
-				jsonData += '"';
-				jsonData += ",";
-				jsonData += '"';
-				jsonData += "species1ClusterCount";
-				jsonData += '"';
-				jsonData += ":";
-				jsonData += ittr->second.species1deStatsCount;
-				jsonData += ",";
-				jsonData += '"';
-				jsonData += "species2ClusterCount";
-				jsonData += '"';
-				jsonData += ":";
-				jsonData += ittr->second.species2deStatsCount;
-				jsonData += ",";
-				jsonData += '"';
-				jsonData += "clusterColor";
-				jsonData += '"';
-				jsonData += ":";
-				jsonData += '"';
-				jsonData += ittr->second.deStatsColor;
-				jsonData += '"';
-				jsonData += ",";
-				jsonData += '"';
-				jsonData += "species1Name";
-				jsonData += '"';
-				jsonData += ":";
-				jsonData += '"';
-				jsonData += _species1Name.getString().toStdString();
-				jsonData += '"';
-				jsonData += ",";
-				jsonData += '"';
-				jsonData += "species2Name";
-				jsonData += '"';
-				jsonData += ":";
-				jsonData += '"';
-				jsonData += _species2Name.getString().toStdString();
-				jsonData += '"';
-				jsonData += ",";
-				jsonData += '"';
-				jsonData += "geneName";
-				jsonData += '"';
-				jsonData += ":";
-				jsonData += '"';
-				jsonData += _geneNameAction.getString().toStdString();
-				jsonData += '"';
-				jsonData += "}";
-				jsonData += ",";
-		}
+		jsonData += "{";
 
-		jsonData.pop_back();
-		jsonData += "]";
+		jsonData += '"';
+		jsonData += "clusterName";
+		jsonData += '"';
+		jsonData += ":";
+		jsonData += '"';
+		jsonData += ittr->second.clusterName;
+		jsonData += '"';
+		jsonData += ",";
+		jsonData += '"';
+		jsonData += "species1ClusterCount";
+		jsonData += '"';
+		jsonData += ":";
+		jsonData += ittr->second.species1deStatsCount;
+		jsonData += ",";
+		jsonData += '"';
+		jsonData += "species2ClusterCount";
+		jsonData += '"';
+		jsonData += ":";
+		jsonData += ittr->second.species2deStatsCount;
+		jsonData += ",";
+		jsonData += '"';
+		jsonData += "clusterColor";
+		jsonData += '"';
+		jsonData += ":";
+		jsonData += '"';
+		jsonData += ittr->second.deStatsColor;
+		jsonData += '"';
+		jsonData += ",";
+		jsonData += '"';
+		jsonData += "species1Name";
+		jsonData += '"';
+		jsonData += ":";
+		jsonData += '"';
+		jsonData += _species1Name.getString().toStdString();
+		jsonData += '"';
+		jsonData += ",";
+		jsonData += '"';
+		jsonData += "species2Name";
+		jsonData += '"';
+		jsonData += ":";
+		jsonData += '"';
+		jsonData += _species2Name.getString().toStdString();
+		jsonData += '"';
+		jsonData += ",";
+		jsonData += '"';
+		jsonData += "geneName";
+		jsonData += '"';
+		jsonData += ":";
+		jsonData += '"';
+		jsonData += _geneNameAction.getString().toStdString();
+		jsonData += '"';
+		jsonData += "}";
+		jsonData += ",";
+	}
+
+	jsonData.pop_back();
+	jsonData += "]";
 
 
 	_PopulationPyramidViewerPlugin.getBarChartWidget().setData(jsonData);
@@ -466,7 +466,7 @@ PopulationPyramidOptionsAction::deStatsDataset1SelectionAction::Widget::Widget(Q
 	selectionExampledeStatsOptionLayout->setContentsMargins(0, 0, 0, 0);
 
 	selectionExampledeStatsOptionLayout->addRow(PopulationPyramidOptionsAction._deStatsDataset1Action.createLabelWidget(this), selectiondeStats1Widget);
-	
+
 	selectionExampledeStatsOptionLayout->addRow(PopulationPyramidOptionsAction._deStatsDataset2Action.createLabelWidget(this), selectiondeStats2Widget);
 
 	selectionExampledeStatsOptionLayout->addRow(PopulationPyramidOptionsAction._species1Name.createLabelWidget(this), PopulationPyramidOptionsAction._species1Name.createWidget(this));

@@ -63,11 +63,11 @@ private:
 	void publishSelectionSpecies1(std::string selectedIDs);
 	void publishSelectionSpecies2(std::string selectedIDs);
 	void clusterSelection(std::string selectedIDs);
-	
+
 	PopulationPyramidViewerWidget _PopulationPyramid_viewer;
 	PopulationPyramidOptionsAction _PopulationPyramidOptionsAction;
 	/** PopulationPyramidViewer widget displaying cluster data */
-	
+
 	hdps::EventListener     _eventListener;
 };
 
@@ -103,11 +103,11 @@ public:
 	 * @return Vector of plugin trigger actions
 	 */
 	PluginTriggerActions getPluginTriggerActions(const hdps::Datasets& datasets) const override;
-//public: // Help
-//
-///**
-// * Get whether the plugin has help information or not
-// * @return Boolean determining whether the plugin has help information or not
-// */
-//	bool hasHelp() override;
+	//public: // Help
+	//
+	///**
+	// * Get whether the plugin has help information or not
+	// * @return Boolean determining whether the plugin has help information or not
+	// */
+	//	bool hasHelp() override;
 };

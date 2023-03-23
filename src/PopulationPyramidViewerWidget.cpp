@@ -13,7 +13,7 @@ PopulationPyramidViewerCommunicationObject::PopulationPyramidViewerCommunication
 	:
 	_parent(parent)
 {
-	
+
 }
 
 
@@ -109,6 +109,5 @@ void PopulationPyramidViewerWidget::addDataOption(const QString option)
 	else
 		dataOptionBuffer.append(option);
 }
-
 
 
