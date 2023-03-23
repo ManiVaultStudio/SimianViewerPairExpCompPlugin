@@ -19,7 +19,8 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 	_deStatsDataset1SelectionAction(*this),
 	_selectedCrossspeciescluster(this, "Selected CrossSpecies Cluster"),
 	_species1Name(this, "Species1Name"),
-	_species2Name(this, "Species2Name")
+	_species2Name(this, "Species2Name"),
+	_selectionColorAction(this, "Selection color")
 	//,
 	//_crossSpecies1HeatMapCellAction(this, "Link cross-species1 heatmap cell"),
 	//_crossSpecies2HeatMapCellAction(this, "Link cross-species2 heatmap cell")
@@ -74,6 +75,8 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 	//_geneNameAction.setConnectionPermissionsFlag(ConnectionPermissionFlag::All);
 	//_geneNameAction.connectToPublicActionByName("Cluster Differential Expression 1::LastSelectedId");
 
+	_selectionColorAction.setConnectionPermissionsFlag(ConnectionPermissionFlag::ConnectViaApi);
+	_selectionColorAction.connectToPublicActionByName("GlobalSelectionColor");
 	const auto updatedeStatsDataset1 = [this]() -> void
 	{
 		
@@ -111,7 +114,6 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 		{
 			updateData();
 		}
-		
 		
 		
 		//if (_deStatsDataset2Action.getCurrentDataset().isValid())
@@ -194,7 +196,24 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 
 		};
 
+		const auto updateSelectionColor = [this]() -> void
+		{
+			if (_selectionColorAction.getColor().isValid())
+			{
+				QColor color = _selectionColorAction.getColor();
+				QString hexValueColor = "#" + QString::number(color.red(), 16).rightJustified(2, '0')
+					+ QString::number(color.green(), 16).rightJustified(2, '0')
+					+ QString::number(color.blue(), 16).rightJustified(2, '0');
 
+
+				_PopulationPyramidViewerPlugin.getBarChartWidget().updateSelectionColor(hexValueColor);
+
+
+			}
+
+		};
+
+		connect(&_selectionColorAction, &ColorAction::colorChanged, this, updateSelectionColor);
 		//const auto generateScreenshot = [this]() -> void {
 
 
@@ -242,12 +261,11 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 	connect(&_species2Name, &StringAction::stringChanged, this, updateSpecies2Name);
 	connect(&_selectedCrossspeciescluster, &StringAction::stringChanged, this, updateSelectedCrossspeciescluster);
 	//connect(&_screenshotAction, &TriggerAction::triggered, this, generateScreenshot);
-	connect(&_deStatsDataset1Action, &DatasetPickerAction::currentIndexChanged, [this, updatedeStatsDataset1](const std::int32_t& currentIndex) {
-		updatedeStatsDataset1();
-		});
-	connect(&_deStatsDataset2Action, &DatasetPickerAction::currentIndexChanged, [this, updatedeStatsDataset2](const std::int32_t& currentIndex) {
-		updatedeStatsDataset2();
-		});
+
+	connect(&_deStatsDataset1Action, &DatasetPickerAction::datasetPicked, this, updatedeStatsDataset1);
+
+	connect(&_deStatsDataset2Action, &DatasetPickerAction::datasetPicked, this, updatedeStatsDataset2);
+
 	updateDatasetPickerAction();
 }
 
@@ -472,36 +490,37 @@ inline PopulationPyramidOptionsAction::deStatsDataset1SelectionAction::deStatsDa
 
 void PopulationPyramidOptionsAction::onDataEvent(hdps::DataEvent* dataEvent)
 {
-	if (dataEvent->getType() == hdps::EventType::DataAdded)
-	{
-		updateDatasetPickerAction();
-	}
-	if (dataEvent->getType() == hdps::EventType::DataRemoved)
-	{
-		updateDatasetPickerAction();
-	}
-	if (dataEvent->getType() == hdps::EventType::DataChildAdded)
-	{
-		updateDatasetPickerAction();
-	}
-	if (dataEvent->getType() == hdps::EventType::DataChildRemoved)
-	{
-		updateDatasetPickerAction();
-	}
-	if (dataEvent->getType() == hdps::EventType::DataChanged)
-	{
-		updateDatasetPickerAction();
-	}
-	if (dataEvent->getType() == hdps::EventType::DataGuiNameChanged)
-	{
-		updateDatasetPickerAction();
-	}
+	//if (dataEvent->getType() == hdps::EventType::DataAdded)
+	//{
+	//	updateDatasetPickerAction();
+	//}
+	//if (dataEvent->getType() == hdps::EventType::DataRemoved)
+	//{
+	//	updateDatasetPickerAction();
+	//}
+	//if (dataEvent->getType() == hdps::EventType::DataChildAdded)
+	//{
+	//	updateDatasetPickerAction();
+	//}
+	//if (dataEvent->getType() == hdps::EventType::DataChildRemoved)
+	//{
+	//	updateDatasetPickerAction();
+	//}
+	//if (dataEvent->getType() == hdps::EventType::DataChanged)
+	//{
+	//	updateDatasetPickerAction();
+	//}
+	//if (dataEvent->getType() == hdps::EventType::DataGuiNameChanged)
+	//{
+	//	updateDatasetPickerAction();
+	//}
 }
 
 void PopulationPyramidOptionsAction::initLoader()
 {
 	if (_deStatsDataset1Action.getCurrentDataset().isValid() && _deStatsDataset2Action.getCurrentDataset().isValid())
 	{
+		/*qDebug() << "It is here";*/
 		updateData();
 	}
 }
@@ -517,7 +536,7 @@ void PopulationPyramidOptionsAction::fromVariantMap(const QVariantMap& variantMa
 	_species2Name.fromParentVariantMap(variantMap);
 	_selectedCrossspeciescluster.fromParentVariantMap(variantMap);
 
-
+	initLoader();
 }
 
 QVariantMap PopulationPyramidOptionsAction::toVariantMap() const

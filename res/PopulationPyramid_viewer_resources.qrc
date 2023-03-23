@@ -31,5 +31,7 @@
         <file>jstools/colormaps.js</file>
         <file>jstools/ui.js</file>
         <file>jstools/ui.css</file>
+		<file>jstools/d3-legend.js</file>
+		<file>jstools/d3-legend.min.js</file>
     </qresource>
 </RCC>

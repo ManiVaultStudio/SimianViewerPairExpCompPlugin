@@ -31,6 +31,8 @@ PopulationPyramidViewerPlugin::PopulationPyramidViewerPlugin(const PluginFactory
 {
 	setSerializationName("PopulationPyramidViewer");
 	//_PopulationPyramid_viewer = new PopulationPyramidViewerWidget();
+	getVisibleAction().setConnectionPermissionsFlag(ConnectionPermissionFlag::All);
+	getVisibleAction().publish("Pop Pyramid::PluginVisibility");
 }
 
 PopulationPyramidViewerPlugin::~PopulationPyramidViewerPlugin()
@@ -60,7 +62,7 @@ void PopulationPyramidViewerPlugin::init()
 
 	auto ClusterDataset1SelectionWidget = _PopulationPyramidOptionsAction.getdeStatsDataset1SelectionAction().createCollapsedWidget(&getWidget());
 	//ClusterDataset1SelectionWidget->setMaximumWidth(280);
-	topToolbarLayout->addWidget(ClusterDataset1SelectionWidget);
+	//topToolbarLayout->addWidget(ClusterDataset1SelectionWidget);
 
 
 	//auto ClusterDataset2SelectionWidget = _PopulationPyramidOptionsAction.getdeStatsDataset2SelectionAction().createCollapsedWidget(&getWidget());
@@ -80,7 +82,7 @@ void PopulationPyramidViewerPlugin::init()
 	layout->addWidget(&_PopulationPyramid_viewer, 1);
 	getWidget().setLayout(layout);
 
-
+	_PopulationPyramidOptionsAction.initLoader();
 }
 
 void PopulationPyramidViewerPlugin::onDataEvent(hdps::DataEvent* dataEvent)
