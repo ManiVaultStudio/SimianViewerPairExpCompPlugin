@@ -1,6 +1,6 @@
 #include "PopulationPyramidViewerWidget.h"
-#include "PointData.h"
-#include "ClusterData.h"
+#include "PointData/PointData.h"
+#include "ClusterData/ClusterData.h"
 #include "util/FileUtil.h"
 #include <fstream>
 #include <string>
