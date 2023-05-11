@@ -1,6 +1,6 @@
 #include "PopulationPyramidViewerWidget.h"
-#include "PointData.h"
-#include "ClusterData.h"
+#include "PointData/PointData.h"
+#include "ClusterData/ClusterData.h"
 #include "util/FileUtil.h"
 #include <fstream>
 #include <string>
@@ -13,7 +13,7 @@ PopulationPyramidViewerCommunicationObject::PopulationPyramidViewerCommunication
 	:
 	_parent(parent)
 {
-	
+
 }
 
 
@@ -109,6 +109,5 @@ void PopulationPyramidViewerWidget::addDataOption(const QString option)
 	else
 		dataOptionBuffer.append(option);
 }
-
 
 

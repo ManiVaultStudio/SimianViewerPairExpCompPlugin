@@ -1,7 +1,7 @@
 #pragma once
 
 //#include "SelectionListener.h"
-#include "PointData.h"
+#include "PointData/PointData.h"
 #include "widgets/WebWidget.h"
 #include <QMouseEvent>
 #include <QComboBox>

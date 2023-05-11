@@ -1,8 +1,8 @@
 #include "PopulationPyramidViewerPlugin.h"
 
-#include "PointData.h"
+#include "PointData/PointData.h"
 #include "event/Event.h"
-#include "ColorData.h"
+#include "ColorData/ColorData.h"
 
 #include <actions/PluginTriggerAction.h>
 
