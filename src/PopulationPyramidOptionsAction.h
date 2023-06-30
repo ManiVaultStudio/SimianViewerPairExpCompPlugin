@@ -79,7 +79,7 @@ public:
 
 
 public:
-	void onDataEvent(hdps::DataEvent* dataEvent);
+	void onDataEvent(hdps::DatasetEvent* dataEvent);
 protected:
 
 	class Widget : public hdps::gui::WidgetActionWidget {
@@ -92,7 +92,7 @@ protected:
 	};
 
 public:
-	PopulationPyramidOptionsAction(PopulationPyramidViewerPlugin& PopulationPyramidViewerPlugin, hdps::CoreInterface* core);
+	PopulationPyramidOptionsAction(PopulationPyramidViewerPlugin& PopulationPyramidViewerPlugins);
 
 private:
 	void updateData();
