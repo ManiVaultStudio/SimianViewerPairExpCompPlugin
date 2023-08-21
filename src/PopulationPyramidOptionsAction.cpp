@@ -271,7 +271,7 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 
 
 PopulationPyramidOptionsAction::Widget::Widget(QWidget* parent, PopulationPyramidOptionsAction* PopulationPyramidOptionsAction) :
-	WidgetActionWidget(parent, PopulationPyramidOptionsAction, State::Standard)
+	WidgetActionWidget(parent, PopulationPyramidOptionsAction)
 {
 }
 
