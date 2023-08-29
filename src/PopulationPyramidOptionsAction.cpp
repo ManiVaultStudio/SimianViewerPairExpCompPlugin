@@ -32,7 +32,36 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 	_species1Name.setSerializationName("Species1Name");
 	_species2Name.setSerializationName("Species2Name");
 	_selectedCrossspeciescluster.setSerializationName("Selected CrossSpecies Cluster");
+	_deStatsDataset1Action.setDatasetsFilterFunction([this](const hdps::Datasets& datasets) ->hdps::Datasets {
+		Datasets statsDatasets;
 
+		for (auto dataset : datasets)
+			if (dataset->getDataType() == PointType)
+			{
+				std::string str1 = dataset->getGuiName().toStdString();
+				std::string str2 = "DE_Statistics";
+				if (strstr(str1.c_str(), str2.c_str()))
+				{
+					statsDatasets << dataset;
+				}
+			}
+		return statsDatasets;
+		});
+	_deStatsDataset2Action.setDatasetsFilterFunction([this](const hdps::Datasets& datasets) ->hdps::Datasets {
+		Datasets statsDatasets;
+
+		for (auto dataset : datasets)
+			if (dataset->getDataType() == PointType)
+			{
+				std::string str1 = dataset->getGuiName().toStdString();
+				std::string str2 = "DE_Statistics";
+				if (strstr(str1.c_str(), str2.c_str()))
+				{
+					statsDatasets << dataset;
+				}
+			}
+		return statsDatasets;
+		});
 	_eventListener.addSupportedEventType(static_cast<std::uint32_t>(EventType::DatasetAdded));
 	_eventListener.addSupportedEventType(static_cast<std::uint32_t>(EventType::DatasetRemoved));
 	_eventListener.addSupportedEventType(static_cast<std::uint32_t>(EventType::DatasetChildAdded));
@@ -266,7 +295,7 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 
 	connect(&_deStatsDataset2Action, &DatasetPickerAction::datasetPicked, this, updatedeStatsDataset2);
 
-	updateDatasetPickerAction();
+	//updateDatasetPickerAction();
 }
 
 
@@ -422,33 +451,33 @@ void PopulationPyramidOptionsAction::updateData()
 	_PopulationPyramidViewerPlugin.getBarChartWidget().setData(jsonData);
 }
 
-void PopulationPyramidOptionsAction::updateDatasetPickerAction()
-{
-	auto datasets = _core->requestAllDataSets(QVector<hdps::DataType> {PointType});
-	auto filteredDEStatsDatasets = datasets;
-	for (auto dataset : datasets)
-	{
-		std::string str1 = dataset->getGuiName().toStdString();
-		std::string str2 = "DE_Statistics";
-		if (strstr(str1.c_str(), str2.c_str()))
-		{
-		}
-		else {
-			filteredDEStatsDatasets.removeOne(dataset);
-		}
-	}
-
-
-	_deStatsDataset1Action.setDatasets(filteredDEStatsDatasets);
-	_deStatsDataset1Action.setPlaceHolderString("deStats dataset1");
-	_deStatsDataset2Action.setDatasets(filteredDEStatsDatasets);
-	_deStatsDataset2Action.setPlaceHolderString("deStats dataset2");
-	if (filteredDEStatsDatasets.isEmpty())
-	{
-		//_barSettingsAction.setEnabled(false);
-	}
-
-}
+//void PopulationPyramidOptionsAction::updateDatasetPickerAction()
+//{
+//	auto datasets = _core->requestAllDataSets(QVector<hdps::DataType> {PointType});
+//	auto filteredDEStatsDatasets = datasets;
+//	for (auto dataset : datasets)
+//	{
+//		std::string str1 = dataset->getGuiName().toStdString();
+//		std::string str2 = "DE_Statistics";
+//		if (strstr(str1.c_str(), str2.c_str()))
+//		{
+//		}
+//		else {
+//			filteredDEStatsDatasets.removeOne(dataset);
+//		}
+//	}
+//
+//
+//	_deStatsDataset1Action.setDatasets(filteredDEStatsDatasets);
+//	_deStatsDataset1Action.setPlaceHolderString("deStats dataset1");
+//	_deStatsDataset2Action.setDatasets(filteredDEStatsDatasets);
+//	_deStatsDataset2Action.setPlaceHolderString("deStats dataset2");
+//	if (filteredDEStatsDatasets.isEmpty())
+//	{
+//		//_barSettingsAction.setEnabled(false);
+//	}
+//
+//}
 
 PopulationPyramidOptionsAction::deStatsDataset1SelectionAction::Widget::Widget(QWidget* parent, deStatsDataset1SelectionAction* deStatsDataset1SelectAction) :
 	WidgetActionWidget(parent, deStatsDataset1SelectAction)
