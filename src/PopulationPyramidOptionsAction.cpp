@@ -32,6 +32,7 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 	_species1Name.setSerializationName("Species1Name");
 	_species2Name.setSerializationName("Species2Name");
 	_selectedCrossspeciescluster.setSerializationName("Selected CrossSpecies Cluster");
+	_deStatsDataset1Action.setShowFullPathName(false);
 	_deStatsDataset1Action.setDatasetsFilterFunction([this](const hdps::Datasets& datasets) ->hdps::Datasets {
 		Datasets statsDatasets;
 
@@ -47,6 +48,7 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 			}
 		return statsDatasets;
 		});
+	_deStatsDataset2Action.setShowFullPathName(false);
 	_deStatsDataset2Action.setDatasetsFilterFunction([this](const hdps::Datasets& datasets) ->hdps::Datasets {
 		Datasets statsDatasets;
 
