@@ -41,7 +41,7 @@ void PopulationPyramidViewerPlugin::init()
 {
 	getVisibleAction().setConnectionPermissionsFlag(ConnectionPermissionFlag::All);
 	if (getFactory()->getNumberOfInstances() == 0) {
-		getVisibleAction().publish("Pop Pyramid::PluginVisibility");
+		getVisibleAction().publish("PopPyramid::PluginVisibility");
 	}
 	connect(&_PopulationPyramid_viewer, &PopulationPyramidViewerWidget::widgetInitialized, &_PopulationPyramidOptionsAction, &PopulationPyramidOptionsAction::initLoader);
 	_PopulationPyramid_viewer.setPage(":/PopulationPyramid_viewer/PopulationPyramid_viewer.html", "qrc:/PopulationPyramid_viewer/");
