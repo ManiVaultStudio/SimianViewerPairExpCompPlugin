@@ -31,8 +31,6 @@ PopulationPyramidViewerPlugin::PopulationPyramidViewerPlugin(const PluginFactory
 {
 	setSerializationName("PopulationPyramidViewer");
 	//_PopulationPyramid_viewer = new PopulationPyramidViewerWidget();
-	getVisibleAction().setConnectionPermissionsFlag(ConnectionPermissionFlag::All);
-	getVisibleAction().publish("Pop Pyramid::PluginVisibility");
 }
 
 PopulationPyramidViewerPlugin::~PopulationPyramidViewerPlugin()
@@ -41,6 +39,10 @@ PopulationPyramidViewerPlugin::~PopulationPyramidViewerPlugin()
 
 void PopulationPyramidViewerPlugin::init()
 {
+	getVisibleAction().setConnectionPermissionsFlag(ConnectionPermissionFlag::All);
+	if (getFactory()->getNumberOfInstances() == 0) {
+		getVisibleAction().publish("Pop Pyramid::PluginVisibility");
+	}
 	connect(&_PopulationPyramid_viewer, &PopulationPyramidViewerWidget::widgetInitialized, &_PopulationPyramidOptionsAction, &PopulationPyramidOptionsAction::initLoader);
 	_PopulationPyramid_viewer.setPage(":/PopulationPyramid_viewer/PopulationPyramid_viewer.html", "qrc:/PopulationPyramid_viewer/");
 	_PopulationPyramid_viewer.setContentsMargins(0, 0, 0, 0);

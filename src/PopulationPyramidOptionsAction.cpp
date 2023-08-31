@@ -33,6 +33,7 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 	_species2Name.setSerializationName("Species2Name");
 	_selectedCrossspeciescluster.setSerializationName("Selected CrossSpecies Cluster");
 	_deStatsDataset1Action.setShowFullPathName(false);
+
 	_deStatsDataset1Action.setDatasetsFilterFunction([this](const hdps::Datasets& datasets) ->hdps::Datasets {
 		Datasets statsDatasets;
 
