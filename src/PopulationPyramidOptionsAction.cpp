@@ -32,6 +32,7 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 	_species1Name.setSerializationName("Species1Name");
 	_species2Name.setSerializationName("Species2Name");
 	_selectedCrossspeciescluster.setSerializationName("Selected CrossSpecies Cluster");
+	_selectionColorAction.setSerializationName("SelectionColor");
 	_deStatsDataset1Action.setShowFullPathName(false);
 
 	_deStatsDataset1Action.setDatasetsFilterFunction([this](const hdps::Datasets& datasets) ->hdps::Datasets {
@@ -568,7 +569,7 @@ void PopulationPyramidOptionsAction::fromVariantMap(const QVariantMap& variantMa
 	_species1Name.fromParentVariantMap(variantMap);
 	_species2Name.fromParentVariantMap(variantMap);
 	_selectedCrossspeciescluster.fromParentVariantMap(variantMap);
-
+	_selectionColorAction.fromParentVariantMap(variantMap);
 	initLoader();
 }
 
@@ -582,6 +583,6 @@ QVariantMap PopulationPyramidOptionsAction::toVariantMap() const
 	_species1Name.insertIntoVariantMap(variantMap);
 	_species2Name.insertIntoVariantMap(variantMap);
 	_selectedCrossspeciescluster.insertIntoVariantMap(variantMap);
-
+	_selectionColorAction.insertIntoVariantMap(variantMap);
 	return variantMap;
 }
