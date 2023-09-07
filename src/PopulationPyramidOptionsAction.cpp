@@ -95,9 +95,9 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 
 
 	//_deStatsDataset1Action.setConnectionPermissionsFlag(ConnectionPermissionFlag::All);
-	//_deStatsDataset1Action.publish("Pop Pyramid:: DE Dataset1");
+
 	//_deStatsDataset2Action.setConnectionPermissionsFlag(ConnectionPermissionFlag::All);
-	//_deStatsDataset2Action.publish("Pop Pyramid:: DE Dataset2");
+
 	//_selectedCrossspeciescluster.setConnectionPermissionsFlag(ConnectionPermissionFlag::All);
 	//_selectedCrossspeciescluster.connectToPublicActionByName("GlobalSelectedCrossspeciesCluster");
 
