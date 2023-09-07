@@ -7,13 +7,13 @@
 using namespace hdps;
 using namespace hdps::gui;
 
-PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramidViewerPlugin& PopulationPyramidViewerPlugin, hdps::CoreInterface* core) :
-	WidgetAction(&PopulationPyramidViewerPlugin),
+PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramidViewerPlugin& PopulationPyramidViewerPlugin) :
+	WidgetAction(&PopulationPyramidViewerPlugin,"PopulationPyramidViewerPlugin"),
 	_PopulationPyramidViewerPlugin(PopulationPyramidViewerPlugin),
-	_core(core),
-	_deStatsDataset1Action(this, "Species1"),
-	_deStatsDataset2Action(this, "Species2"),
-	_geneNameAction(this, "Gene"),
+	_core(hdps::core()),
+	_deStatsDataset1Action(this, "DE Dataset1"),
+	_deStatsDataset2Action(this, "DE Dataset2"),
+	_geneNameAction(this, "SelectedID"),
 	//_helpAction(this, "Help"),
 	//_screenshotAction(this, "Screenshot"),
 	_deStatsDataset1SelectionAction(*this),
@@ -32,21 +32,54 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 	_species1Name.setSerializationName("Species1Name");
 	_species2Name.setSerializationName("Species2Name");
 	_selectedCrossspeciescluster.setSerializationName("Selected CrossSpecies Cluster");
+	_selectionColorAction.setSerializationName("SelectionColor");
+	_deStatsDataset1Action.setShowFullPathName(false);
 
-	_eventListener.addSupportedEventType(static_cast<std::uint32_t>(EventType::DataAdded));
-	_eventListener.addSupportedEventType(static_cast<std::uint32_t>(EventType::DataRemoved));
-	_eventListener.addSupportedEventType(static_cast<std::uint32_t>(EventType::DataChildAdded));
-	_eventListener.addSupportedEventType(static_cast<std::uint32_t>(EventType::DataChildRemoved));
-	_eventListener.addSupportedEventType(static_cast<std::uint32_t>(EventType::DataChanged));
-	_eventListener.addSupportedEventType(static_cast<std::uint32_t>(EventType::DataGuiNameChanged));
+	_deStatsDataset1Action.setDatasetsFilterFunction([this](const hdps::Datasets& datasets) ->hdps::Datasets {
+		Datasets statsDatasets;
+
+		for (auto dataset : datasets)
+			if (dataset->getDataType() == PointType)
+			{
+				std::string str1 = dataset->getGuiName().toStdString();
+				std::string str2 = "DE_Statistics";
+				if (strstr(str1.c_str(), str2.c_str()))
+				{
+					statsDatasets << dataset;
+				}
+			}
+		return statsDatasets;
+		});
+	_deStatsDataset2Action.setShowFullPathName(false);
+	_deStatsDataset2Action.setDatasetsFilterFunction([this](const hdps::Datasets& datasets) ->hdps::Datasets {
+		Datasets statsDatasets;
+
+		for (auto dataset : datasets)
+			if (dataset->getDataType() == PointType)
+			{
+				std::string str1 = dataset->getGuiName().toStdString();
+				std::string str2 = "DE_Statistics";
+				if (strstr(str1.c_str(), str2.c_str()))
+				{
+					statsDatasets << dataset;
+				}
+			}
+		return statsDatasets;
+		});
+	_eventListener.addSupportedEventType(static_cast<std::uint32_t>(EventType::DatasetAdded));
+	_eventListener.addSupportedEventType(static_cast<std::uint32_t>(EventType::DatasetRemoved));
+	_eventListener.addSupportedEventType(static_cast<std::uint32_t>(EventType::DatasetChildAdded));
+	_eventListener.addSupportedEventType(static_cast<std::uint32_t>(EventType::DatasetChildRemoved));
+	_eventListener.addSupportedEventType(static_cast<std::uint32_t>(EventType::DatasetDataChanged));
+	//_eventListener.addSupportedEventType(static_cast<std::uint32_t>(EventType::DatasetGuiNameChanged));
 	_eventListener.registerDataEventByType(PointType, std::bind(&PopulationPyramidOptionsAction::onDataEvent, this, std::placeholders::_1));
 	//_barSettingsAction.setEnabled(false);
 	//_deStatsDataset2SelectionAction.setEnabled(false);
-	_geneNameAction.initialize("A1BG", "");
-	_species1Name.initialize("Species1");
-	_species2Name.initialize("Species2");
+	_geneNameAction.setString("A1BG");
+	_species1Name.setString("Species1");
+	_species2Name.setString("Species2");
 	_selectedCrossspeciesclusterFlag = true;
-	_selectedCrossspeciescluster.initialize("");
+	_selectedCrossspeciescluster.setString("");
 	//_helpAction.setDefaultWidgetFlags(TriggerAction::Icon);
 	//_screenshotAction.setDefaultWidgetFlags(TriggerAction::Icon);
 	//connect(&_helpAction, &TriggerAction::triggered, this, [this]() -> void {
@@ -61,22 +94,22 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 	//_screenshotAction.setIcon(Application::getIconFont("FontAwesome").getIcon("camera"));
 
 
-	_deStatsDataset1Action.setConnectionPermissionsFlag(ConnectionPermissionFlag::All);
-	_deStatsDataset1Action.publish("Pop Pyramid:: DE Dataset1");
-	_deStatsDataset2Action.setConnectionPermissionsFlag(ConnectionPermissionFlag::All);
-	_deStatsDataset2Action.publish("Pop Pyramid:: DE Dataset2");
-	_selectedCrossspeciescluster.setConnectionPermissionsFlag(ConnectionPermissionFlag::All);
-	_selectedCrossspeciescluster.connectToPublicActionByName("GlobalSelectedCrossspeciesCluster");
+	//_deStatsDataset1Action.setConnectionPermissionsFlag(ConnectionPermissionFlag::All);
 
-	_species1Name.setConnectionPermissionsFlag(ConnectionPermissionFlag::All);
-	_species1Name.connectToPublicActionByName("Cluster Differential Expression 1::DatasetName1");
-	_species2Name.setConnectionPermissionsFlag(ConnectionPermissionFlag::All);
-	_species2Name.connectToPublicActionByName("Cluster Differential Expression 1::DatasetName2");
-	_geneNameAction.setConnectionPermissionsFlag(ConnectionPermissionFlag::All);
-	_geneNameAction.connectToPublicActionByName("Cluster Differential Expression 1::LastSelectedId");
+	//_deStatsDataset2Action.setConnectionPermissionsFlag(ConnectionPermissionFlag::All);
 
-	_selectionColorAction.setConnectionPermissionsFlag(ConnectionPermissionFlag::ConnectViaApi);
-	_selectionColorAction.connectToPublicActionByName("GlobalSelectionColor");
+	//_selectedCrossspeciescluster.setConnectionPermissionsFlag(ConnectionPermissionFlag::All);
+	//_selectedCrossspeciescluster.connectToPublicActionByName("GlobalSelectedCrossspeciesCluster");
+
+	//_species1Name.setConnectionPermissionsFlag(ConnectionPermissionFlag::All);
+	//_species1Name.connectToPublicActionByName("Cluster Differential Expression 1::DatasetName1");
+	//_species2Name.setConnectionPermissionsFlag(ConnectionPermissionFlag::All);
+	//_species2Name.connectToPublicActionByName("Cluster Differential Expression 1::DatasetName2");
+	//_geneNameAction.setConnectionPermissionsFlag(ConnectionPermissionFlag::All);
+	//_geneNameAction.connectToPublicActionByName("Cluster Differential Expression 1::LastSelectedId");
+
+	//_selectionColorAction.setConnectionPermissionsFlag(ConnectionPermissionFlag::ConnectViaApi);
+	//_selectionColorAction.connectToPublicActionByName("GlobalSelectionColor");
 	const auto updatedeStatsDataset1 = [this]() -> void
 	{
 
@@ -266,20 +299,20 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 
 	connect(&_deStatsDataset2Action, &DatasetPickerAction::datasetPicked, this, updatedeStatsDataset2);
 
-	updateDatasetPickerAction();
+	//updateDatasetPickerAction();
 }
 
 
 PopulationPyramidOptionsAction::Widget::Widget(QWidget* parent, PopulationPyramidOptionsAction* PopulationPyramidOptionsAction) :
-	WidgetActionWidget(parent, PopulationPyramidOptionsAction, State::Standard)
+	WidgetActionWidget(parent, PopulationPyramidOptionsAction)
 {
 }
 
 void PopulationPyramidOptionsAction::updateData()
 {
 
-	auto deStatsDataset1 = _core->requestDataset<Points>(_deStatsDataset1Action.getCurrentDataset().getDatasetGuid());
-	auto clusterDataset1 = _core->requestDataset<Clusters>(deStatsDataset1->getParent().getDatasetGuid());
+	auto deStatsDataset1 = _core->requestDataset<Points>(_deStatsDataset1Action.getCurrentDataset().getDatasetId());
+	auto clusterDataset1 = _core->requestDataset<Clusters>(deStatsDataset1->getParent().getDatasetId());
 	auto geneNames1 = deStatsDataset1->getDimensionNames();
 	std::vector<float> geneColumn1;
 	auto it1 = std::find(geneNames1.begin(), geneNames1.end(), _geneNameAction.getString());
@@ -298,8 +331,8 @@ void PopulationPyramidOptionsAction::updateData()
 
 	auto clusterList1 = clusterDataset1->getClusters();
 
-	auto deStatsDataset2 = _core->requestDataset<Points>(_deStatsDataset2Action.getCurrentDataset().getDatasetGuid());
-	auto clusterDataset2 = _core->requestDataset<Clusters>(deStatsDataset2->getParent().getDatasetGuid());
+	auto deStatsDataset2 = _core->requestDataset<Points>(_deStatsDataset2Action.getCurrentDataset().getDatasetId());
+	auto clusterDataset2 = _core->requestDataset<Clusters>(deStatsDataset2->getParent().getDatasetId());
 	auto geneNames2 = deStatsDataset2->getDimensionNames();
 	std::vector<float> geneColumn2;
 	auto it2 = std::find(geneNames2.begin(), geneNames2.end(), _geneNameAction.getString());
@@ -422,33 +455,33 @@ void PopulationPyramidOptionsAction::updateData()
 	_PopulationPyramidViewerPlugin.getBarChartWidget().setData(jsonData);
 }
 
-void PopulationPyramidOptionsAction::updateDatasetPickerAction()
-{
-	auto datasets = _core->requestAllDataSets(QVector<hdps::DataType> {PointType});
-	auto filteredDEStatsDatasets = datasets;
-	for (auto dataset : datasets)
-	{
-		std::string str1 = dataset->getGuiName().toStdString();
-		std::string str2 = "DE_Statistics";
-		if (strstr(str1.c_str(), str2.c_str()))
-		{
-		}
-		else {
-			filteredDEStatsDatasets.removeOne(dataset);
-		}
-	}
-
-
-	_deStatsDataset1Action.setDatasets(filteredDEStatsDatasets);
-	_deStatsDataset1Action.setPlaceHolderString("deStats dataset1");
-	_deStatsDataset2Action.setDatasets(filteredDEStatsDatasets);
-	_deStatsDataset2Action.setPlaceHolderString("deStats dataset2");
-	if (filteredDEStatsDatasets.isEmpty())
-	{
-		//_barSettingsAction.setEnabled(false);
-	}
-
-}
+//void PopulationPyramidOptionsAction::updateDatasetPickerAction()
+//{
+//	auto datasets = _core->requestAllDataSets(QVector<hdps::DataType> {PointType});
+//	auto filteredDEStatsDatasets = datasets;
+//	for (auto dataset : datasets)
+//	{
+//		std::string str1 = dataset->getGuiName().toStdString();
+//		std::string str2 = "DE_Statistics";
+//		if (strstr(str1.c_str(), str2.c_str()))
+//		{
+//		}
+//		else {
+//			filteredDEStatsDatasets.removeOne(dataset);
+//		}
+//	}
+//
+//
+//	_deStatsDataset1Action.setDatasets(filteredDEStatsDatasets);
+//	_deStatsDataset1Action.setPlaceHolderString("deStats dataset1");
+//	_deStatsDataset2Action.setDatasets(filteredDEStatsDatasets);
+//	_deStatsDataset2Action.setPlaceHolderString("deStats dataset2");
+//	if (filteredDEStatsDatasets.isEmpty())
+//	{
+//		//_barSettingsAction.setEnabled(false);
+//	}
+//
+//}
 
 PopulationPyramidOptionsAction::deStatsDataset1SelectionAction::Widget::Widget(QWidget* parent, deStatsDataset1SelectionAction* deStatsDataset1SelectAction) :
 	WidgetActionWidget(parent, deStatsDataset1SelectAction)
@@ -477,10 +510,11 @@ PopulationPyramidOptionsAction::deStatsDataset1SelectionAction::Widget::Widget(Q
 
 	selectionExampledeStatsOptionLayout->addRow(PopulationPyramidOptionsAction._geneNameAction.createLabelWidget(this), PopulationPyramidOptionsAction._geneNameAction.createWidget(this));
 
-	setPopupLayout(selectionExampledeStatsOptionLayout);
+	setLayout(selectionExampledeStatsOptionLayout);
 }
 
 inline PopulationPyramidOptionsAction::deStatsDataset1SelectionAction::deStatsDataset1SelectionAction(PopulationPyramidOptionsAction& PopulationPyramidOptionsAction) :
+	WidgetAction(nullptr, "deStatsDataset1SelectionAction"),
 	_PopulationPyramidOptionsAction(PopulationPyramidOptionsAction)
 {
 	setText("Options");
@@ -488,7 +522,7 @@ inline PopulationPyramidOptionsAction::deStatsDataset1SelectionAction::deStatsDa
 
 }
 
-void PopulationPyramidOptionsAction::onDataEvent(hdps::DataEvent* dataEvent)
+void PopulationPyramidOptionsAction::onDataEvent(hdps::DatasetEvent* dataEvent)
 {
 	//if (dataEvent->getType() == hdps::EventType::DataAdded)
 	//{
@@ -535,7 +569,7 @@ void PopulationPyramidOptionsAction::fromVariantMap(const QVariantMap& variantMa
 	_species1Name.fromParentVariantMap(variantMap);
 	_species2Name.fromParentVariantMap(variantMap);
 	_selectedCrossspeciescluster.fromParentVariantMap(variantMap);
-
+	_selectionColorAction.fromParentVariantMap(variantMap);
 	initLoader();
 }
 
@@ -549,6 +583,6 @@ QVariantMap PopulationPyramidOptionsAction::toVariantMap() const
 	_species1Name.insertIntoVariantMap(variantMap);
 	_species2Name.insertIntoVariantMap(variantMap);
 	_selectedCrossspeciescluster.insertIntoVariantMap(variantMap);
-
+	_selectionColorAction.insertIntoVariantMap(variantMap);
 	return variantMap;
 }

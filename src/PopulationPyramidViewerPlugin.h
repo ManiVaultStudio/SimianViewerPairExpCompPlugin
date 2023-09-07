@@ -34,7 +34,7 @@ public:
 
 	void init() override;
 
-	void onDataEvent(hdps::DataEvent* dataEvent);
+	void onDataEvent(hdps::DatasetEvent* dataEvent);
 
 	hdps::CoreInterface* getCore() { return _core; }
 

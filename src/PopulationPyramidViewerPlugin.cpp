@@ -27,12 +27,10 @@ using namespace hdps;
 PopulationPyramidViewerPlugin::PopulationPyramidViewerPlugin(const PluginFactory* factory) :
 	ViewPlugin(factory),
 	_PopulationPyramid_viewer(),
-	_PopulationPyramidOptionsAction(*this, _core)
+	_PopulationPyramidOptionsAction(*this)
 {
 	setSerializationName("PopulationPyramidViewer");
-	//_PopulationPyramid_viewer = new PopulationPyramidViewerWidget();
-	getVisibleAction().setConnectionPermissionsFlag(ConnectionPermissionFlag::All);
-	getVisibleAction().publish("Pop Pyramid::PluginVisibility");
+
 }
 
 PopulationPyramidViewerPlugin::~PopulationPyramidViewerPlugin()
@@ -41,6 +39,7 @@ PopulationPyramidViewerPlugin::~PopulationPyramidViewerPlugin()
 
 void PopulationPyramidViewerPlugin::init()
 {
+
 	connect(&_PopulationPyramid_viewer, &PopulationPyramidViewerWidget::widgetInitialized, &_PopulationPyramidOptionsAction, &PopulationPyramidOptionsAction::initLoader);
 	_PopulationPyramid_viewer.setPage(":/PopulationPyramid_viewer/PopulationPyramid_viewer.html", "qrc:/PopulationPyramid_viewer/");
 	_PopulationPyramid_viewer.setContentsMargins(0, 0, 0, 0);
@@ -52,7 +51,7 @@ void PopulationPyramidViewerPlugin::init()
 
 	connect(&_PopulationPyramid_viewer, &PopulationPyramidViewerWidget::crossspeciesclusterSelection, this, &PopulationPyramidViewerPlugin::clusterSelection);
 
-	_eventListener.addSupportedEventType(static_cast<std::uint32_t>(EventType::DataSelectionChanged));
+	_eventListener.addSupportedEventType(static_cast<std::uint32_t>(EventType::DatasetDataSelectionChanged));
 	_eventListener.registerDataEventByType(ClusterType, std::bind(&PopulationPyramidViewerPlugin::onDataEvent, this, std::placeholders::_1));
 
 	auto topToolbarWidget = new QWidget();
@@ -85,9 +84,9 @@ void PopulationPyramidViewerPlugin::init()
 	_PopulationPyramidOptionsAction.initLoader();
 }
 
-void PopulationPyramidViewerPlugin::onDataEvent(hdps::DataEvent* dataEvent)
+void PopulationPyramidViewerPlugin::onDataEvent(hdps::DatasetEvent* dataEvent)
 {
-	if (dataEvent->getType() == hdps::EventType::DataSelectionChanged)
+	if (dataEvent->getType() == hdps::EventType::DatasetDataSelectionChanged)
 	{
 
 
@@ -101,7 +100,7 @@ void PopulationPyramidViewerPlugin::publishSelectionSpecies1(std::string cluster
 	//_PopulationPyramidOptionsAction.getCrossSpecies1HeatMapCellAction().setCurrentText("");
 	//_PopulationPyramidOptionsAction.getCrossSpecies1HeatMapCellAction().setCurrentText(QString::fromStdString(clusterName));
 	auto dataset = _PopulationPyramidOptionsAction.getdeStatsDataset1SelectAction().getCurrentDataset();
-	const auto candidateDataset = _core->requestDataset<Clusters>(dataset.getDatasetGuid());
+	const auto candidateDataset = _core->requestDataset<Clusters>(dataset.getDatasetId());
 	std::vector<std::uint32_t> selectedIndices;
 	for (const auto& cluster : candidateDataset->getClusters())
 	{
@@ -118,7 +117,7 @@ void PopulationPyramidViewerPlugin::publishSelectionSpecies1(std::string cluster
 	candidateDataset->getParent()->setSelectionIndices(selectedIndices);
 
 
-	events().notifyDatasetSelectionChanged(candidateDataset->getParent());
+	events().notifyDatasetDataSelectionChanged(candidateDataset->getParent());
 
 }
 
@@ -147,7 +146,7 @@ void PopulationPyramidViewerPlugin::publishSelectionSpecies2(std::string cluster
 	//_PopulationPyramidOptionsAction.getCrossSpecies2HeatMapCellAction().setCurrentText("");
 	//_PopulationPyramidOptionsAction.getCrossSpecies2HeatMapCellAction().setCurrentText(QString::fromStdString(clusterName));
 	auto dataset = _PopulationPyramidOptionsAction.getdeStatsDataset2SelectAction().getCurrentDataset();
-	const auto candidateDataset = _core->requestDataset<Clusters>(dataset.getDatasetGuid());
+	const auto candidateDataset = _core->requestDataset<Clusters>(dataset.getDatasetId());
 	std::vector<std::uint32_t> selectedIndices;
 	for (const auto& cluster : candidateDataset->getClusters())
 	{
@@ -164,7 +163,7 @@ void PopulationPyramidViewerPlugin::publishSelectionSpecies2(std::string cluster
 	candidateDataset->getParent()->setSelectionIndices(selectedIndices);
 
 
-	events().notifyDatasetSelectionChanged(candidateDataset->getParent());
+	events().notifyDatasetDataSelectionChanged(candidateDataset->getParent());
 
 }
 
