@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.1.0)
 
-set(PROJECT "PopulationPyramidViewerPlugin")
+set(PROJECT "SimianViewerPairwiseGeneExpressionComparisonPlugin")
 
 PROJECT(${PROJECT})
 
