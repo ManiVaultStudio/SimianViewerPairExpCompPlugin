@@ -1,4 +1,4 @@
-name: SimianViewerPairwiseGeneExpressionComparisonPlugin
+name: SimianViewerPairExpCompPlugin
 
 on:
   push:

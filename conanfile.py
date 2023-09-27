@@ -8,8 +8,8 @@ import subprocess
 from rules_support import PluginBranchInfo
 
 
-class SimianViewerPairwiseGeneExpressionComparisonPluginConan(ConanFile):
-    """Class to package SimianViewerPairwiseGeneExpressionComparisonPlugin using conan
+class SimianViewerPairExpCompPluginConan(ConanFile):
+    """Class to package SimianViewerPairExpCompPlugin using conan
 
     Packages both RELEASE and DEBUG.
     Uses rules_support (github.com/hdps/rulessupport) to derive
@@ -17,12 +17,12 @@ class SimianViewerPairwiseGeneExpressionComparisonPluginConan(ConanFile):
     as described in https://github.com/hdps/core/wiki/Branch-naming-rules
     """
 
-    name = "SimianViewerPairwiseGeneExpressionComparisonPlugin"
+    name = "SimianViewerPairExpCompPlugin"
     description = (
         "A plugin for viewing exampleD3 data in the high-dimensional plugin system (HDPS)."
     )
     topics = ("hdps", "plugin", "PopulationPyramid data", "viewing")
-    url = "https://github.com/hdps/SimianViewerPairwiseGeneExpressionComparisonPlugin"
+    url = "https://github.com/hdps/SimianViewerPairExpCompPlugin"
     author = "B. van Lew b.van_lew@lumc.nl"  # conan recipe author
     license = "MIT"
 
@@ -36,7 +36,7 @@ class SimianViewerPairwiseGeneExpressionComparisonPluginConan(ConanFile):
 
     scm = {
         "type": "git",
-        "subfolder": "hdps/SimianViewerPairwiseGeneExpressionComparisonPlugin",
+        "subfolder": "hdps/SimianViewerPairExpCompPlugin",
         "url": "auto",
         "revision": "auto",
     }
@@ -98,7 +98,7 @@ class SimianViewerPairwiseGeneExpressionComparisonPluginConan(ConanFile):
 
     def _configure_cmake(self):
         cmake = CMake(self)
-        cmake.configure(build_script_folder="hdps/SimianViewerPairwiseGeneExpressionComparisonPlugin")
+        cmake.configure(build_script_folder="hdps/SimianViewerPairExpCompPlugin")
         cmake.verbose = True
         return cmake
 
