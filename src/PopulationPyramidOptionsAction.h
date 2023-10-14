@@ -32,12 +32,12 @@
 #include <QLabel>
 #include <string>
 
-using namespace hdps::gui;
+using namespace mv::gui;
 class QMenu;
 class PopulationPyramidViewerPlugin;
 //class PopulationPyramidViewerWidget;
 class FetchMetaData;
-namespace hdps
+namespace mv
 {
 	class CoreInterface;
 }
@@ -56,7 +56,7 @@ public:
 	class deStatsDataset1SelectionAction : public WidgetAction
 	{
 	protected:
-		class Widget : public hdps::gui::WidgetActionWidget {
+		class Widget : public mv::gui::WidgetActionWidget {
 		public:
 			Widget(QWidget* parent, deStatsDataset1SelectionAction* deStatsDataset1SelectAction);
 
@@ -79,10 +79,10 @@ public:
 
 
 public:
-	void onDataEvent(hdps::DatasetEvent* dataEvent);
+	void onDataEvent(mv::DatasetEvent* dataEvent);
 protected:
 
-	class Widget : public hdps::gui::WidgetActionWidget {
+	class Widget : public mv::gui::WidgetActionWidget {
 	public:
 		Widget(QWidget* parent, PopulationPyramidOptionsAction* PopulationPyramidOptionsAction);
 	};
@@ -136,7 +136,7 @@ protected:
 	PopulationPyramidViewerPlugin& _PopulationPyramidViewerPlugin;
 	DatasetPickerAction                 _deStatsDataset1Action;
 	DatasetPickerAction                 _deStatsDataset2Action;
-	hdps::CoreInterface* _core;
+	mv::CoreInterface* _core;
 	FetchMetaData* _metaData;
 	std::vector<std::vector<std::string>>                _PopulationPyramidData;
 	deStatsDataset1SelectionAction               _deStatsDataset1SelectionAction;
@@ -157,6 +157,6 @@ protected:
 	//std::vector<std::string> lamp5_sncg_vip_Neighborhood = { "Lamp5_1", "Lamp5_2", "Lamp5_Lhx6_1", "Pax6_1", "Pax6_2", "Sncg_1", "Sncg_2", "Sncg_3", "Vip_1", "Vip_2", "Vip_3", "Vip_4", "Vip_5", "Vip_6", "Vip_7", "Vip_8" };
 	//std::vector<std::string> sst_sst_chodl_pvalb_Neighborhood = { "Chandelier_1", "Pvalb_1", "Pvalb_2", "Pvalb_3", "Pvalb_4", "Sst Chodl_1", "Sst_1", "Sst_2", "Sst_3", "Sst_4", "Sst_5", "Sst_6", "Sst_7", "Sst_8", "Sst_9" };
 	StringAction _geneNameAction;
-	hdps::EventListener     _eventListener;
+	mv::EventListener     _eventListener;
 	friend class ChannelAction;
 };

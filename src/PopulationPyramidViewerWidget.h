@@ -15,7 +15,7 @@ class QWebChannel;
 
 class PopulationPyramidViewerWidget;
 
-class PopulationPyramidViewerCommunicationObject : public hdps::gui::WebCommunicationObject
+class PopulationPyramidViewerCommunicationObject : public mv::gui::WebCommunicationObject
 {
 	Q_OBJECT
 public:
@@ -37,7 +37,7 @@ private:
 	PopulationPyramidViewerWidget* _parent;
 };
 
-class PopulationPyramidViewerWidget : public hdps::gui::WebWidget
+class PopulationPyramidViewerWidget : public mv::gui::WebWidget
 {
 	Q_OBJECT
 public:

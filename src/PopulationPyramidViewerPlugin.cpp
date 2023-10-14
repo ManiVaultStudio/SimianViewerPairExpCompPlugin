@@ -18,7 +18,7 @@
 
 Q_PLUGIN_METADATA(IID "nl.tudelft.PopulationPyramidViewerPlugin")
 
-using namespace hdps;
+using namespace mv;
 
 // =============================================================================
 // View
@@ -84,9 +84,9 @@ void PopulationPyramidViewerPlugin::init()
 	_PopulationPyramidOptionsAction.initLoader();
 }
 
-void PopulationPyramidViewerPlugin::onDataEvent(hdps::DatasetEvent* dataEvent)
+void PopulationPyramidViewerPlugin::onDataEvent(mv::DatasetEvent* dataEvent)
 {
-	if (dataEvent->getType() == hdps::EventType::DatasetDataSelectionChanged)
+	if (dataEvent->getType() == mv::EventType::DatasetDataSelectionChanged)
 	{
 
 
@@ -218,14 +218,14 @@ ViewPlugin* PopulationPyramidViewerPluginFactory::produce()
 	return new PopulationPyramidViewerPlugin(this);
 }
 
-hdps::DataTypes PopulationPyramidViewerPluginFactory::supportedDataTypes() const
+mv::DataTypes PopulationPyramidViewerPluginFactory::supportedDataTypes() const
 {
 	DataTypes supportedTypes;
 	return supportedTypes;
 }
 
 
-hdps::gui::PluginTriggerActions PopulationPyramidViewerPluginFactory::getPluginTriggerActions(const hdps::Datasets& datasets) const
+mv::gui::PluginTriggerActions PopulationPyramidViewerPluginFactory::getPluginTriggerActions(const mv::Datasets& datasets) const
 {
 	PluginTriggerActions pluginTriggerActions;
 

@@ -4,13 +4,13 @@
 #include <QFileDialog>
 #include <QPageLayout>
 #include <QWebEngineView>
-using namespace hdps;
-using namespace hdps::gui;
+using namespace mv;
+using namespace mv::gui;
 
 PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramidViewerPlugin& PopulationPyramidViewerPlugin) :
 	WidgetAction(&PopulationPyramidViewerPlugin,"PopulationPyramidViewerPlugin"),
 	_PopulationPyramidViewerPlugin(PopulationPyramidViewerPlugin),
-	_core(hdps::core()),
+	_core(mv::core()),
 	_deStatsDataset1Action(this, "DE Dataset1"),
 	_deStatsDataset2Action(this, "DE Dataset2"),
 	_geneNameAction(this, "SelectedID"),
@@ -35,7 +35,7 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 	_selectionColorAction.setSerializationName("SelectionColor");
 	_deStatsDataset1Action.setShowFullPathName(false);
 
-	_deStatsDataset1Action.setDatasetsFilterFunction([this](const hdps::Datasets& datasets) ->hdps::Datasets {
+	_deStatsDataset1Action.setDatasetsFilterFunction([this](const mv::Datasets& datasets) ->mv::Datasets {
 		Datasets statsDatasets;
 
 		for (auto dataset : datasets)
@@ -51,7 +51,7 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 		return statsDatasets;
 		});
 	_deStatsDataset2Action.setShowFullPathName(false);
-	_deStatsDataset2Action.setDatasetsFilterFunction([this](const hdps::Datasets& datasets) ->hdps::Datasets {
+	_deStatsDataset2Action.setDatasetsFilterFunction([this](const mv::Datasets& datasets) ->mv::Datasets {
 		Datasets statsDatasets;
 
 		for (auto dataset : datasets)
@@ -457,7 +457,7 @@ void PopulationPyramidOptionsAction::updateData()
 
 //void PopulationPyramidOptionsAction::updateDatasetPickerAction()
 //{
-//	auto datasets = _core->requestAllDataSets(QVector<hdps::DataType> {PointType});
+//	auto datasets = _core->requestAllDataSets(QVector<mv::DataType> {PointType});
 //	auto filteredDEStatsDatasets = datasets;
 //	for (auto dataset : datasets)
 //	{
@@ -522,29 +522,29 @@ inline PopulationPyramidOptionsAction::deStatsDataset1SelectionAction::deStatsDa
 
 }
 
-void PopulationPyramidOptionsAction::onDataEvent(hdps::DatasetEvent* dataEvent)
+void PopulationPyramidOptionsAction::onDataEvent(mv::DatasetEvent* dataEvent)
 {
-	//if (dataEvent->getType() == hdps::EventType::DataAdded)
+	//if (dataEvent->getType() == mv::EventType::DataAdded)
 	//{
 	//	updateDatasetPickerAction();
 	//}
-	//if (dataEvent->getType() == hdps::EventType::DataRemoved)
+	//if (dataEvent->getType() == mv::EventType::DataRemoved)
 	//{
 	//	updateDatasetPickerAction();
 	//}
-	//if (dataEvent->getType() == hdps::EventType::DataChildAdded)
+	//if (dataEvent->getType() == mv::EventType::DataChildAdded)
 	//{
 	//	updateDatasetPickerAction();
 	//}
-	//if (dataEvent->getType() == hdps::EventType::DataChildRemoved)
+	//if (dataEvent->getType() == mv::EventType::DataChildRemoved)
 	//{
 	//	updateDatasetPickerAction();
 	//}
-	//if (dataEvent->getType() == hdps::EventType::DataChanged)
+	//if (dataEvent->getType() == mv::EventType::DataChanged)
 	//{
 	//	updateDatasetPickerAction();
 	//}
-	//if (dataEvent->getType() == hdps::EventType::DataGuiNameChanged)
+	//if (dataEvent->getType() == mv::EventType::DataGuiNameChanged)
 	//{
 	//	updateDatasetPickerAction();
 	//}
