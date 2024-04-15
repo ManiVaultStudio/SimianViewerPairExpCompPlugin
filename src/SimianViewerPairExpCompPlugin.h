@@ -2,7 +2,7 @@
 
 #include <ViewPlugin.h>
 #include "Dataset.h"
-#include "PopulationPyramidOptionsAction.h"
+#include "SimianViewerPairExpCompOptionsAction.h"
 #include "SimianViewerPairExpCompWidget.h"
 #include "widgets/DropWidget.h"
 #include <QBoxLayout>
@@ -15,7 +15,7 @@ using namespace mv::util;
 
 class Points;
 //class SimianViewerPairExpCompWidget;
-//class PopulationPyramidOptionsAction;
+//class SimianViewerPairExpCompOptionsAction;
 
 // =============================================================================
 // View
@@ -38,8 +38,8 @@ public:
 
 	mv::CoreInterface* getCore() { return _core; }
 
-	SimianViewerPairExpCompWidget& getBarChartWidget() { return _PopulationPyramid_viewer; }
-	PopulationPyramidOptionsAction& getPopulationPyramidOptionsAction() { return _PopulationPyramidOptionsAction; }
+	SimianViewerPairExpCompWidget& getBarChartWidget() { return _SimianViewerPairExpComp_viewer; }
+	SimianViewerPairExpCompOptionsAction& getSimianViewerPairExpCompOptionsAction() { return _SimianViewerPairExpCompOptionsAction; }
 
 public: // Serialization
 
@@ -64,8 +64,8 @@ private:
 	void publishSelectionSpecies2(std::string selectedIDs);
 	void clusterSelection(std::string selectedIDs);
 
-	SimianViewerPairExpCompWidget _PopulationPyramid_viewer;
-	PopulationPyramidOptionsAction _PopulationPyramidOptionsAction;
+	SimianViewerPairExpCompWidget _SimianViewerPairExpComp_viewer;
+	SimianViewerPairExpCompOptionsAction _SimianViewerPairExpCompOptionsAction;
 	/** SimianViewerPairExpComp widget displaying cluster data */
 
 	mv::EventListener     _eventListener;

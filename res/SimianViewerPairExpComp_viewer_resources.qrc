@@ -1,11 +1,11 @@
 <RCC>
     <qresource prefix="">
-        <file>PopulationPyramid_viewer/PopulationPyramid_viewer.html</file>
-        <file>PopulationPyramid_viewer/PopulationPyramid_viewer.css</file>
-        <file>PopulationPyramid_viewer/PopulationPyramid_viewer.js</file>
-		<file>PopulationPyramid_viewer/PopulationPyramid_viewer.queue.js</file>
-		<file>PopulationPyramid_viewer/PopulationPyramid_viewer.ui.js</file>
-		<file>PopulationPyramid_viewer/PopulationPyramid_viewer.keys.js</file>
+        <file>SimianViewerPairExpComp_viewer/SimianViewerPairExpComp_viewer.html</file>
+        <file>SimianViewerPairExpComp_viewer/SimianViewerPairExpComp_viewer.css</file>
+        <file>SimianViewerPairExpComp_viewer/SimianViewerPairExpComp_viewer.js</file>
+		<file>SimianViewerPairExpComp_viewer/SimianViewerPairExpComp_viewer.queue.js</file>
+		<file>SimianViewerPairExpComp_viewer/SimianViewerPairExpComp_viewer.ui.js</file>
+		<file>SimianViewerPairExpComp_viewer/SimianViewerPairExpComp_viewer.keys.js</file>
     </qresource>
     <qresource prefix="">
         <file>jslibs/d3.v4.js</file>

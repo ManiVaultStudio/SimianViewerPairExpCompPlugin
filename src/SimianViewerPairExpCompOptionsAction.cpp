@@ -1,4 +1,4 @@
-#include "PopulationPyramidOptionsAction.h"
+#include "SimianViewerPairExpCompOptionsAction.h"
 #include "SimianViewerPairExpCompPlugin.h"
 #include<string>  
 #include <QFileDialog>
@@ -7,7 +7,7 @@
 using namespace mv;
 using namespace mv::gui;
 
-PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(SimianViewerPairExpCompPlugin& SimianViewerPairExpCompPlugin) :
+SimianViewerPairExpCompOptionsAction::SimianViewerPairExpCompOptionsAction(SimianViewerPairExpCompPlugin& SimianViewerPairExpCompPlugin) :
 	WidgetAction(&SimianViewerPairExpCompPlugin,"SimianViewerPairExpCompPlugin"),
 	_SimianViewerPairExpCompPlugin(SimianViewerPairExpCompPlugin),
 	_core(mv::core()),
@@ -72,7 +72,7 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(SimianViewerPairE
 	_eventListener.addSupportedEventType(static_cast<std::uint32_t>(EventType::DatasetChildRemoved));
 	_eventListener.addSupportedEventType(static_cast<std::uint32_t>(EventType::DatasetDataChanged));
 	//_eventListener.addSupportedEventType(static_cast<std::uint32_t>(EventType::DatasetGuiNameChanged));
-	_eventListener.registerDataEventByType(PointType, std::bind(&PopulationPyramidOptionsAction::onDataEvent, this, std::placeholders::_1));
+	_eventListener.registerDataEventByType(PointType, std::bind(&SimianViewerPairExpCompOptionsAction::onDataEvent, this, std::placeholders::_1));
 	//_barSettingsAction.setEnabled(false);
 	//_deStatsDataset2SelectionAction.setEnabled(false);
 	_geneNameAction.setString("A1BG");
@@ -303,12 +303,12 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(SimianViewerPairE
 }
 
 
-PopulationPyramidOptionsAction::Widget::Widget(QWidget* parent, PopulationPyramidOptionsAction* PopulationPyramidOptionsAction) :
-	WidgetActionWidget(parent, PopulationPyramidOptionsAction)
+SimianViewerPairExpCompOptionsAction::Widget::Widget(QWidget* parent, SimianViewerPairExpCompOptionsAction* SimianViewerPairExpCompOptionsAction) :
+	WidgetActionWidget(parent, SimianViewerPairExpCompOptionsAction)
 {
 }
 
-void PopulationPyramidOptionsAction::updateData()
+void SimianViewerPairExpCompOptionsAction::updateData()
 {
 
 	auto deStatsDataset1 = _core->requestDataset<Points>(_deStatsDataset1Action.getCurrentDataset().getDatasetId());
@@ -455,7 +455,7 @@ void PopulationPyramidOptionsAction::updateData()
 	_SimianViewerPairExpCompPlugin.getBarChartWidget().setData(jsonData);
 }
 
-//void PopulationPyramidOptionsAction::updateDatasetPickerAction()
+//void SimianViewerPairExpCompOptionsAction::updateDatasetPickerAction()
 //{
 //	auto datasets = _core->requestAllDataSets(QVector<mv::DataType> {PointType});
 //	auto filteredDEStatsDatasets = datasets;
@@ -483,46 +483,46 @@ void PopulationPyramidOptionsAction::updateData()
 //
 //}
 
-PopulationPyramidOptionsAction::deStatsDataset1SelectionAction::Widget::Widget(QWidget* parent, deStatsDataset1SelectionAction* deStatsDataset1SelectAction) :
+SimianViewerPairExpCompOptionsAction::deStatsDataset1SelectionAction::Widget::Widget(QWidget* parent, deStatsDataset1SelectionAction* deStatsDataset1SelectAction) :
 	WidgetActionWidget(parent, deStatsDataset1SelectAction)
 {
-	auto& PopulationPyramidOptionsAction = deStatsDataset1SelectAction->_PopulationPyramidOptionsAction;
+	auto& SimianViewerPairExpCompOptionsAction = deStatsDataset1SelectAction->_SimianViewerPairExpCompOptionsAction;
 
-	auto selectiondeStats1Widget = PopulationPyramidOptionsAction._deStatsDataset1Action.createWidget(this);
+	auto selectiondeStats1Widget = SimianViewerPairExpCompOptionsAction._deStatsDataset1Action.createWidget(this);
 	selectiondeStats1Widget->findChild<QComboBox*>("ComboBox")->setSizeAdjustPolicy(QComboBox::AdjustToContents);
 	//selectiondeStats1Widget->setMaximumWidth(250);
 
-	auto selectiondeStats2Widget = PopulationPyramidOptionsAction._deStatsDataset2Action.createWidget(this);
+	auto selectiondeStats2Widget = SimianViewerPairExpCompOptionsAction._deStatsDataset2Action.createWidget(this);
 	selectiondeStats2Widget->findChild<QComboBox*>("ComboBox")->setSizeAdjustPolicy(QComboBox::AdjustToContents);
 
 	auto selectionExampledeStatsOptionLayout = new QFormLayout();
 	selectionExampledeStatsOptionLayout->setContentsMargins(0, 0, 0, 0);
 
-	selectionExampledeStatsOptionLayout->addRow(PopulationPyramidOptionsAction._deStatsDataset1Action.createLabelWidget(this), selectiondeStats1Widget);
+	selectionExampledeStatsOptionLayout->addRow(SimianViewerPairExpCompOptionsAction._deStatsDataset1Action.createLabelWidget(this), selectiondeStats1Widget);
 
-	selectionExampledeStatsOptionLayout->addRow(PopulationPyramidOptionsAction._deStatsDataset2Action.createLabelWidget(this), selectiondeStats2Widget);
+	selectionExampledeStatsOptionLayout->addRow(SimianViewerPairExpCompOptionsAction._deStatsDataset2Action.createLabelWidget(this), selectiondeStats2Widget);
 
-	selectionExampledeStatsOptionLayout->addRow(PopulationPyramidOptionsAction._species1Name.createLabelWidget(this), PopulationPyramidOptionsAction._species1Name.createWidget(this));
+	selectionExampledeStatsOptionLayout->addRow(SimianViewerPairExpCompOptionsAction._species1Name.createLabelWidget(this), SimianViewerPairExpCompOptionsAction._species1Name.createWidget(this));
 
-	selectionExampledeStatsOptionLayout->addRow(PopulationPyramidOptionsAction._species2Name.createLabelWidget(this), PopulationPyramidOptionsAction._species2Name.createWidget(this));
+	selectionExampledeStatsOptionLayout->addRow(SimianViewerPairExpCompOptionsAction._species2Name.createLabelWidget(this), SimianViewerPairExpCompOptionsAction._species2Name.createWidget(this));
 
-	selectionExampledeStatsOptionLayout->addRow(PopulationPyramidOptionsAction._selectedCrossspeciescluster.createLabelWidget(this), PopulationPyramidOptionsAction._selectedCrossspeciescluster.createWidget(this));
+	selectionExampledeStatsOptionLayout->addRow(SimianViewerPairExpCompOptionsAction._selectedCrossspeciescluster.createLabelWidget(this), SimianViewerPairExpCompOptionsAction._selectedCrossspeciescluster.createWidget(this));
 
-	selectionExampledeStatsOptionLayout->addRow(PopulationPyramidOptionsAction._geneNameAction.createLabelWidget(this), PopulationPyramidOptionsAction._geneNameAction.createWidget(this));
+	selectionExampledeStatsOptionLayout->addRow(SimianViewerPairExpCompOptionsAction._geneNameAction.createLabelWidget(this), SimianViewerPairExpCompOptionsAction._geneNameAction.createWidget(this));
 
 	setLayout(selectionExampledeStatsOptionLayout);
 }
 
-inline PopulationPyramidOptionsAction::deStatsDataset1SelectionAction::deStatsDataset1SelectionAction(PopulationPyramidOptionsAction& PopulationPyramidOptionsAction) :
+inline SimianViewerPairExpCompOptionsAction::deStatsDataset1SelectionAction::deStatsDataset1SelectionAction(SimianViewerPairExpCompOptionsAction& SimianViewerPairExpCompOptionsAction) :
 	WidgetAction(nullptr, "deStatsDataset1SelectionAction"),
-	_PopulationPyramidOptionsAction(PopulationPyramidOptionsAction)
+	_SimianViewerPairExpCompOptionsAction(SimianViewerPairExpCompOptionsAction)
 {
 	setText("Options");
 	setIcon(Application::getIconFont("FontAwesome").getIcon("database"));
 
 }
 
-void PopulationPyramidOptionsAction::onDataEvent(mv::DatasetEvent* dataEvent)
+void SimianViewerPairExpCompOptionsAction::onDataEvent(mv::DatasetEvent* dataEvent)
 {
 	//if (dataEvent->getType() == mv::EventType::DataAdded)
 	//{
@@ -550,7 +550,7 @@ void PopulationPyramidOptionsAction::onDataEvent(mv::DatasetEvent* dataEvent)
 	//}
 }
 
-void PopulationPyramidOptionsAction::initLoader()
+void SimianViewerPairExpCompOptionsAction::initLoader()
 {
 	if (_deStatsDataset1Action.getCurrentDataset().isValid() && _deStatsDataset2Action.getCurrentDataset().isValid())
 	{
@@ -559,7 +559,7 @@ void PopulationPyramidOptionsAction::initLoader()
 	}
 }
 
-void PopulationPyramidOptionsAction::fromVariantMap(const QVariantMap& variantMap)
+void SimianViewerPairExpCompOptionsAction::fromVariantMap(const QVariantMap& variantMap)
 {
 	WidgetAction::fromVariantMap(variantMap);
 
@@ -573,7 +573,7 @@ void PopulationPyramidOptionsAction::fromVariantMap(const QVariantMap& variantMa
 	initLoader();
 }
 
-QVariantMap PopulationPyramidOptionsAction::toVariantMap() const
+QVariantMap SimianViewerPairExpCompOptionsAction::toVariantMap() const
 {
 	QVariantMap variantMap = WidgetAction::toVariantMap();
 

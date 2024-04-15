@@ -40,7 +40,7 @@ void SimianViewerPairExpCompCommunicationObject::js_crossspeciesclusterSelection
 SimianViewerPairExpCompWidget::SimianViewerPairExpCompWidget() :
 	loaded(false)
 {
-	Q_INIT_RESOURCE(PopulationPyramid_viewer_resources);
+	Q_INIT_RESOURCE(SimianViewerPairExpComp_viewer_resources);
 	_communicationObject = new SimianViewerPairExpCompCommunicationObject(this);
 	init(_communicationObject);
 

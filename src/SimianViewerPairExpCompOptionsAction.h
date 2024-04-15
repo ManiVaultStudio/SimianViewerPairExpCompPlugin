@@ -50,7 +50,7 @@ struct speciesStorage
 	std::string deStatsColor;
 };
 
-class PopulationPyramidOptionsAction : public WidgetAction
+class SimianViewerPairExpCompOptionsAction : public WidgetAction
 {
 public:
 	class deStatsDataset1SelectionAction : public WidgetAction
@@ -68,12 +68,12 @@ public:
 		};
 
 	public:
-		deStatsDataset1SelectionAction(PopulationPyramidOptionsAction& PopulationPyramidOptionsAction);
+		deStatsDataset1SelectionAction(SimianViewerPairExpCompOptionsAction& SimianViewerPairExpCompOptionsAction);
 
 	protected:
-		PopulationPyramidOptionsAction& _PopulationPyramidOptionsAction;
+		SimianViewerPairExpCompOptionsAction& _SimianViewerPairExpCompOptionsAction;
 
-		friend class PopulationPyramidOptionsAction;
+		friend class SimianViewerPairExpCompOptionsAction;
 	};
 
 
@@ -84,15 +84,15 @@ protected:
 
 	class Widget : public mv::gui::WidgetActionWidget {
 	public:
-		Widget(QWidget* parent, PopulationPyramidOptionsAction* PopulationPyramidOptionsAction);
+		Widget(QWidget* parent, SimianViewerPairExpCompOptionsAction* SimianViewerPairExpCompOptionsAction);
 	};
 
 	QWidget* getWidget(QWidget* parent, const std::int32_t& widgetFlags) override {
-		return new PopulationPyramidOptionsAction::Widget(parent, this);
+		return new SimianViewerPairExpCompOptionsAction::Widget(parent, this);
 	};
 
 public:
-	PopulationPyramidOptionsAction(SimianViewerPairExpCompPlugin& SimianViewerPairExpCompPlugins);
+	SimianViewerPairExpCompOptionsAction(SimianViewerPairExpCompPlugin& SimianViewerPairExpCompPlugins);
 
 private:
 	void updateData();
@@ -138,7 +138,7 @@ protected:
 	DatasetPickerAction                 _deStatsDataset2Action;
 	mv::CoreInterface* _core;
 	FetchMetaData* _metaData;
-	std::vector<std::vector<std::string>>                _PopulationPyramidData;
+	std::vector<std::vector<std::string>>                _SimianViewerPairExpCompData;
 	deStatsDataset1SelectionAction               _deStatsDataset1SelectionAction;
 	//OptionAction                 _crossSpecies1HeatMapCellAction;
 	//OptionAction                 _crossSpecies2HeatMapCellAction;

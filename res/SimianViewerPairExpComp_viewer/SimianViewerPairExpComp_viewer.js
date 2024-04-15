@@ -271,7 +271,7 @@ function mouseoverSpecies2(d) {
 }
 
 //Main Visualization
-const PopulationPyramidVis = () => {
+const SimianViewerPairExpCompVis = () => {
     d3.select("g").remove();
     d3.select("svg").remove();
     svg = d3.select("#my_dataviz");
@@ -671,7 +671,7 @@ function queueData(d) {
     geneName = _data[0].geneName;
     //maxValue = Object.keys(_data).reduce((acc, curr) => acc.value ? (_data[curr].value > acc.value ? _data[curr] : acc) : _data[curr], {});
     /*_data.sort(function (a, b) { return b.value - a.value; });*/
-    PopulationPyramidVis();
+    SimianViewerPairExpCompVis();
     flag = true;
 }
 
@@ -679,19 +679,19 @@ function updateSelectionColor(d) {
     var regex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
     if (regex.test(d)) {
         selectioncolor = d;
-        PopulationPyramidVis();
+        SimianViewerPairExpCompVis();
     }
 
 }
 
 //Resize on window dimension change
 function doALoadOfStuff() {
-    if (flag) { PopulationPyramidVis(); }
+    if (flag) { SimianViewerPairExpCompVis(); }
 }
 
 
 
 
 document.addEventListener("DOMContentLoaded", function (event) {
-    if (flag) { PopulationPyramidVis(); }
+    if (flag) { SimianViewerPairExpCompVis(); }
 });
