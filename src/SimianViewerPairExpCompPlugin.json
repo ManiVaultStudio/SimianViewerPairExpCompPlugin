@@ -1,5 +1,5 @@
 {
-  "name": "Simian Viewer Pair Exp Comparison",
+  "name": "SimianViewerPairExpComp",
   "version": "1",
   "dependencies": [ "Points" ]
 }
