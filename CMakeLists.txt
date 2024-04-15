@@ -25,30 +25,30 @@ file(TO_CMAKE_PATH ${MV_INSTALL_DIR} MV_INSTALL_DIR)
 
 find_package(Qt6 COMPONENTS Widgets WebEngineWidgets REQUIRED)
 
-qt6_add_resources(RESOURCE_FILES res/PopulationPyramid_viewer_resources.qrc)
+qt6_add_resources(RESOURCE_FILES res/SimianViewerPairExpComp_viewer_resources.qrc)
 
 set(SOURCES
-    src/PopulationPyramidViewerPlugin.h
-    src/PopulationPyramidViewerPlugin.cpp
-    src/PopulationPyramidViewerPlugin.json
-    src/PopulationPyramidOptionsAction.cpp
-    src/PopulationPyramidOptionsAction.h
-    src/PopulationPyramidViewerWidget.h
-    src/PopulationPyramidViewerWidget.cpp
+    src/SimianViewerPairExpCompPlugin.h
+    src/SimianViewerPairExpCompPlugin.cpp
+    src/SimianViewerPairExpCompPlugin.json
+    src/SimianViewerPairExpCompOptionsAction.cpp
+    src/SimianViewerPairExpCompOptionsAction.h
+    src/SimianViewerPairExpCompWidget.h
+    src/SimianViewerPairExpCompWidget.cpp
 )
 
 set (RESOURCES
-    res/PopulationPyramid_viewer_resources.qrc
+    res/SimianViewerPairExpComp_viewer_resources.qrc
 )
 set (Web
-    res/PopulationPyramid_viewer/PopulationPyramid_viewer.html
-	res/PopulationPyramid_viewer/PopulationPyramid_viewer.js
-	res/PopulationPyramid_viewer/PopulationPyramid_viewer.css
+    res/SimianViewerPairExpComp_viewer/SimianViewerPairExpComp_viewer.html
+	res/SimianViewerPairExpComp_viewer/SimianViewerPairExpComp_viewer.js
+	res/SimianViewerPairExpComp_viewer/SimianViewerPairExpComp_viewer.css
 )
 
 source_group( PluginFiles FILES ${SOURCES})
 source_group( ResourceFiles FILES ${RESOURCES})
-source_group( ResourceFiles\\generated FILES ${CMAKE_CURRENT_BINARY_DIR}/qrc_PopulationPyramid_viewer_resources.cpp)
+source_group( ResourceFiles\\generated FILES ${CMAKE_CURRENT_BINARY_DIR}/qrc_SimianViewerPairExpComp_viewer_resources.cpp)
 source_group( WebFiles FILES ${Web})
 
 

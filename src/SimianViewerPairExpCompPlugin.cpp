@@ -1,4 +1,4 @@
-#include "PopulationPyramidViewerPlugin.h"
+#include "SimianViewerPairExpCompPlugin.h"
 
 #include "PointData/PointData.h"
 #include "event/Event.h"
@@ -16,7 +16,7 @@
 #include <vector>
 #include <sstream>
 
-Q_PLUGIN_METADATA(IID "nl.tudelft.PopulationPyramidViewerPlugin")
+Q_PLUGIN_METADATA(IID "nl.tudelft.SimianViewerPairExpCompPlugin")
 
 using namespace mv;
 
@@ -24,35 +24,35 @@ using namespace mv;
 // View
 // =============================================================================
 
-PopulationPyramidViewerPlugin::PopulationPyramidViewerPlugin(const PluginFactory* factory) :
+SimianViewerPairExpCompPlugin::SimianViewerPairExpCompPlugin(const PluginFactory* factory) :
 	ViewPlugin(factory),
 	_PopulationPyramid_viewer(),
 	_PopulationPyramidOptionsAction(*this)
 {
-	setSerializationName("PopulationPyramidViewer");
+	setSerializationName("SimianViewerPairExpComp");
 
 }
 
-PopulationPyramidViewerPlugin::~PopulationPyramidViewerPlugin()
+SimianViewerPairExpCompPlugin::~SimianViewerPairExpCompPlugin()
 {
 }
 
-void PopulationPyramidViewerPlugin::init()
+void SimianViewerPairExpCompPlugin::init()
 {
 
-	connect(&_PopulationPyramid_viewer, &PopulationPyramidViewerWidget::widgetInitialized, &_PopulationPyramidOptionsAction, &PopulationPyramidOptionsAction::initLoader);
+	connect(&_PopulationPyramid_viewer, &SimianViewerPairExpCompWidget::widgetInitialized, &_PopulationPyramidOptionsAction, &PopulationPyramidOptionsAction::initLoader);
 	_PopulationPyramid_viewer.setPage(":/PopulationPyramid_viewer/PopulationPyramid_viewer.html", "qrc:/PopulationPyramid_viewer/");
 	_PopulationPyramid_viewer.setContentsMargins(0, 0, 0, 0);
 	_PopulationPyramid_viewer.layout()->setContentsMargins(0, 0, 0, 0);
 	//_PopulationPyramidOptionsAction = new PopulationPyramidOptionsAction(*this, _core);
-	connect(&_PopulationPyramid_viewer, &PopulationPyramidViewerWidget::passSelectionSpecies1ToQt, this, &PopulationPyramidViewerPlugin::publishSelectionSpecies1);
+	connect(&_PopulationPyramid_viewer, &SimianViewerPairExpCompWidget::passSelectionSpecies1ToQt, this, &SimianViewerPairExpCompPlugin::publishSelectionSpecies1);
 
-	connect(&_PopulationPyramid_viewer, &PopulationPyramidViewerWidget::passSelectionSpecies2ToQt, this, &PopulationPyramidViewerPlugin::publishSelectionSpecies2);
+	connect(&_PopulationPyramid_viewer, &SimianViewerPairExpCompWidget::passSelectionSpecies2ToQt, this, &SimianViewerPairExpCompPlugin::publishSelectionSpecies2);
 
-	connect(&_PopulationPyramid_viewer, &PopulationPyramidViewerWidget::crossspeciesclusterSelection, this, &PopulationPyramidViewerPlugin::clusterSelection);
+	connect(&_PopulationPyramid_viewer, &SimianViewerPairExpCompWidget::crossspeciesclusterSelection, this, &SimianViewerPairExpCompPlugin::clusterSelection);
 
 	_eventListener.addSupportedEventType(static_cast<std::uint32_t>(EventType::DatasetDataSelectionChanged));
-	_eventListener.registerDataEventByType(ClusterType, std::bind(&PopulationPyramidViewerPlugin::onDataEvent, this, std::placeholders::_1));
+	_eventListener.registerDataEventByType(ClusterType, std::bind(&SimianViewerPairExpCompPlugin::onDataEvent, this, std::placeholders::_1));
 
 	auto topToolbarWidget = new QWidget();
 	auto topToolbarLayout = new QHBoxLayout();
@@ -84,7 +84,7 @@ void PopulationPyramidViewerPlugin::init()
 	_PopulationPyramidOptionsAction.initLoader();
 }
 
-void PopulationPyramidViewerPlugin::onDataEvent(mv::DatasetEvent* dataEvent)
+void SimianViewerPairExpCompPlugin::onDataEvent(mv::DatasetEvent* dataEvent)
 {
 	if (dataEvent->getType() == mv::EventType::DatasetDataSelectionChanged)
 	{
@@ -93,7 +93,7 @@ void PopulationPyramidViewerPlugin::onDataEvent(mv::DatasetEvent* dataEvent)
 	}
 }
 
-void PopulationPyramidViewerPlugin::publishSelectionSpecies1(std::string clusterName)
+void SimianViewerPairExpCompPlugin::publishSelectionSpecies1(std::string clusterName)
 {
 
 	//qDebug() << QString::fromStdString(selectedIDs);
@@ -121,7 +121,7 @@ void PopulationPyramidViewerPlugin::publishSelectionSpecies1(std::string cluster
 
 }
 
-void PopulationPyramidViewerPlugin::clusterSelection(std::string clusterName)
+void SimianViewerPairExpCompPlugin::clusterSelection(std::string clusterName)
 {
 	_PopulationPyramidOptionsAction.getSelectedCrossspeciesclusterFlag() = false;
 	if (clusterName == "")
@@ -139,7 +139,7 @@ void PopulationPyramidViewerPlugin::clusterSelection(std::string clusterName)
 }
 
 
-void PopulationPyramidViewerPlugin::publishSelectionSpecies2(std::string clusterName)
+void SimianViewerPairExpCompPlugin::publishSelectionSpecies2(std::string clusterName)
 {
 
 	//qDebug() << QString::fromStdString(selectedIDs);
@@ -167,14 +167,14 @@ void PopulationPyramidViewerPlugin::publishSelectionSpecies2(std::string cluster
 
 }
 
-void PopulationPyramidViewerPlugin::fromVariantMap(const QVariantMap& variantMap)
+void SimianViewerPairExpCompPlugin::fromVariantMap(const QVariantMap& variantMap)
 {
 	ViewPlugin::fromVariantMap(variantMap);
 
 	_PopulationPyramidOptionsAction.fromParentVariantMap(variantMap);
 }
 
-QVariantMap PopulationPyramidViewerPlugin::toVariantMap() const
+QVariantMap SimianViewerPairExpCompPlugin::toVariantMap() const
 {
 	QVariantMap variantMap = ViewPlugin::toVariantMap();
 
@@ -192,7 +192,7 @@ QVariantMap PopulationPyramidViewerPlugin::toVariantMap() const
 //	msgBox.exec();
 //};
 
-//PopulationPyramidViewerPluginFactory::PopulationPyramidViewerPluginFactory() :
+//SimianViewerPairExpCompPluginFactory::SimianViewerPairExpCompPluginFactory() :
 //	ViewPluginFactory()
 //{
 //	connect(&getTriggerHelpAction(), &TriggerAction::triggered, this, [this]() -> void {
@@ -208,29 +208,29 @@ QVariantMap PopulationPyramidViewerPlugin::toVariantMap() const
 // =============================================================================
 
 
-QIcon PopulationPyramidViewerPluginFactory::getIcon(const QColor& color /*= Qt::black*/) const
+QIcon SimianViewerPairExpCompPluginFactory::getIcon(const QColor& color /*= Qt::black*/) const
 {
 	return Application::getIconFont("FontAwesome").getIcon("chart-bar", color);
 }
 
-ViewPlugin* PopulationPyramidViewerPluginFactory::produce()
+ViewPlugin* SimianViewerPairExpCompPluginFactory::produce()
 {
-	return new PopulationPyramidViewerPlugin(this);
+	return new SimianViewerPairExpCompPlugin(this);
 }
 
-mv::DataTypes PopulationPyramidViewerPluginFactory::supportedDataTypes() const
+mv::DataTypes SimianViewerPairExpCompPluginFactory::supportedDataTypes() const
 {
 	DataTypes supportedTypes;
 	return supportedTypes;
 }
 
 
-mv::gui::PluginTriggerActions PopulationPyramidViewerPluginFactory::getPluginTriggerActions(const mv::Datasets& datasets) const
+mv::gui::PluginTriggerActions SimianViewerPairExpCompPluginFactory::getPluginTriggerActions(const mv::Datasets& datasets) const
 {
 	PluginTriggerActions pluginTriggerActions;
 
-	const auto getInstance = [this]() -> PopulationPyramidViewerPlugin* {
-		return dynamic_cast<PopulationPyramidViewerPlugin*>(plugins().requestPlugin(getKind()));
+	const auto getInstance = [this]() -> SimianViewerPairExpCompPlugin* {
+		return dynamic_cast<SimianViewerPairExpCompPlugin*>(plugins().requestPlugin(getKind()));
 	};
 
 	const auto numberOfDatasets = datasets.count();
@@ -238,7 +238,7 @@ mv::gui::PluginTriggerActions PopulationPyramidViewerPluginFactory::getPluginTri
 	if (PluginFactory::areAllDatasetsOfTheSameType(datasets, PointType)) {
 		if (numberOfDatasets >= 1) {
 			if (datasets.first()->getDataType() == PointType) {
-				auto pluginTriggerAction = new PluginTriggerAction(const_cast<PopulationPyramidViewerPluginFactory*>(this), this, "PopulationPyramid viewer", "Load dataset in PopulationPyramid viewer", getIcon(), [this, getInstance, datasets](PluginTriggerAction& pluginTriggerAction) -> void {
+				auto pluginTriggerAction = new PluginTriggerAction(const_cast<SimianViewerPairExpCompPluginFactory*>(this), this, "PopulationPyramid viewer", "Load dataset in PopulationPyramid viewer", getIcon(), [this, getInstance, datasets](PluginTriggerAction& pluginTriggerAction) -> void {
 					for (auto dataset : datasets)
 						getInstance()->loadData(Datasets({ dataset }));
 					});
@@ -252,7 +252,7 @@ mv::gui::PluginTriggerActions PopulationPyramidViewerPluginFactory::getPluginTri
 }
 
 
-//bool PopulationPyramidViewerPluginFactory::hasHelp()
+//bool SimianViewerPairExpCompPluginFactory::hasHelp()
 //{
 //	return true;
 //}

@@ -3,7 +3,7 @@
 #include <ViewPlugin.h>
 #include "Dataset.h"
 #include "PopulationPyramidOptionsAction.h"
-#include "PopulationPyramidViewerWidget.h"
+#include "SimianViewerPairExpCompWidget.h"
 #include "widgets/DropWidget.h"
 #include <QBoxLayout>
 #include <QLabel>
@@ -14,7 +14,7 @@ using namespace mv::plugin;
 using namespace mv::util;
 
 class Points;
-//class PopulationPyramidViewerWidget;
+//class SimianViewerPairExpCompWidget;
 //class PopulationPyramidOptionsAction;
 
 // =============================================================================
@@ -22,15 +22,15 @@ class Points;
 // =============================================================================
 
 /**
- * PopulationPyramidViewer Plugin
+ * SimianViewerPairExpComp Plugin
  */
-class PopulationPyramidViewerPlugin : public ViewPlugin
+class SimianViewerPairExpCompPlugin : public ViewPlugin
 {
 	Q_OBJECT
 
 public:
-	PopulationPyramidViewerPlugin(const PluginFactory* factory);
-	~PopulationPyramidViewerPlugin(void) override;
+	SimianViewerPairExpCompPlugin(const PluginFactory* factory);
+	~SimianViewerPairExpCompPlugin(void) override;
 
 	void init() override;
 
@@ -38,7 +38,7 @@ public:
 
 	mv::CoreInterface* getCore() { return _core; }
 
-	PopulationPyramidViewerWidget& getBarChartWidget() { return _PopulationPyramid_viewer; }
+	SimianViewerPairExpCompWidget& getBarChartWidget() { return _PopulationPyramid_viewer; }
 	PopulationPyramidOptionsAction& getPopulationPyramidOptionsAction() { return _PopulationPyramidOptionsAction; }
 
 public: // Serialization
@@ -64,9 +64,9 @@ private:
 	void publishSelectionSpecies2(std::string selectedIDs);
 	void clusterSelection(std::string selectedIDs);
 
-	PopulationPyramidViewerWidget _PopulationPyramid_viewer;
+	SimianViewerPairExpCompWidget _PopulationPyramid_viewer;
 	PopulationPyramidOptionsAction _PopulationPyramidOptionsAction;
-	/** PopulationPyramidViewer widget displaying cluster data */
+	/** SimianViewerPairExpComp widget displaying cluster data */
 
 	mv::EventListener     _eventListener;
 };
@@ -75,16 +75,16 @@ private:
 // Factory
 // =============================================================================
 
-class PopulationPyramidViewerPluginFactory : public ViewPluginFactory
+class SimianViewerPairExpCompPluginFactory : public ViewPluginFactory
 {
 	Q_INTERFACES(mv::plugin::ViewPluginFactory mv::plugin::PluginFactory)
 		Q_OBJECT
-		Q_PLUGIN_METADATA(IID   "nl.tudelft.PopulationPyramidViewerPlugin"
-			FILE  "PopulationPyramidViewerPlugin.json")
+		Q_PLUGIN_METADATA(IID   "nl.tudelft.SimianViewerPairExpCompPlugin"
+			FILE  "SimianViewerPairExpCompPlugin.json")
 
 public:
-	PopulationPyramidViewerPluginFactory(void) {}
-	~PopulationPyramidViewerPluginFactory(void) override {}
+	SimianViewerPairExpCompPluginFactory(void) {}
+	~SimianViewerPairExpCompPluginFactory(void) override {}
 
 	/**
 	 * Get plugin icon

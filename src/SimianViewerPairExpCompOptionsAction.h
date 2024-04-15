@@ -15,7 +15,7 @@
 #include "Set.h"
 #include <AnalysisPlugin.h>
 #include <memory>
-#include "PopulationPyramidViewerWidget.h"
+#include "SimianViewerPairExpCompWidget.h"
 #include <algorithm>    
 #include <QDebug>
 #include <QLabel>
@@ -26,7 +26,7 @@
 #include <QFormLayout>
 #include <QString>
 #include <string>
-//#include "PopulationPyramidViewerPlugin.h"
+//#include "SimianViewerPairExpCompPlugin.h"
 #include <event/Event.h>
 #include <QDebug>
 #include <QLabel>
@@ -34,8 +34,8 @@
 
 using namespace mv::gui;
 class QMenu;
-class PopulationPyramidViewerPlugin;
-//class PopulationPyramidViewerWidget;
+class SimianViewerPairExpCompPlugin;
+//class SimianViewerPairExpCompWidget;
 class FetchMetaData;
 namespace mv
 {
@@ -92,7 +92,7 @@ protected:
 	};
 
 public:
-	PopulationPyramidOptionsAction(PopulationPyramidViewerPlugin& PopulationPyramidViewerPlugins);
+	PopulationPyramidOptionsAction(SimianViewerPairExpCompPlugin& SimianViewerPairExpCompPlugins);
 
 private:
 	void updateData();
@@ -133,7 +133,7 @@ public: // Serialization
 	QVariantMap toVariantMap() const override;
 
 protected:
-	PopulationPyramidViewerPlugin& _PopulationPyramidViewerPlugin;
+	SimianViewerPairExpCompPlugin& _SimianViewerPairExpCompPlugin;
 	DatasetPickerAction                 _deStatsDataset1Action;
 	DatasetPickerAction                 _deStatsDataset2Action;
 	mv::CoreInterface* _core;

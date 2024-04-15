@@ -1,4 +1,4 @@
-#include "PopulationPyramidViewerWidget.h"
+#include "SimianViewerPairExpCompWidget.h"
 #include "PointData/PointData.h"
 #include "ClusterData/ClusterData.h"
 #include "util/FileUtil.h"
@@ -9,7 +9,7 @@
 #include <chrono>
 #include <cassert>
 
-PopulationPyramidViewerCommunicationObject::PopulationPyramidViewerCommunicationObject(PopulationPyramidViewerWidget* parent)
+SimianViewerPairExpCompCommunicationObject::SimianViewerPairExpCompCommunicationObject(SimianViewerPairExpCompWidget* parent)
 	:
 	_parent(parent)
 {
@@ -18,79 +18,79 @@ PopulationPyramidViewerCommunicationObject::PopulationPyramidViewerCommunication
 
 
 
-void PopulationPyramidViewerCommunicationObject::js_passSelectionSpecies1ToQt(QString data)
+void SimianViewerPairExpCompCommunicationObject::js_passSelectionSpecies1ToQt(QString data)
 {
 	//qDebug() << "\nReceived from Javascript to QT\n";
 	_parent->js_passSelectionSpecies1ToQt(data.toStdString());
 }
 
 
-void PopulationPyramidViewerCommunicationObject::js_passSelectionSpecies2ToQt(QString data)
+void SimianViewerPairExpCompCommunicationObject::js_passSelectionSpecies2ToQt(QString data)
 {
 	//qDebug() << "\nReceived from Javascript to QT\n";
 	_parent->js_passSelectionSpecies2ToQt(data.toStdString());
 }
 
-void PopulationPyramidViewerCommunicationObject::js_crossspeciesclusterSelection(QString data)
+void SimianViewerPairExpCompCommunicationObject::js_crossspeciesclusterSelection(QString data)
 {
 	//qDebug() << "\nReceived from Javascript to QT\n";
 	_parent->js_crossspeciesclusterSelection(data.toStdString());
 }
 
-PopulationPyramidViewerWidget::PopulationPyramidViewerWidget() :
+SimianViewerPairExpCompWidget::SimianViewerPairExpCompWidget() :
 	loaded(false)
 {
 	Q_INIT_RESOURCE(PopulationPyramid_viewer_resources);
-	_communicationObject = new PopulationPyramidViewerCommunicationObject(this);
+	_communicationObject = new SimianViewerPairExpCompCommunicationObject(this);
 	init(_communicationObject);
 
 	setMinimumHeight(160);
 
 }
 
-PopulationPyramidViewerWidget::~PopulationPyramidViewerWidget()
+SimianViewerPairExpCompWidget::~SimianViewerPairExpCompWidget()
 {
 
 }
 
-void PopulationPyramidViewerWidget::setData(std::string visDataContent)
+void SimianViewerPairExpCompWidget::setData(std::string visDataContent)
 {
 
 	emit _communicationObject->qt_setData(QString((visDataContent).c_str()));
 }
 
-void PopulationPyramidViewerWidget::setSelectedCrossspeciescluster(QString visDataContent)
+void SimianViewerPairExpCompWidget::setSelectedCrossspeciescluster(QString visDataContent)
 {
 
 	emit _communicationObject->qt_setSelectedCrossspeciescluster(visDataContent);
 }
-//void PopulationPyramidViewerWidget::setBarhighlight(QString Cluster)
+//void SimianViewerPairExpCompWidget::setBarhighlight(QString Cluster)
 //{
 //
 //	emit _communicationObject->qt_setBarhighlight(Cluster);
 //}
 
-void PopulationPyramidViewerWidget::js_passSelectionSpecies1ToQt(std::string selectedIDs)
+void SimianViewerPairExpCompWidget::js_passSelectionSpecies1ToQt(std::string selectedIDs)
 {
 	emit passSelectionSpecies1ToQt(selectedIDs);
 }
 
-void PopulationPyramidViewerWidget::js_passSelectionSpecies2ToQt(std::string selectedIDs)
+void SimianViewerPairExpCompWidget::js_passSelectionSpecies2ToQt(std::string selectedIDs)
 {
 	emit passSelectionSpecies2ToQt(selectedIDs);
 }
 
-void PopulationPyramidViewerWidget::js_crossspeciesclusterSelection(std::string selectedIDs)
+void SimianViewerPairExpCompWidget::js_crossspeciesclusterSelection(std::string selectedIDs)
 {
 	emit crossspeciesclusterSelection(selectedIDs);
 }
 
-void PopulationPyramidViewerWidget::updateSelectionColor(QString visColorContent)
+void SimianViewerPairExpCompWidget::updateSelectionColor(QString visColorContent)
 {
 	emit _communicationObject->qt_updateSelectionColor(visColorContent);
 }
 
-void PopulationPyramidViewerWidget::initWebPage()
+void SimianViewerPairExpCompWidget::initWebPage()
 {
 	loaded = true;
 
@@ -102,7 +102,7 @@ void PopulationPyramidViewerWidget::initWebPage()
 	emit widgetInitialized();
 }
 
-void PopulationPyramidViewerWidget::addDataOption(const QString option)
+void SimianViewerPairExpCompWidget::addDataOption(const QString option)
 {
 	if (loaded)
 		emit _communicationObject->qt_addAvailableData(option);

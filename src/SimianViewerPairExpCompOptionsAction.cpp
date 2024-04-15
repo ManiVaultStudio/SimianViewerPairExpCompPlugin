@@ -1,5 +1,5 @@
 #include "PopulationPyramidOptionsAction.h"
-#include "PopulationPyramidViewerPlugin.h"
+#include "SimianViewerPairExpCompPlugin.h"
 #include<string>  
 #include <QFileDialog>
 #include <QPageLayout>
@@ -7,9 +7,9 @@
 using namespace mv;
 using namespace mv::gui;
 
-PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramidViewerPlugin& PopulationPyramidViewerPlugin) :
-	WidgetAction(&PopulationPyramidViewerPlugin,"PopulationPyramidViewerPlugin"),
-	_PopulationPyramidViewerPlugin(PopulationPyramidViewerPlugin),
+PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(SimianViewerPairExpCompPlugin& SimianViewerPairExpCompPlugin) :
+	WidgetAction(&SimianViewerPairExpCompPlugin,"SimianViewerPairExpCompPlugin"),
+	_SimianViewerPairExpCompPlugin(SimianViewerPairExpCompPlugin),
 	_core(mv::core()),
 	_deStatsDataset1Action(this, "DE Dataset1"),
 	_deStatsDataset2Action(this, "DE Dataset2"),
@@ -83,7 +83,7 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 	//_helpAction.setDefaultWidgetFlags(TriggerAction::Icon);
 	//_screenshotAction.setDefaultWidgetFlags(TriggerAction::Icon);
 	//connect(&_helpAction, &TriggerAction::triggered, this, [this]() -> void {
-	//	_PopulationPyramidViewerPlugin.getTriggerHelpAction().trigger();
+	//	_SimianViewerPairExpCompPlugin.getTriggerHelpAction().trigger();
 	//	});
 	//_crossSpecies1HeatMapCellAction.setDefaultWidgetFlags(OptionAction::ComboBox);
 	//_crossSpecies2HeatMapCellAction.setDefaultWidgetFlags(OptionAction::ComboBox);
@@ -176,7 +176,7 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 	//{
 	//	if (_crossSpecies1HeatMapCellAction.getCurrentText()== _crossSpecies2HeatMapCellAction.getCurrentText())
 	//	{
-	//		_PopulationPyramidViewerPlugin.getBarChartWidget()->setBarhighlight(_crossSpecies1HeatMapCellAction.getCurrentText());
+	//		_SimianViewerPairExpCompPlugin.getBarChartWidget()->setBarhighlight(_crossSpecies1HeatMapCellAction.getCurrentText());
 	//	}
 
 	//};
@@ -223,7 +223,7 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 	{
 		if (_selectedCrossspeciesclusterFlag)
 		{
-			_PopulationPyramidViewerPlugin.getBarChartWidget().setSelectedCrossspeciescluster(_selectedCrossspeciescluster.getString());
+			_SimianViewerPairExpCompPlugin.getBarChartWidget().setSelectedCrossspeciescluster(_selectedCrossspeciescluster.getString());
 		}
 		_selectedCrossspeciesclusterFlag = true;
 
@@ -239,7 +239,7 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 				+ QString::number(color.blue(), 16).rightJustified(2, '0');
 
 
-			_PopulationPyramidViewerPlugin.getBarChartWidget().updateSelectionColor(hexValueColor);
+			_SimianViewerPairExpCompPlugin.getBarChartWidget().updateSelectionColor(hexValueColor);
 
 
 		}
@@ -269,8 +269,8 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 	//		QPageSize ps;
 	//		//qDebug() << "height" << _simianViewerPlugin.getSimianViewerWidget()->height();
 
-	//		int width = _PopulationPyramidViewerPlugin.getBarChartWidget().width();
-	//		int height = _PopulationPyramidViewerPlugin.getBarChartWidget().height();
+	//		int width = _SimianViewerPairExpCompPlugin.getBarChartWidget().width();
+	//		int height = _SimianViewerPairExpCompPlugin.getBarChartWidget().height();
 	//		int reducedWidth = static_cast<double>(width) / 100 * 75;
 	//		int reducedHeight = static_cast<double>(height) / 100 * 78;
 	//		//qDebug() << "width" << width;
@@ -282,7 +282,7 @@ PopulationPyramidOptionsAction::PopulationPyramidOptionsAction(PopulationPyramid
 	//		pl.setOrientation(QPageLayout::Portrait);
 
 
-	//		_PopulationPyramidViewerPlugin.getBarChartWidget().getPage()->printToPdf(fileName, pl);
+	//		_SimianViewerPairExpCompPlugin.getBarChartWidget().getPage()->printToPdf(fileName, pl);
 
 	//	}
 	//	//..getSimianViewerWidget()->getPage()->printToPdf(fileName, pl);
@@ -452,7 +452,7 @@ void PopulationPyramidOptionsAction::updateData()
 	jsonData += "]";
 
 
-	_PopulationPyramidViewerPlugin.getBarChartWidget().setData(jsonData);
+	_SimianViewerPairExpCompPlugin.getBarChartWidget().setData(jsonData);
 }
 
 //void PopulationPyramidOptionsAction::updateDatasetPickerAction()

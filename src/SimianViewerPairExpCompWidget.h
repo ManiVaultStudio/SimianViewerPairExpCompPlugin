@@ -13,13 +13,13 @@ class QWebEnginePage;
 class QWebChannel;
 
 
-class PopulationPyramidViewerWidget;
+class SimianViewerPairExpCompWidget;
 
-class PopulationPyramidViewerCommunicationObject : public mv::gui::WebCommunicationObject
+class SimianViewerPairExpCompCommunicationObject : public mv::gui::WebCommunicationObject
 {
 	Q_OBJECT
 public:
-	PopulationPyramidViewerCommunicationObject(PopulationPyramidViewerWidget* parent);
+	SimianViewerPairExpCompCommunicationObject(SimianViewerPairExpCompWidget* parent);
 
 signals:
 	void qt_setData(QString data);
@@ -34,15 +34,15 @@ public slots:
 	void js_passSelectionSpecies2ToQt(QString data);
 	void js_crossspeciesclusterSelection(QString data);
 private:
-	PopulationPyramidViewerWidget* _parent;
+	SimianViewerPairExpCompWidget* _parent;
 };
 
-class PopulationPyramidViewerWidget : public mv::gui::WebWidget
+class SimianViewerPairExpCompWidget : public mv::gui::WebWidget
 {
 	Q_OBJECT
 public:
-	PopulationPyramidViewerWidget();
-	~PopulationPyramidViewerWidget() override;
+	SimianViewerPairExpCompWidget();
+	~SimianViewerPairExpCompWidget() override;
 
 	void addDataOption(const QString option);
 	void setData(std::string visDataContent);
@@ -70,7 +70,7 @@ private slots:
 	void initWebPage() override;
 
 private:
-	PopulationPyramidViewerCommunicationObject* _communicationObject;
+	SimianViewerPairExpCompCommunicationObject* _communicationObject;
 
 
 	/** Whether the web view has loaded and web-functions are ready to be called. */

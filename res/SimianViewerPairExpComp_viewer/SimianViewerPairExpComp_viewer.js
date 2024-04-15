@@ -1,7 +1,7 @@
 //global Variables
 var _data = null;
 var flag = false;
-var _dataQueue = new PopulationPyramidViewerDataQueue(1, queueData);
+var _dataQueue = new SimianViewerPairExpCompDataQueue(1, queueData);
 var _defaultValues = null;
 var yAxisLeftTooltip;
 window.onresize = doALoadOfStuff;
