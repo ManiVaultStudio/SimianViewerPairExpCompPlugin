@@ -100,7 +100,7 @@ void SimianViewerPairExpCompPlugin::publishSelectionSpecies1(std::string cluster
 	//_SimianViewerPairExpCompOptionsAction.getCrossSpecies1HeatMapCellAction().setCurrentText("");
 	//_SimianViewerPairExpCompOptionsAction.getCrossSpecies1HeatMapCellAction().setCurrentText(QString::fromStdString(clusterName));
 	auto dataset = _SimianViewerPairExpCompOptionsAction.getdeStatsDataset1SelectAction().getCurrentDataset();
-	const auto candidateDataset = _core->requestDataset<Clusters>(dataset.getDatasetId());
+	const auto candidateDataset = mv::data().getDataset<Clusters>(dataset.getDatasetId());
 	std::vector<std::uint32_t> selectedIndices;
 	for (const auto& cluster : candidateDataset->getClusters())
 	{
@@ -146,7 +146,7 @@ void SimianViewerPairExpCompPlugin::publishSelectionSpecies2(std::string cluster
 	//_SimianViewerPairExpCompOptionsAction.getCrossSpecies2HeatMapCellAction().setCurrentText("");
 	//_SimianViewerPairExpCompOptionsAction.getCrossSpecies2HeatMapCellAction().setCurrentText(QString::fromStdString(clusterName));
 	auto dataset = _SimianViewerPairExpCompOptionsAction.getdeStatsDataset2SelectAction().getCurrentDataset();
-	const auto candidateDataset = _core->requestDataset<Clusters>(dataset.getDatasetId());
+	const auto candidateDataset = mv::data().getDataset<Clusters>(dataset.getDatasetId());
 	std::vector<std::uint32_t> selectedIndices;
 	for (const auto& cluster : candidateDataset->getClusters())
 	{

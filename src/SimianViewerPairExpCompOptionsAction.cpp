@@ -311,8 +311,8 @@ SimianViewerPairExpCompOptionsAction::Widget::Widget(QWidget* parent, SimianView
 void SimianViewerPairExpCompOptionsAction::updateData()
 {
 
-	auto deStatsDataset1 = _core->requestDataset<Points>(_deStatsDataset1Action.getCurrentDataset().getDatasetId());
-	auto clusterDataset1 = _core->requestDataset<Clusters>(deStatsDataset1->getParent().getDatasetId());
+	auto deStatsDataset1 = mv::data().getDataset<Points>(_deStatsDataset1Action.getCurrentDataset().getDatasetId());
+	auto clusterDataset1 = mv::data().getDataset<Clusters>(deStatsDataset1->getParent().getDatasetId());
 	auto geneNames1 = deStatsDataset1->getDimensionNames();
 	std::vector<float> geneColumn1;
 	auto it1 = std::find(geneNames1.begin(), geneNames1.end(), _geneNameAction.getString());
@@ -331,8 +331,8 @@ void SimianViewerPairExpCompOptionsAction::updateData()
 
 	auto clusterList1 = clusterDataset1->getClusters();
 
-	auto deStatsDataset2 = _core->requestDataset<Points>(_deStatsDataset2Action.getCurrentDataset().getDatasetId());
-	auto clusterDataset2 = _core->requestDataset<Clusters>(deStatsDataset2->getParent().getDatasetId());
+	auto deStatsDataset2 = mv::data().getDataset<Points>(_deStatsDataset2Action.getCurrentDataset().getDatasetId());
+	auto clusterDataset2 = mv::data().getDataset<Clusters>(deStatsDataset2->getParent().getDatasetId());
 	auto geneNames2 = deStatsDataset2->getDimensionNames();
 	std::vector<float> geneColumn2;
 	auto it2 = std::find(geneNames2.begin(), geneNames2.end(), _geneNameAction.getString());

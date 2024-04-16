@@ -52,7 +52,7 @@ source_group( ResourceFiles\\generated FILES ${CMAKE_CURRENT_BINARY_DIR}/qrc_Sim
 source_group( WebFiles FILES ${Web})
 
 
-include_directories("$ENV{HDPS_INSTALL_DIR}/$<CONFIGURATION>/include/")
+include_directories("${MV_INSTALL_DIR}/$<CONFIGURATION>/include/")
 include_directories(${PROJECT_SOURCE_DIR}/src)
 
 set(MV_LINK_PATH "${MV_INSTALL_DIR}/$<CONFIGURATION>/lib")
