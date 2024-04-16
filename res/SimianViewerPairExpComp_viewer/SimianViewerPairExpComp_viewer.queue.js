@@ -3,7 +3,7 @@
  */
 /**
  * @constructor
-//<Class definition for the PopulationPyramidViewerDataQueue>
+//<Class definition for the SimianViewerPairExpCompDataQueue>
  * @param {queueLimit} - required integer to limit the number of
  * dynamic selection events held in the queue. If set a maximum of
  * the latest dynamicLimit events are saved.
@@ -15,7 +15,7 @@
  */
 
 (function (global) {
-function PopulationPyramidViewerDataQueue(queueLimit, processingCallback) {
+function SimianViewerPairExpCompDataQueue(queueLimit, processingCallback) {
     this.dataQueue = new CBuffer(queueLimit);
     this.processingCallback = processingCallback;
     this.processingDataQueue = false;
@@ -25,9 +25,9 @@ function PopulationPyramidViewerDataQueue(queueLimit, processingCallback) {
     this.processTimedout = true;
 }
 
-PopulationPyramidViewerDataQueue.prototype = {
+SimianViewerPairExpCompDataQueue.prototype = {
 
-    constructor: PopulationPyramidViewerDataQueue,
+    constructor: SimianViewerPairExpCompDataQueue,
 
     addData: function(data) {
         "use strict";
@@ -100,7 +100,7 @@ PopulationPyramidViewerDataQueue.prototype = {
     },
 
     /**
-     * @param data - the PopulationPyramid_viewer data 
+     * @param data - the SimianViewerPairExpComp_viewer data 
      */
     processData: function(data) {
         "use strict";
@@ -117,8 +117,8 @@ PopulationPyramidViewerDataQueue.prototype = {
 
 };
 
-if (typeof module === 'object' && module.exports) module.exports = PopulationPyramidViewerDataQueue;
-else global.PopulationPyramidViewerDataQueue = PopulationPyramidViewerDataQueue;
+if (typeof module === 'object' && module.exports) module.exports = SimianViewerPairExpCompDataQueue;
+else global.SimianViewerPairExpCompDataQueue = SimianViewerPairExpCompDataQueue;
 
 }(this));
 
