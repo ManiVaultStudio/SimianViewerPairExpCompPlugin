@@ -135,12 +135,12 @@ function initContextMenu() {
             m.push({ divider: true });
 
             m.push({
-                title: "Save PopulationPyramidViewer as Image ...",
+                title: "Save SimianViewerPairExpComp as Image ...",
                 action: printSVG
 		      });
 
 		    m.push({
-		        title: "Save PopulationPyramidViewer as CSV ...",
+		        title: "Save SimianViewerPairExpComp as CSV ...",
 		        action: function () {
 		            d3.select('.d3-context-menu').style('display', 'none');
 		            Qt.js_saveCSV();
