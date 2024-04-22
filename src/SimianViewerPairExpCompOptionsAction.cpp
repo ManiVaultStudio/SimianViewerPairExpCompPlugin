@@ -33,39 +33,51 @@ SimianViewerPairExpCompOptionsAction::SimianViewerPairExpCompOptionsAction(Simia
 	_species2Name.setSerializationName("Species2Name");
 	_selectedCrossspeciescluster.setSerializationName("Selected CrossSpecies Cluster");
 	_selectionColorAction.setSerializationName("SelectionColor");
-	_deStatsDataset1Action.setShowFullPathName(false);
 
-	_deStatsDataset1Action.setDatasetsFilterFunction([this](const mv::Datasets& datasets) ->mv::Datasets {
-		Datasets statsDatasets;
-
-		for (auto dataset : datasets)
-			if (dataset->getDataType() == PointType)
+	_deStatsDataset1Action.setFilterFunction([this](mv::Dataset<DatasetImpl> dataset) -> bool {
+		if (dataset->getDataType() == PointType)
+		{
+			std::string str1 = dataset->getGuiName().toStdString();
+			std::string str2 = "DE_Statistics";
+			if (strstr(str1.c_str(), str2.c_str()))
 			{
-				std::string str1 = dataset->getGuiName().toStdString();
-				std::string str2 = "DE_Statistics";
-				if (strstr(str1.c_str(), str2.c_str()))
-				{
-					statsDatasets << dataset;
-				}
+				return true;
 			}
-		return statsDatasets;
-		});
-	_deStatsDataset2Action.setShowFullPathName(false);
-	_deStatsDataset2Action.setDatasetsFilterFunction([this](const mv::Datasets& datasets) ->mv::Datasets {
-		Datasets statsDatasets;
-
-		for (auto dataset : datasets)
-			if (dataset->getDataType() == PointType)
+			else
 			{
-				std::string str1 = dataset->getGuiName().toStdString();
-				std::string str2 = "DE_Statistics";
-				if (strstr(str1.c_str(), str2.c_str()))
-				{
-					statsDatasets << dataset;
-				}
+				return false;
 			}
-		return statsDatasets;
+
+		}
+		else
+		{
+			return false;
+		}
 		});
+
+	_deStatsDataset2Action.setFilterFunction([this](mv::Dataset<DatasetImpl> dataset) -> bool {
+		if (dataset->getDataType() == PointType)
+		{
+			std::string str1 = dataset->getGuiName().toStdString();
+			std::string str2 = "DE_Statistics";
+			if (strstr(str1.c_str(), str2.c_str()))
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+
+		}
+		else
+		{
+			return false;
+		}
+		});
+
+
+
 	_eventListener.addSupportedEventType(static_cast<std::uint32_t>(EventType::DatasetAdded));
 	_eventListener.addSupportedEventType(static_cast<std::uint32_t>(EventType::DatasetRemoved));
 	_eventListener.addSupportedEventType(static_cast<std::uint32_t>(EventType::DatasetChildAdded));
