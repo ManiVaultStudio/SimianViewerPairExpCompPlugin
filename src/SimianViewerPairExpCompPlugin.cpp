@@ -41,7 +41,7 @@ void SimianViewerPairExpCompPlugin::init()
 {
 
 	connect(&_SimianViewerPairExpComp_viewer, &SimianViewerPairExpCompWidget::widgetInitialized, &_SimianViewerPairExpCompOptionsAction, &SimianViewerPairExpCompOptionsAction::initLoader);
-	_SimianViewerPairExpComp_viewer.setPage(":/SimianViewerPairExpComp_viewer/SimianViewerPairExpComp_viewer.html", "qrc:/SimianViewerPairExpComp_viewer/");
+	_SimianViewerPairExpComp_viewer.setPage(":SimianViewerPairExpComp/SimianViewerPairExpComp_viewer/SimianViewerPairExpComp_viewer.html", "qrc:/SimianViewerPairExpComp/SimianViewerPairExpComp_viewer/");
 	_SimianViewerPairExpComp_viewer.setContentsMargins(0, 0, 0, 0);
 	_SimianViewerPairExpComp_viewer.layout()->setContentsMargins(0, 0, 0, 0);
 	//_SimianViewerPairExpCompOptionsAction = new SimianViewerPairExpCompOptionsAction(*this, _core);
