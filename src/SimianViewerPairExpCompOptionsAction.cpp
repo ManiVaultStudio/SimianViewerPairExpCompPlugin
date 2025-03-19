@@ -530,7 +530,7 @@ inline SimianViewerPairExpCompOptionsAction::deStatsDataset1SelectionAction::deS
 	_SimianViewerPairExpCompOptionsAction(SimianViewerPairExpCompOptionsAction)
 {
 	setText("Options");
-	setIcon(Application::getIconFont("FontAwesome").getIcon("database"));
+	setIcon(mv::util::StyledIcon("database"));
 
 }
 

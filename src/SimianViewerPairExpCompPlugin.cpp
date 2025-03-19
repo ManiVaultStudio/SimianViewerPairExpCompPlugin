@@ -208,9 +208,9 @@ QVariantMap SimianViewerPairExpCompPlugin::toVariantMap() const
 // =============================================================================
 
 
-QIcon SimianViewerPairExpCompPluginFactory::getIcon(const QColor& color /*= Qt::black*/) const
+SimianViewerPairExpCompPluginFactory::SimianViewerPairExpCompPluginFactory()
 {
-	return Application::getIconFont("FontAwesome").getIcon("chart-bar", color);
+	setIconByName("chart-bar");
 }
 
 ViewPlugin* SimianViewerPairExpCompPluginFactory::produce()
@@ -238,7 +238,7 @@ mv::gui::PluginTriggerActions SimianViewerPairExpCompPluginFactory::getPluginTri
 	if (PluginFactory::areAllDatasetsOfTheSameType(datasets, PointType)) {
 		if (numberOfDatasets >= 1) {
 			if (datasets.first()->getDataType() == PointType) {
-				auto pluginTriggerAction = new PluginTriggerAction(const_cast<SimianViewerPairExpCompPluginFactory*>(this), this, "SimianViewerPairExpComp viewer", "Load dataset in SimianViewerPairExpComp viewer", getIcon(), [this, getInstance, datasets](PluginTriggerAction& pluginTriggerAction) -> void {
+				auto pluginTriggerAction = new PluginTriggerAction(const_cast<SimianViewerPairExpCompPluginFactory*>(this), this, "SimianViewerPairExpComp viewer", "Load dataset in SimianViewerPairExpComp viewer", StyledIcon("chart-bar"), [this, getInstance, datasets](PluginTriggerAction& pluginTriggerAction) -> void {
 					for (auto dataset : datasets)
 						getInstance()->loadData(Datasets({ dataset }));
 					});
