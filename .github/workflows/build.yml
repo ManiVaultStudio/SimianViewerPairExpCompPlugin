@@ -1,4 +1,4 @@
-name: SimianViewerPairExpCompPlugin
+name: CrossSpeciesComparisonTreeData
 
 on:
   push:
